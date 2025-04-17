@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Background patterns */
+.bg-grid-pattern {
+  background-size: 50px 50px;
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+.bg-dot-pattern {
+  background-size: 20px 20px;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.2) 1px,
+    transparent 1px
+  );
+}
+
+.bg-wave-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264.888-.14 1.676 1.22 3.78 1.22 5.456 0 1.677-1.22 3.78-1.22 5.457 0 1.677 1.22 3.78 1.22 5.457 0 1.677-1.22 3.78-1.22 5.457 0 1.677 1.22 3.78 1.22 5.457 0 1.677-1.22 3.78-1.22 5.457 0 1.677 1.22 3.78 1.22 5.457 0 1.677-1.22 3.78-1.22 5.457 0 1.677 1.22 3.78 1.22 5.457 0 1.677-1.22 3.78-1.22 5.457 0 1.677 1.22 3.78 1.22 5.457 0 1.677-1.22 3.78-1.22 5.457 0 1.677 1.22 3.78 1.22 5.457 0 1.677-1.22 3.78-1.22 5.457 0 1.677 1.22 3.78 1.22 5.457 0 1.677-1.22 3.78-1.22 5.457 0 1.103.74 2.187 1.677 3.156.124.132.625-.17.25-.246-2.2-1.1-4.5-1.758-6.9-2.645C40.45 19.484 37.566 20 34.468 20h-13.24' fill='%23FFFFFF' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+/* Animation utility classes */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
