@@ -56,7 +56,7 @@ const ServiceCaseStudy = ({ caseStudy }: ServiceCaseStudyProps) => {
         </div>
 
         {/* Case study content */}
-        <div className="bg-gray-50 rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+        <div className="bg-white rounded-2xl overflow-hidden shadow-sm ">
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Left side - Content */}
             <motion.div
