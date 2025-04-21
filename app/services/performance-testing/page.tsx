@@ -113,7 +113,7 @@ const serviceData = {
     {
       name: "K6",
       description: "Open-source load testing tool for engineering teams",
-      logo: "/images/tools/k6-logo.png",
+      logo: "/images/tools/k-logo.png",
     },
     {
       name: "New Relic",
