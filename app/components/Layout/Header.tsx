@@ -92,9 +92,9 @@ const Header = () => {
               <Image
                 src="/images/logo.png"
                 alt="ClanAP Technologies"
-                width={200}
+                width={100}
                 height={80}
-                className="h-12 w-auto transition-transform"
+                className="h-8 w-auto transition-transform"
                 priority
                 loading="eager"
               />
@@ -119,11 +119,23 @@ const Header = () => {
             ))}
 
             <motion.div variants={itemVariants}>
-              <Link
-                href="/contact"
-                className="bg-black hover:bg-yellow-500 text-white px-6 py-3 rounded-full font-medium text-lg tracking-wide transition-all duration-300"
-              >
-                <motion.span variants={buttonVariants}>Contact Us</motion.span>
+              <Link href="/contact">
+                <motion.button
+                  className="bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-8 py-3 rounded-xl font-bold relative overflow-hidden group shadow-xl shadow-yellow-500/20"
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 20px 40px -10px rgba(245, 158, 11, 0.3)",
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="relative z-10">Contact Us</span>
+                  <motion.span
+                    className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-amber-600"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: 0 }}
+                    transition={{ duration: 0.4 }}
+                  />
+                </motion.button>
               </Link>
             </motion.div>
           </motion.nav>
@@ -212,11 +224,23 @@ const Header = () => {
             }}
             className="mt-8"
           >
-            <Link
-              href="/contact"
-              className="bg-black hover:bg-yellow-500 text-white px-8 py-4 rounded-full font-bold text-lg tracking-wide uppercase transition-all duration-300"
-            >
-              <motion.span variants={buttonVariants}>Contact Us</motion.span>
+            <Link href="/contact">
+              <motion.button
+                className="bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-8 py-4 rounded-xl font-bold relative overflow-hidden group shadow-xl shadow-yellow-500/20"
+                whileHover={{
+                  scale: 1.02,
+                  boxShadow: "0 20px 40px -10px rgba(245, 158, 11, 0.3)",
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="relative z-10">Contact Us</span>
+                <motion.span
+                  className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-amber-600"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.4 }}
+                />
+              </motion.button>
             </Link>
           </motion.div>
         </div>
