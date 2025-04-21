@@ -95,7 +95,7 @@ const Footer = () => {
           <motion.div variants={itemVariants}>
             <Link href="/" className="block mb-6">
               <Image
-                src="/images/logo.png"
+                src="/images/logo2.png"
                 alt="ClanAP Technologies"
                 width={130}
                 height={40}
