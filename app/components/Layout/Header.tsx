@@ -60,20 +60,10 @@ const Header = () => {
     },
   };
 
-  const buttonVariants = {
-    hover: {
-      scale: 1.1,
-      background: "linear-gradient(90deg, #FFD966, #FFD966)",
-      boxShadow: "0 0 15px rgba(255, 217, 102, 0.5)",
-      transition: { duration: 0.3 },
-    },
-    tap: { scale: 0.95 },
-  };
-
   return (
     <motion.header
       className={`fixed w-full z-50 transition-all duration-500 ${
-        scrolled ? "bg-white backdrop-blur-xl shadow-xl" : "backdrop-blur-md"
+        scrolled ? "bg-white backdrop-blur-xl shadow-xl" : ""
       }`}
       initial="hidden"
       animate="visible"
