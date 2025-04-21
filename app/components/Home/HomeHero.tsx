@@ -240,7 +240,7 @@ const HeroSection = () => {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-5"
+              className="flex sm:flex-row gap-5"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
@@ -266,7 +266,7 @@ const HeroSection = () => {
 
               <Link href="/services">
                 <motion.button
-                  className="border-2 border-amber-500 bg-white/80 backdrop-blur-sm text-amber-700 px-8 py-4 rounded-xl font-bold hover:bg-amber-50 hover:border-amber-600 transition-all duration-300 shadow-sm"
+                  className="border md:border-2 border-amber-500 bg-white/80 backdrop-blur-sm text-amber-700 px-8 py-4 rounded-xl font-bold hover:bg-amber-50 hover:border-amber-600 transition-all duration-300 shadow-sm"
                   whileHover={{
                     scale: 1.02,
                     boxShadow: "0 10px 20px -10px rgba(245, 158, 11, 0.2)",

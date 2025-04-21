@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import Footer from "./Footer";
+import Header from "./Header";
 
 // Dynamically import PageLoader with no SSR
 const PageLoader = dynamic(() => import("./PageLoader"), {
@@ -17,7 +19,6 @@ export const ClientLayoutWrapper = ({
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3000);
@@ -27,10 +28,21 @@ export const ClientLayoutWrapper = ({
 
   return (
     <>
-      {isLoading && <PageLoader />}
-      <div style={{ opacity: isLoading ? 0 : 1, transition: "opacity 300ms" }}>
-        {children}
-      </div>
+      {isLoading ? (
+        <PageLoader />
+      ) : (
+        <div
+          className="flex flex-col min-h-screen"
+          style={{
+            opacity: isLoading ? 0 : 1,
+            transition: "opacity 500ms ease-in-out",
+          }}
+        >
+          <Header />
+          <div className="flex-grow">{children}</div>
+          <Footer />
+        </div>
+      )}
     </>
   );
 };
