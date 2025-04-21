@@ -115,9 +115,7 @@ const OurMission = () => {
             commitment is to make that advantage accessible to every
             organization, regardless of size or industry."
           </blockquote>
-          <p className="mt-4 font-semibold">
-            - Manpreet Bains, Co-founder & CEO
-          </p>
+          <p className="mt-4 font-semibold">- Manpreet Bains, Founder & CEO</p>
         </motion.div>
       </div>
     </section>

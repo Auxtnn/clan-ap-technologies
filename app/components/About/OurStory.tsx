@@ -30,7 +30,7 @@ const OurStory = () => {
               {/* Year overlay */}
               <div className="absolute -bottom-2 -left-2">
                 <div className="bg-yellow-500 text-black text-xl md:text-2xl font-bold py-3 px-6 rounded-lg shadow-lg">
-                  Est. 2015
+                  Est. 2020
                 </div>
               </div>
             </div>
@@ -50,18 +50,17 @@ const OurStory = () => {
 
             <div className="space-y-4">
               <p className="text-gray-600">
-                ClanAP Technologies began in 2015 when founders Manpreet Bains
-                and Ese Eigbadon recognized a critical gap in the software
-                development industry: comprehensive quality assurance that could
-                keep pace with modern development practices.
+                ClanAP Technologies began in 2020 when our founder Manpreet
+                Bains recognized a critical gap in the software development
+                industry: comprehensive quality assurance that could keep pace
+                with modern development practices.
               </p>
 
               <p className="text-gray-600">
                 What started as a small team of passionate QA engineers has
-                grown into a global operation with offices in four countries and
-                a team of over 120 QA specialists. Throughout our journey, we've
-                remained true to our founding principle: software quality is
-                non-negotiable.
+                grown into a global operation and a team of professional QA
+                specialists. Throughout our journey, we've remained true to our
+                founding principle: software quality is non-negotiable.
               </p>
 
               <p className="text-gray-600">

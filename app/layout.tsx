@@ -19,11 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${font.className} max-w-[2520px] min-h-screen`}>
-        <ClientLayoutWrapper>
-          <Header />
-          {children}
-          <Footer />
-        </ClientLayoutWrapper>
+        <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </body>
     </html>
   );
