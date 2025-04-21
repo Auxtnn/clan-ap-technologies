@@ -20,7 +20,7 @@ const HeroSection = () => {
   useEffect(() => {
     const totalLines = 6;
     const interval = setInterval(() => {
-      setTerminalLines((prev) => {
+      setTerminalLines((prev: any) => {
         if (prev.length >= totalLines) {
           clearInterval(interval);
           return prev;
@@ -418,7 +418,7 @@ const HeroSection = () => {
 
       {/* Refined scroll indicator */}
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        className="absolute md:bottom-10 bottom-0 left-1/2 -translate-x-1/2"
         animate={{
           y: [0, 8, 0],
           opacity: [0.6, 0.9, 0.6],
