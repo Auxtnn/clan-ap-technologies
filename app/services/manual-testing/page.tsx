@@ -21,7 +21,7 @@ const serviceData = {
   icon: "👁️",
   description:
     "Leverage human intuition and exploratory testing to identify issues that automated tests might miss and validate the complete user experience of your application.",
-  heroImage: "/images/iso.jpg",
+  heroImage: "/images/hero/manual-testing.jpg",
   benefits: [
     {
       title: "Human Perspective",

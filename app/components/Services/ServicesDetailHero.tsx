@@ -6,7 +6,7 @@ import Link from "next/link";
 
 interface ServiceDetailHeroProps {
   title: string;
-  icon: string;
+  icon: any;
   description: string;
   image: string;
 }
@@ -137,7 +137,7 @@ const ServiceDetailHero = ({
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact">
                 <motion.button
-                  className="bg-black text-white px-8 py-4 rounded-full font-bold relative overflow-hidden group"
+                  className=" bg-yellow-500 text-white px-8 py-4 rounded-full font-bold relative overflow-hidden group"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -153,7 +153,7 @@ const ServiceDetailHero = ({
 
               <a href="#case-study">
                 <motion.button
-                  className="border-2 border-black bg-transparent px-8 py-4 rounded-full font-bold hover:bg-black hover:text-white transition-all duration-300"
+                  className="border-2 border-yellow-500 bg-transparent px-8 py-4 rounded-full font-bold hover:bg-yellow-500 hover:text-white transition-all duration-300"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -170,28 +170,21 @@ const ServiceDetailHero = ({
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-xl">
-              {/* Placeholder until real image is available */}
-              <div className="bg-gray-200 aspect-[4/3] w-full relative">
-                {image ? (
-                  <Image
-                    src={image}
-                    alt={`${title} service illustration`}
-                    fill
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                    <span>Image placeholder</span>
-                  </div>
-                )}
+            <div className="relative h-full rounded-2xl overflow-hidden">
+              <div className=" aspect-[4/3] h-full w-full relative">
+                <Image
+                  src={image}
+                  alt={`${title} service illustration`}
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               {/* Decorative elements */}
-              <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+              {/* <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
                 <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/30 to-transparent"></div>
                 <div className="absolute top-0 left-0 w-full h-full bg-yellow-500/10 mix-blend-overlay"></div>
-              </div>
+              </div> */}
             </div>
           </motion.div>
         </div>

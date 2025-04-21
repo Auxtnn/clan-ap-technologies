@@ -21,7 +21,7 @@ const serviceData = {
   icon: "🗄️",
   description:
     "Ensure data integrity, performance, and security with comprehensive database testing, validation, and optimization services that guarantee reliable data management for your applications.",
-  heroImage: "/images/iso.jpg",
+  heroImage: "/images/hero/database.jpg",
   benefits: [
     {
       title: "Data Integrity Assurance",

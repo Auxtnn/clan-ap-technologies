@@ -11,150 +11,139 @@ import {
 } from "../../components";
 
 export const metadata: Metadata = {
-  title: "Manual Testing Services - ClanAP Technologies",
+  title: "Mobile Testing Services - ClanAP Technologies",
   description:
-    "Leverage human intuition and exploratory testing to identify issues that automated tests might miss and validate the complete user experience of your application.",
+    "Ensure your mobile applications perform flawlessly across all devices, operating systems, and screen sizes with our comprehensive mobile testing services.",
 };
 
 // Service-specific data
 const serviceData = {
-  title: "Manual Testing",
-  icon: "👁️",
+  title: "Mobile Testing",
+  icon: "📱",
   description:
-    "Leverage human intuition and exploratory testing to identify issues that automated tests might miss and validate the complete user experience of your application.",
-  heroImage: "/images/iso.jpg",
+    "Ensure your mobile applications perform flawlessly across all devices, operating systems, and screen sizes with comprehensive testing that validates functionality, usability, and performance.",
+  heroImage: "/images/hero/mobile-testing.jpg",
   benefits: [
     {
-      title: "Human Perspective",
+      title: "Cross-Device Compatibility",
       description:
-        "Our expert testers evaluate your application from a user's perspective, identifying usability issues and experience gaps that automated tools can't detect.",
-      icon: "👤",
+        "Validate your application's performance across various device types, screen sizes, and resolutions to ensure consistent user experience.",
+      icon: "📲",
     },
     {
-      title: "Exploratory Testing",
+      title: "Platform Verification",
       description:
-        "Discover unexpected bugs and edge cases through unscripted exploration of your application's functionality and features.",
-      icon: "🔍",
-    },
-    {
-      title: "Usability Insights",
-      description:
-        "Receive qualitative feedback on user experience, interface design, and workflow efficiency to enhance overall product quality.",
-      icon: "💡",
-    },
-    {
-      title: "Complementary Approach",
-      description:
-        "Combine manual testing with automation for comprehensive coverage, addressing both predictable and unpredictable testing scenarios.",
+        "Test across multiple operating systems and versions (iOS, Android) to ensure your app functions correctly for all users.",
       icon: "🔄",
     },
     {
-      title: "Visual Verification",
+      title: "Network Condition Testing",
       description:
-        "Validate visual elements, layout consistency, and aesthetic aspects that automated tests often struggle to evaluate effectively.",
-      icon: "👁️",
+        "Evaluate app performance across different network environments from 2G to 5G and offline modes to ensure reliability in all conditions.",
+      icon: "📶",
     },
     {
-      title: "Real-world Validation",
+      title: "Battery & Resource Optimization",
       description:
-        "Ensure your application performs as expected in authentic usage scenarios across different environments and conditions.",
-      icon: "🌐",
+        "Identify and resolve issues related to battery consumption, memory usage, and device resources to enhance app efficiency.",
+      icon: "🔋",
+    },
+    {
+      title: "Usability & User Experience",
+      description:
+        "Ensure intuitive navigation, appropriate touch targets, and adherence to platform-specific design guidelines for superior user experience.",
+      icon: "👆",
+    },
+    {
+      title: "Security & Performance",
+      description:
+        "Validate data protection, authentication mechanisms, and performance benchmarks to deliver secure, high-performing mobile applications.",
+      icon: "🔒",
     },
   ],
   approach: [
     {
-      title: "Test Planning",
+      title: "Device Selection Strategy",
       description:
-        "We develop comprehensive test plans and cases based on requirements, user stories, and business objectives to guide manual testing efforts.",
-      icon: "📝",
+        "We analyze your target audience to develop a comprehensive testing matrix covering the most relevant devices, operating systems, and screen sizes.",
+      icon: "📊",
     },
     {
-      title: "Methodical Execution",
+      title: "Functional Testing",
       description:
-        "Our testers systematically work through pre-defined test cases while documenting results, observations, and potential issues.",
+        "We verify all app features and functionalities work as expected across platforms, focusing on user flows and critical paths.",
       icon: "✅",
     },
     {
-      title: "Exploratory Sessions",
+      title: "Compatibility Testing",
       description:
-        "We conduct time-boxed exploratory testing sessions to uncover unexpected issues and edge cases not covered by scripted tests.",
-      icon: "🔍",
+        "Our extensive device lab and emulation tools ensure your app works properly across different hardware configurations and OS versions.",
+      icon: "🔄",
     },
     {
-      title: "Usability Evaluation",
+      title: "Performance Evaluation",
       description:
-        "Our experts assess the application from a user's perspective, focusing on ease of use, intuitive design, and overall user experience.",
-      icon: "👤",
+        "We measure and optimize startup time, response rates, animation smoothness, and resource usage to ensure optimal performance.",
+      icon: "⚡",
     },
     {
-      title: "Comprehensive Reporting",
+      title: "Usability Analysis",
       description:
-        "We provide detailed reports with clear reproduction steps, screenshots, videos, and severity classifications for all identified issues.",
-      icon: "📊",
+        "Our experts evaluate the mobile-specific user experience, including touch interactions, gestures, and platform-specific design patterns.",
+      icon: "👆",
     },
   ],
   tools: [
     {
-      name: "TestRail",
+      name: "Appium",
       description:
-        "Test case management tool for organizing and tracking manual test execution",
-      logo: "/images/tools/testrail-logo.svg",
-    },
-    {
-      name: "JIRA",
-      description:
-        "Issue tracking and project management tool for defect reporting and tracking",
-      logo: "/images/tools/jira-logo.png",
-    },
-    {
-      name: "Zephyr",
-      description:
-        "Testing solution for JIRA that provides comprehensive test management",
-      logo: "/images/tools/zephyr-logo.svg",
-    },
-    {
-      name: "qTest",
-      description:
-        "Test management tool for creating, organizing and executing manual tests",
-      logo: "/images/tools/qtest-logo.png",
+        "Open-source test automation framework for native, hybrid and mobile web apps",
+      logo: "/images/tools/appium-logo.svg",
     },
     {
       name: "BrowserStack",
       description:
-        "Real device and browser testing platform for cross-browser and cross-device testing",
+        "Cloud-based cross-browser testing tool providing access to 2000+ real devices",
       logo: "/images/tools/browserstack-logo.svg",
     },
     {
-      name: "Loom",
+      name: "XCTest",
+      description: "Native testing framework for iOS applications",
+      logo: "/images/tools/xctest.png",
+    },
+    {
+      name: "Espresso",
+      description: "Testing framework for Android UI testing",
+      logo: "/images/tools/espresso.png",
+    },
+    {
+      name: "Firebase Test Lab",
       description:
-        "Screen recording tool for documenting bugs and user flows visually",
-      logo: "/images/tools/loom-logo.svg",
+        "Cloud-based app testing infrastructure for Android and iOS apps",
+      logo: "/images/tools/firebase.jpg",
+    },
+    {
+      name: "Charles Proxy",
+      description: "HTTP proxy / HTTP monitor for monitoring network traffic",
+      logo: "/images/tools/charles.jpg",
     },
   ],
   caseStudy: {
-    title:
-      "How Manual Testing Uncovered Critical UX Issues for a Healthcare Platform",
-    client: "Healthcare Technology Provider",
+    title: "How We Helped a Retail App Achieve 99.5% Crash-Free Sessions",
+    client: "Major Retail Brand",
     challenge:
-      "The client's patient portal had passed all automated tests but was receiving poor user feedback. Patients were struggling to complete essential tasks despite the application technically functioning correctly.",
+      "The client's mobile shopping app was experiencing inconsistent performance across different devices, with crash rates as high as 8% on certain Android devices and poor performance on older iOS versions.",
     solution:
-      "We implemented a comprehensive manual testing approach focusing on user flows, accessibility, and exploratory testing. Our testers adopted various user personas to identify experience gaps and unintuitive workflows.",
+      "We implemented a comprehensive mobile testing strategy including automated testing with Appium, real device testing on 50+ device configurations, and deep performance analysis to identify memory leaks and UI rendering bottlenecks.",
     results: [
-      "Identified 32 UX issues missed by automated testing",
-      "Discovered 8 critical workflow barriers affecting patient compliance",
-      "Improved task completion rate from 62% to 94%",
-      "Reduced support ticket volume by 40% following improvements",
+      "Reduced crash rate from 8% to 0.5% across all devices",
+      "Improved app store rating from 3.2 to 4.7 stars",
+      "Decreased load time by 40% on older devices",
+      "Increased conversion rate by 27% due to improved stability",
     ],
     image: "/images/case-study/ui.jpg",
   },
   relatedServices: [
-    {
-      title: "UI/UX Testing",
-      description:
-        "Validate user interface design, accessibility, and overall user experience to ensure intuitive applications.",
-      icon: "🎨",
-      link: "/services/ui-ux-testing",
-    },
     {
       title: "Automated Testing",
       description:
@@ -163,16 +152,23 @@ const serviceData = {
       link: "/services/automated-testing",
     },
     {
-      title: "Mobile Testing",
+      title: "Performance Testing",
       description:
-        "Ensure your mobile applications perform flawlessly across all devices and operating systems.",
-      icon: "📱",
-      link: "/services/mobile-testing",
+        "Ensure your applications perform optimally under various load conditions and user scenarios.",
+      icon: "⚡",
+      link: "/services/performance-testing",
+    },
+    {
+      title: "UI/UX Testing",
+      description:
+        "Validate user interface design, accessibility, and overall user experience.",
+      icon: "🎨",
+      link: "/services/ui-ux-testing",
     },
   ],
 };
 
-export default function ManualTestingPage() {
+export default function MobileTestingPage() {
   return (
     <main className="flex min-h-screen flex-col">
       <ServiceDetailHero

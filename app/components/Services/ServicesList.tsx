@@ -3,12 +3,22 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import {
+  Search,
+  Smartphone,
+  Shield,
+  Zap,
+  Plug,
+  Hand,
+  Database,
+  Layout,
+} from "lucide-react";
 
 // Detailed services information
 const services = [
   {
     id: "automated-testing",
-    icon: "🔍",
+    icon: Search,
     title: "Automated Testing",
     description:
       "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage and faster release cycles.",
@@ -18,12 +28,12 @@ const services = [
       "Improved test coverage across application components",
       "Reduced manual testing effort and cost",
     ],
-    tools: ["Selenium", "Cypress", "Playwright", "Jest", "Appium"],
+    tools: ["Playwright", "Cypress", "Maestro", "Appium", "Selenium", "Jest"],
     link: "/services/automated-testing",
   },
   {
     id: "mobile-testing",
-    icon: "📱",
+    icon: Smartphone,
     title: "Mobile Testing",
     description:
       "Ensure your mobile applications perform flawlessly across all devices, operating systems, and screen sizes.",
@@ -38,7 +48,7 @@ const services = [
   },
   {
     id: "security-testing",
-    icon: "🛡️",
+    icon: Shield,
     title: "Security Testing",
     description:
       "Protect your software from vulnerabilities with thorough security testing methodologies and compliance verification.",
@@ -53,7 +63,7 @@ const services = [
   },
   {
     id: "performance-testing",
-    icon: "⚡",
+    icon: Zap,
     title: "Performance Testing",
     description:
       "Optimize your application's speed, responsiveness, and stability under various load conditions and user scenarios.",
@@ -68,7 +78,7 @@ const services = [
   },
   {
     id: "api-testing",
-    icon: "🔌",
+    icon: Plug,
     title: "API Testing",
     description:
       "Validate the functionality, reliability, and security of your APIs with comprehensive endpoint testing and integration verification.",
@@ -83,7 +93,7 @@ const services = [
   },
   {
     id: "manual-testing",
-    icon: "👁️",
+    icon: Hand,
     title: "Manual Testing",
     description:
       "Leverage human intuition and exploratory testing to identify issues that automated tests might miss and validate user experience.",
@@ -98,7 +108,7 @@ const services = [
   },
   {
     id: "database-testing",
-    icon: "🗄️",
+    icon: Database,
     title: "Database Testing",
     description:
       "Ensure data integrity, performance, and security with comprehensive database testing, validation, and optimization.",
@@ -113,7 +123,7 @@ const services = [
   },
   {
     id: "ui-ux-testing",
-    icon: "🎨",
+    icon: Layout,
     title: "UI/UX Testing",
     description:
       "Validate user interface design, accessibility, and overall user experience to ensure intuitive and engaging applications.",
@@ -190,7 +200,7 @@ const ServicesList = () => {
 interface ServiceProps {
   service: {
     id: string;
-    icon: string;
+    icon: React.ElementType;
     title: string;
     description: string;
     benefits: string[];
@@ -202,6 +212,8 @@ interface ServiceProps {
 }
 
 const ServiceCard = ({ service, index, isInView }: ServiceProps) => {
+  const Icon = service.icon;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -217,8 +229,8 @@ const ServiceCard = ({ service, index, isInView }: ServiceProps) => {
       <div className="p-6">
         {/* Service Header */}
         <div className="flex items-start mb-4">
-          <div className="w-14 h-14 rounded-full flex items-center justify-center bg-yellow-500/10 text-2xl mr-4 flex-shrink-0">
-            {service.icon}
+          <div className="w-14 h-14 rounded-full flex items-center justify-center bg-yellow-500/10 mr-4 flex-shrink-0">
+            <Icon className="w-7 h-7 text-yellow-500" />
           </div>
           <div>
             <h3 className="text-xl font-bold mb-1">{service.title}</h3>

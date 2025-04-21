@@ -21,7 +21,7 @@ const serviceData = {
   icon: "🔌",
   description:
     "Validate the functionality, reliability, and security of your APIs with comprehensive endpoint testing and integration verification to ensure seamless data exchange between systems.",
-  heroImage: "/images/iso.jpg",
+  heroImage: "/images/hero/api-testing.jpg",
   benefits: [
     {
       title: "Ensure API Reliability",

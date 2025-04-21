@@ -21,7 +21,7 @@ const serviceData = {
   icon: "⚡",
   description:
     "Optimize your application's speed, responsiveness, and stability under various load conditions and user scenarios to ensure exceptional user experiences even during peak usage.",
-  heroImage: "/images/iso.jpg",
+  heroImage: "/images/hero/performance-testing.jpg",
   benefits: [
     {
       title: "Identify Bottlenecks",

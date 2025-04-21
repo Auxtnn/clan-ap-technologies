@@ -3,10 +3,20 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import {
+  Search,
+  Smartphone,
+  Shield,
+  Zap,
+  Plug,
+  Hand,
+  Database,
+  Layout,
+} from "lucide-react";
 
 const services = [
   {
-    icon: "🔍",
+    icon: Search,
     title: "Automated Testing",
     description:
       "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage and faster release cycles.",
@@ -14,7 +24,7 @@ const services = [
     delay: 0.1,
   },
   {
-    icon: "📱",
+    icon: Smartphone,
     title: "Mobile Testing",
     description:
       "Ensure your mobile applications perform flawlessly across all devices, operating systems, and screen sizes.",
@@ -22,7 +32,7 @@ const services = [
     delay: 0.2,
   },
   {
-    icon: "🛡️",
+    icon: Shield,
     title: "Security Testing",
     description:
       "Protect your software from vulnerabilities with thorough security testing methodologies and compliance verification.",
@@ -30,7 +40,7 @@ const services = [
     delay: 0.3,
   },
   {
-    icon: "⚡",
+    icon: Zap,
     title: "Performance Testing",
     description:
       "Optimize your application's speed, responsiveness, and stability under various load conditions and user scenarios.",
@@ -38,7 +48,7 @@ const services = [
     delay: 0.4,
   },
   {
-    icon: "🔌",
+    icon: Plug,
     title: "API Testing",
     description:
       "Validate the functionality, reliability, and security of your APIs with comprehensive endpoint testing and integration verification.",
@@ -46,7 +56,7 @@ const services = [
     delay: 0.5,
   },
   {
-    icon: "👁️",
+    icon: Hand,
     title: "Manual Testing",
     description:
       "Leverage human intuition and exploratory testing to identify issues that automated tests might miss and validate user experience.",
@@ -54,7 +64,7 @@ const services = [
     delay: 0.6,
   },
   {
-    icon: "🗄️",
+    icon: Database,
     title: "Database Testing",
     description:
       "Ensure data integrity, performance, and security with comprehensive database testing, validation, and optimization.",
@@ -62,7 +72,7 @@ const services = [
     delay: 0.7,
   },
   {
-    icon: "🎨",
+    icon: Layout,
     title: "UI/UX Testing",
     description:
       "Validate user interface design, accessibility, and overall user experience to ensure intuitive and engaging applications.",
@@ -129,7 +139,7 @@ const ServicesSection = () => {
 
 interface ServiceProps {
   service: {
-    icon: string;
+    icon: React.ElementType;
     title: string;
     description: string;
     link: string;
@@ -140,6 +150,8 @@ interface ServiceProps {
 }
 
 const ServiceCard = ({ service, index, isInView }: ServiceProps) => {
+  const Icon = service.icon;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -157,8 +169,8 @@ const ServiceCard = ({ service, index, isInView }: ServiceProps) => {
 
       <div className="p-6 flex flex-col h-full">
         {/* Icon with background */}
-        <div className="w-14 h-14 rounded-full flex items-center justify-center bg-yellow-500/10 text-2xl mb-5">
-          {service.icon}
+        <div className="w-14 h-14 rounded-full flex items-center justify-center bg-yellow-500/10 mb-5">
+          <Icon className="w-7 h-7 text-yellow-500 group-hover:scale-110 transition-transform duration-300" />
         </div>
 
         {/* Content */}

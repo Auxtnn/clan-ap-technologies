@@ -21,7 +21,7 @@ const serviceData = {
   icon: "🛡️",
   description:
     "Protect your software from vulnerabilities with thorough security testing methodologies and compliance verification to ensure your application and user data remain safe from threats.",
-  heroImage: "/images/iso.jpg",
+  heroImage: "/images/hero/security-testing.jpg",
   benefits: [
     {
       title: "Vulnerability Detection",

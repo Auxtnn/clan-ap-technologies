@@ -21,7 +21,7 @@ const serviceData = {
   icon: "🎨",
   description:
     "Validate user interface design, accessibility, and overall user experience to ensure intuitive and engaging applications that delight users and meet their needs effectively.",
-  heroImage: "/images/iso.jpg",
+  heroImage: "/images/hero/ui.jpg",
   benefits: [
     {
       title: "Enhanced User Satisfaction",

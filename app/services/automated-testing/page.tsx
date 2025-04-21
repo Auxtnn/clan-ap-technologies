@@ -8,6 +8,7 @@ import {
   ServiceDetailCTA,
   RelatedServices,
 } from "../../components";
+import { Search } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Automated Testing Services - ClanAP Technologies",
@@ -21,7 +22,7 @@ const serviceData = {
   icon: "🔍",
   description:
     "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage and faster release cycles.",
-  heroImage: "/images/iso.jpg",
+  heroImage: "/images/hero/automated-testing.jpg",
   benefits: [
     {
       title: "Faster Testing Cycles",
@@ -94,10 +95,10 @@ const serviceData = {
   ],
   tools: [
     {
-      name: "Selenium",
+      name: "Playwright",
       description:
-        "Industry-standard web automation framework for cross-browser testing",
-      logo: "/images/tools/selenium-logo.svg",
+        "Microsoft's automation tool for reliable cross-browser testing",
+      logo: "/images/tools/playwright-logo.svg",
     },
     {
       name: "Cypress",
@@ -105,10 +106,10 @@ const serviceData = {
       logo: "/images/tools/cypress-logo.svg",
     },
     {
-      name: "Playwright",
+      name: "Maestro",
       description:
-        "Microsoft's automation tool for reliable cross-browser testing",
-      logo: "/images/tools/playwright-logo.svg",
+        "A UI testing framework designed to simplify mobile UI automation",
+      logo: "/images/tools/maestro.png",
     },
     {
       name: "Appium",
@@ -117,14 +118,15 @@ const serviceData = {
       logo: "/images/tools/appium-logo.svg",
     },
     {
+      name: "Selenium",
+      description:
+        "Industry-standard web automation framework for cross-browser testing",
+      logo: "/images/tools/selenium-logo.svg",
+    },
+    {
       name: "Jest",
       description: "JavaScript testing framework with a focus on simplicity",
       logo: "/images/tools/jest-logo.svg",
-    },
-    {
-      name: "TestNG",
-      description: "Testing framework for Java with powerful features",
-      logo: "/images/tools/testng-logo.png",
     },
   ],
   caseStudy: {
