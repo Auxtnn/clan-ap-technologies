@@ -8,26 +8,88 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import Link from "next/link";
-// Updated imports for tsparticles
 import { loadSlim } from "tsparticles-slim";
 import Particles from "react-tsparticles";
+import Engine from "react-tsparticles";
+import { Container } from "tsparticles-engine";
+
+// Terminal line component with TypeScript interface
+interface TerminalLineProps {
+  index: number;
+  isActive: boolean;
+}
+
+const TerminalLine = ({ index, isActive }: TerminalLineProps) => {
+  const lines = [
+    {
+      prefix: "$",
+      text: "Initializing QA testing suite...",
+      color: "text-green-400",
+    },
+    {
+      prefix: ">",
+      text: "Running automated test cases...",
+      color: "text-gray-300",
+    },
+    { prefix: ">", text: "Validating UI components", color: "text-gray-300" },
+    {
+      prefix: ">",
+      text: "Security vulnerability scan complete",
+      color: "text-gray-300",
+    },
+    {
+      prefix: ">",
+      text: "Performance benchmark: 97/100",
+      color: "text-amber-400",
+    },
+    {
+      prefix: "$",
+      text: "All tests passed successfully ✓",
+      color: "text-green-400",
+    },
+  ];
+
+  const line = lines[index];
+
+  return (
+    <motion.div
+      className={`${line.color} flex items-start`}
+      initial={{ opacity: 0, x: -5 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <span className="mr-2 text-gray-500">{line.prefix}</span>
+      <span>{line.text}</span>
+      {isActive && (
+        <motion.span
+          className="ml-2 inline-block h-2 w-2 bg-amber-500 rounded-full"
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{ repeat: Infinity, duration: 1 }}
+        />
+      )}
+    </motion.div>
+  );
+};
 
 const HeroSection = () => {
-  const targetRef = useRef(null);
+  const targetRef = useRef<HTMLElement | null>(null);
 
-  // Updated particles initialization
-  const particlesInit = useCallback(async (engine) => {
+  // Updated particles initialization with proper types
+  const particlesInit = useCallback(async (engine: Engine) => {
     // This is the correct way to initialize tsparticles
     await loadSlim(engine);
   }, []);
 
-  const particlesLoaded = useCallback(async (container) => {
-    // This ensures the particles are properly loaded
-    console.log("Particles container loaded:", container);
-  }, []);
+  const particlesLoaded = useCallback(
+    async (container: Container | undefined) => {
+      // This ensures the particles are properly loaded
+      console.log("Particles container loaded:", container);
+    },
+    []
+  );
 
   // Terminal animation state
-  const [terminalLines, setTerminalLines] = useState([]);
+  const [terminalLines, setTerminalLines] = useState<number[]>([]);
   const [activeLine, setActiveLine] = useState(0);
 
   // Add lines sequentially for terminal animation
@@ -400,22 +462,7 @@ const HeroSection = () => {
           id="tsparticles"
           init={particlesInit}
           loaded={particlesLoaded}
-          options={{
-            ...particlesOptions,
-            particles: {
-              ...particlesOptions.particles,
-              number: {
-                density: {
-                  enable: true,
-                  area: 1200,
-                },
-                value: 30,
-              },
-              opacity: {
-                value: 0.2,
-              },
-            },
-          }}
+          options={particlesOptions}
           style={{
             position: "absolute",
             top: 0,
@@ -599,20 +646,19 @@ const HeroSection = () => {
               </motion.p>
 
               <motion.div
-                className="flex flex-row gap-4"
+                className="flex flex-row gap-4 mb-10 md:mb-0"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.9 }}
               >
                 <Link href="/contact">
                   <motion.div
-                    className="relative group"
+                    className="group relative cursor-pointer"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    {/* Glow effect */}
                     <motion.div
-                      className="absolute inset-0 rounded-lg bg-amber-500 opacity-30 blur-md group-hover:opacity-70 transition-opacity duration-300"
+                      className="absolute inset-0 rounded-lg bg-amber-500 opacity-30 blur-md group-hover:opacity-70 transition-opacity duration-300 "
                       animate={{
                         boxShadow: [
                           "0 0 20px 5px rgba(217, 119, 6, 0.3)",
@@ -628,7 +674,7 @@ const HeroSection = () => {
                     />
 
                     <motion.button
-                      className="relative bg-gradient-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-lg font-medium shadow-lg"
+                      className="relative bg-gradient-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-lg font-medium shadow-lg w-full"
                       whileHover={{ y: -2 }}
                       whileTap={{ y: 0 }}
                       animate={{
@@ -647,7 +693,6 @@ const HeroSection = () => {
                       Get Started
                     </motion.button>
 
-                    {/* Pulse effect */}
                     <motion.div
                       className="absolute inset-0 rounded-lg border-2 border-amber-400 opacity-0 group-hover:opacity-100"
                       animate={{
@@ -662,14 +707,12 @@ const HeroSection = () => {
                     />
                   </motion.div>
                 </Link>
-
                 <Link href="/services">
                   <motion.div
-                    className="relative group"
+                    className="group relative cursor-pointer" // Fixed: Added relative positioning
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    {/* Subtle glow effect */}
                     <motion.div
                       className="absolute inset-0 rounded-lg bg-amber-200 opacity-20 blur-md group-hover:opacity-50 transition-opacity duration-300"
                       animate={{
@@ -687,13 +730,12 @@ const HeroSection = () => {
                     />
 
                     <motion.button
-                      className="relative bg-white text-gray-700 border border-amber-300 px-8 py-4 rounded-lg font-medium"
+                      className="relative bg-white text-gray-700 border border-amber-300 px-8 py-4 rounded-lg font-medium" // Fixed: Added relative positioning
                       whileHover={{
-                        y: -2,
                         borderColor: "#D97706",
                         color: "#D97706",
                       }}
-                      whileTap={{ y: 0 }}
+                      // Removed y animation to prevent text shaking
                       animate={{
                         boxShadow: [
                           "0 4px 6px -1px rgba(253, 230, 138, 0.2), 0 2px 4px -1px rgba(253, 230, 138, 0.1)",
@@ -712,7 +754,7 @@ const HeroSection = () => {
 
                     {/* Subtle pulse effect */}
                     <motion.div
-                      className="absolute inset-0 rounded-lg border border-amber-200 opacity-0 group-hover:opacity-100"
+                      className="absolute inset-0 rounded-lg border border-amber-200 opacity-0 group-hover:opacity-100 pointer-events-none" // Fixed: Added pointer-events-none
                       animate={{
                         scale: [1, 1.05, 1],
                         opacity: [0, 0.5, 0],
@@ -800,89 +842,7 @@ const HeroSection = () => {
         </div>
 
         {/* Left bottom corner - Neural network pattern (hidden on small screens) */}
-        <motion.div
-          className="absolute -bottom-20 left-0 z-10 overflow-visible hidden md:block"
-          initial={{ opacity: 0, scale: 0.8, x: -20 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: 1.2, delay: 2.2 }}
-        >
-          {/* Neural network layer connections */}
-          <svg width="250" height="250" viewBox="0 0 250 250" fill="none">
-            {/* Nodes */}
-            {[1, 2, 3, 4, 5].map((i) => (
-              <motion.circle
-                key={`bottom-left-node-${i}`}
-                cx={50 + (i % 3) * 60}
-                cy={50 + Math.floor(i / 3) * 70}
-                r={4 + (i % 3)}
-                fill="#F59E0B"
-                fillOpacity={0.4}
-                animate={{
-                  scale: [1, 1.3, 1],
-                  opacity: [0.3, 0.6, 0.3],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 3 + (i % 3),
-                  ease: "easeInOut",
-                  delay: i * 0.4,
-                }}
-              />
-            ))}
 
-            {/* Connections */}
-            {[1, 2, 3].map((i) => (
-              <motion.path
-                key={`bottom-left-path-${i}`}
-                d={`M${40 + i * 50},50 Q${70 + i * 30},120 ${40 + i * 60},200`}
-                stroke="#D97706"
-                strokeWidth="2"
-                strokeOpacity="0.2"
-                strokeDasharray="4,4"
-                animate={{
-                  d: [
-                    `M${40 + i * 50},50 Q${70 + i * 30},120 ${40 + i * 60},200`,
-                    `M${40 + i * 50},50 Q${90 + i * 30},130 ${40 + i * 60},200`,
-                    `M${40 + i * 50},50 Q${70 + i * 30},120 ${40 + i * 60},200`,
-                  ],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 12,
-                  ease: "easeInOut",
-                  delay: i * 0.8,
-                }}
-              />
-            ))}
-
-            {/* Data flows */}
-            {[1, 2].map((i) => (
-              <motion.circle
-                key={`bottom-left-flow-${i}`}
-                cx={0}
-                cy={0}
-                r={2}
-                fill="#FFFFFF"
-                animate={{
-                  cx: [40 + i * 30, 70 + i * 40, 100 + i * 50],
-                  cy: [50 + i * 30, 120 + i * 20, 190 + i * 10],
-                  opacity: [0, 0.8, 0],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 4,
-                  ease: "linear",
-                  delay: i * 2,
-                }}
-              />
-            ))}
-          </svg>
-
-          {/* Glowing effect */}
-          <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-amber-500/10 blur-3xl -z-10"></div>
-        </motion.div>
-
-        {/* Enhanced scroll indicator */}
         <motion.div
           className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center"
           initial={{ opacity: 0 }}
@@ -969,59 +929,6 @@ const HeroSection = () => {
         </motion.div>
       </div>
     </section>
-  );
-};
-
-// Terminal line component
-const TerminalLine = ({ index, isActive }) => {
-  const lines = [
-    {
-      prefix: "$",
-      text: "Initializing QA testing suite...",
-      color: "text-green-400",
-    },
-    {
-      prefix: ">",
-      text: "Running automated test cases...",
-      color: "text-gray-300",
-    },
-    { prefix: ">", text: "Validating UI components", color: "text-gray-300" },
-    {
-      prefix: ">",
-      text: "Security vulnerability scan complete",
-      color: "text-gray-300",
-    },
-    {
-      prefix: ">",
-      text: "Performance benchmark: 97/100",
-      color: "text-amber-400",
-    },
-    {
-      prefix: "$",
-      text: "All tests passed successfully ✓",
-      color: "text-green-400",
-    },
-  ];
-
-  const line = lines[index];
-
-  return (
-    <motion.div
-      className={`${line.color} flex items-start`}
-      initial={{ opacity: 0, x: -5 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.3 }}
-    >
-      <span className="mr-2 text-gray-500">{line.prefix}</span>
-      <span>{line.text}</span>
-      {isActive && (
-        <motion.span
-          className="ml-2 inline-block h-2 w-2 bg-amber-500 rounded-full"
-          animate={{ opacity: [0, 1, 0] }}
-          transition={{ repeat: Infinity, duration: 1 }}
-        />
-      )}
-    </motion.div>
   );
 };
 
