@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 import { fetchSearchResults } from "@/app/utils/blog";
 import { formatPostData } from "@/app/utils/blog";
-import { BlogHeader } from "@/app/components/Blog/BlogHeader";
 import { BlogPagination } from "@/app/components/Blog/BlogPagination";
 import { SearchEmptyState } from "@/app/components/Blog/SearchEmptyState";
 import { ErrorBoundary } from "@/app/components/Blog/ErrorBoundary";
@@ -118,7 +117,6 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     console.error("Error searching blog posts:", error);
     return (
       <main className="container mx-auto lg:w-11/12 px-4 py-12">
-        <BlogHeader />
         <div className="bg-red-50 border border-red-200 text-red-700 p-6 rounded-lg text-center">
           <h2 className="text-lg font-bold mb-2">
             Failed to search blog posts
