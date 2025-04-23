@@ -31,13 +31,8 @@ import Testimonials from "./About/Testimonials";
 import OurTeam from "./About/Team";
 import Achievements from "./About/AboutStat";
 import BlogHero from "./Blog/BlogHero";
-import CategoryFilter from "./Blog/CategoryFilter";
-import FeaturedPosts from "./Blog/FeaturedPost";
-import PostGrid from "./Blog/PostGrid";
+
 export {
-  PostGrid,
-  FeaturedPosts,
-  CategoryFilter,
   BlogHero,
   Achievements,
   OurTeam,

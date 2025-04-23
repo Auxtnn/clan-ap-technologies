@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import PartnerLogos from "./PartnerLogos";
 
 interface Testimonial {
   id: number;
@@ -10,6 +11,7 @@ interface Testimonial {
   role: string;
   company: string;
   highlight: string;
+  image: string;
 }
 
 const testimonials: Testimonial[] = [
@@ -19,6 +21,7 @@ const testimonials: Testimonial[] = [
       "Manpreet from Clan-AP Technologies played a crucial role as a Quality Assurance (QA) Specialist at Dashy Dash, showcasing exceptional precision and professionalism. His meticulous testing and attention to detail significantly reduced defects, enhancing the efficiency and quality of software delivery.",
     author: "Alessio Ricco",
     role: "CTO",
+    image: "/images/alessio.png",
     company: "Dashy Dash",
     highlight: "Significantly reduced defects",
   },
@@ -29,6 +32,7 @@ const testimonials: Testimonial[] = [
     author: "Aaron Friedlander",
     role: "Head of Engineering",
     company: "Passes",
+    image: "/images/aaron.png",
     highlight: "Efficient automated test suites",
   },
   {
@@ -38,6 +42,7 @@ const testimonials: Testimonial[] = [
     author: "Christian Delpero",
     role: "CISO",
     company: "eins+null GmbH & Co",
+    image: "/images/chris.png",
     highlight: "Excellent, maintainable code",
   },
   {
@@ -46,6 +51,7 @@ const testimonials: Testimonial[] = [
       "Manpreet from Clan-AP Technologies came in to our E2E automation project at its infancy stage and built it up into a full-fledged automation machine. While he was new to the cutting-edge Playwright framework, he quickly became proficient at it in short amount of time. He's very professional, easy to work with, solves problems independently, and his tests always worked!",
     author: "Fred Tzeng",
     role: "CTO",
+    image: "/images/fred.png",
     company: "Analyst Intelligence",
     highlight: "Built full-fledged automation",
   },
@@ -192,9 +198,10 @@ const TestimonialsSection = () => {
                     {/* Author info */}
                     <div className="flex items-center mt-6">
                       <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
-                        <span className="text-base font-bold text-gray-500">
-                          {testimonial.author[0]}
-                        </span>
+                        <img
+                          src={testimonial.image}
+                          className="text-base font-bold rounded-full text-gray-500"
+                        />
                       </div>
                       <div className="ml-3">
                         <div className="font-bold text-sm">
@@ -293,21 +300,7 @@ const TestimonialsSection = () => {
         </div>
 
         {/* Partner logos */}
-        <div className="pt-12 mt-6 border-t border-gray-100">
-          <p className="text-center text-gray-500 text-sm mb-6">
-            Trusted by innovative companies worldwide
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-16">
-            {/* Replace with actual logo SVGs or images */}
-
-            <img src="/images/google.svg" className="h-6 w-20 " />
-            <img src="/images/fedex.svg" className="h-6 w-20  " />
-            <img src="/images/airbnb.svg" className="h-6 w-20  " />
-            <img src="/images/hubspot.svg" className="h-6 w-20 " />
-            <img src="/images/microsoft.svg" className="h-6 w-20  " />
-            <img src="/images/walmart.svg" className="h-6 w-20 " />
-          </div>
-        </div>
+        <PartnerLogos />
       </div>
     </section>
   );

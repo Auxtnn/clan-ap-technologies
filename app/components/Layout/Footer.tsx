@@ -3,7 +3,12 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Linkedin, Twitter, Facebook, Github, Instagram } from "lucide-react";
+import {
+  FaLinkedin,
+  FaXTwitter,
+  FaFacebook,
+  FaInstagram,
+} from "react-icons/fa6";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -41,20 +46,24 @@ const Footer = () => {
   const socialLinks = [
     {
       name: "LinkedIn",
-      href: "https://www.linkedin.com/company/81815969",
-      icon: <Linkedin size={20} />,
+      href: "https://www.linkedin.com/company/81815969/admin/dashboard",
+      icon: <FaLinkedin size={20} />,
     },
-    { name: "Twitter", href: "#", icon: <Twitter size={20} /> },
+    {
+      name: "Twitter",
+      href: "https://x.com/ClanapTech",
+      icon: <FaXTwitter size={20} />,
+    },
     {
       name: "Facebook",
       href: "https://www.facebook.com/clanAPtechnologies",
-      icon: <Facebook size={20} />,
+      icon: <FaFacebook size={20} />,
     },
-    { name: "GitHub", href: "#", icon: <Github size={20} /> },
+
     {
       name: "Instagram",
-      href: "https://www.instagram.com/clanap_technologies",
-      icon: <Instagram size={20} />,
+      href: "https://www.instagram.com/clanap_technologies/",
+      icon: <FaInstagram size={20} />,
     },
   ];
 

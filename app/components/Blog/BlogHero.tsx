@@ -2,8 +2,21 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { FiSearch } from "react-icons/fi";
 
 const BlogHero = () => {
+  const [query, setQuery] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) {
+      router.push(`/blog/search?q=${encodeURIComponent(query.trim())}`);
+    }
+  };
+
   return (
     <section className="pt-32 pb-16 bg-white relative overflow-hidden">
       {/* Background elements */}
@@ -104,28 +117,22 @@ const BlogHero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="relative max-w-lg w-full">
+            <form onSubmit={handleSubmit} className="relative max-w-lg w-full">
               <input
                 type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search articles..."
-                className="w-full px-5 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none"
+                className="w-full px-5 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none pr-12"
               />
-              <button className="absolute right-1 top-1 bg-yellow-500 text-white p-2 rounded-full hover:bg-yellow-600 transition-colors duration-300">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
+              <button
+                type="submit"
+                className="absolute right-1 top-1 bg-yellow-500 text-white p-2 rounded-full hover:bg-yellow-600 transition-colors duration-300"
+                aria-label="Search blog"
+              >
+                <FiSearch className="w-5 h-5" />
               </button>
-            </div>
+            </form>
           </motion.div>
         </div>
       </div>
