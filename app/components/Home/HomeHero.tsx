@@ -496,7 +496,7 @@ const HeroSection = () => {
       </div>
 
       {/* Main content */}
-      <div className="container mx-auto px-4 lg:w-11/12 relative z-10">
+      <div className="container mx-auto  px-4 lg:w-11/12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 lg:gap-20 items-center">
           {/* Left content - 7 columns */}
           <div className="lg:col-span-7 relative">
@@ -614,7 +614,7 @@ const HeroSection = () => {
             </div>
 
             {/* Content - placed over the background */}
-            <div className="relative z-10">
+            <div className="relative z-10 pt-16 md:pt-0">
               <motion.span
                 className="inline-block py-2 px-6 bg-amber-500/10 text-amber-700 rounded-full text-sm font-medium mb-6"
                 initial={{ opacity: 0, y: 10 }}
@@ -886,7 +886,7 @@ const HeroSection = () => {
 
         {/* Enhanced mobile scroll indicator */}
         <motion.div
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 md:hidden overflow-visible z-20"
+          className="absolute -bottom-20 left-1/2 -translate-x-1/2 md:hidden overflow-visible z-20"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 2 }}
