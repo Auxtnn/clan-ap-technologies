@@ -1,8 +1,6 @@
 // app/blog/page.tsx
 import { fetchPosts } from "@/app/utils/blog";
 import { formatPostData } from "@/app/utils/blog";
-import { BlogHeader } from "@/app/components/Blog/BlogHeader";
-import { BlogList } from "@/app/components/Blog/BlogList";
 import { Suspense } from "react";
 import { BlogPagination } from "../components/Blog/BlogPagination";
 import { BlogHero } from "../components";

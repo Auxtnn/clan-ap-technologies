@@ -1,10 +1,8 @@
-// app/blog/search/page.tsx
 import { Suspense } from "react";
 import { Metadata } from "next";
 import { fetchSearchResults } from "@/app/utils/blog";
 import { formatPostData } from "@/app/utils/blog";
 import { BlogHeader } from "@/app/components/Blog/BlogHeader";
-import { BlogList } from "@/app/components/Blog/BlogList";
 import { BlogPagination } from "@/app/components/Blog/BlogPagination";
 import { SearchEmptyState } from "@/app/components/Blog/SearchEmptyState";
 import { ErrorBoundary } from "@/app/components/Blog/ErrorBoundary";
