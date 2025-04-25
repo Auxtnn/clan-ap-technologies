@@ -202,7 +202,7 @@ const HeroSection = () => {
   return (
     <section
       ref={targetRef}
-      className="relative min-h-screen flex items-center overflow-hidden bg-white py-12 md:py-16"
+      className="relative min-h-screen flex items-center overflow-hidden bg-white py-20 md:py-16"
     >
       {/* Neural Network Background - Entire hero section */}
       <div
@@ -467,7 +467,7 @@ const HeroSection = () => {
 
         {/* Mouse animation instead of scroll indicator */}
         <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center"
+          className="absolute md:bottom-10 -bottom-20 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.8 }}
           transition={{ delay: 2, duration: 1 }}
