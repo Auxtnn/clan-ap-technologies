@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Image from "next/image";
 
 const Achievements = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -11,31 +10,59 @@ const Achievements = () => {
   const achievements = [
     {
       year: "2023",
-      title: "QA Excellence Award",
+      title: "Top Rated Plus on Upwork – Agency & Freelancer",
       description:
-        "Recognized for our innovative approach to mobile application testing by the International Software Testing Board.",
-      icon: "🏆",
+        "Both our agency and founder, Manpreet Bains, hold Top Rated Plus status on Upwork, a recognition earned through consistent delivery, long-term client relationships, and high satisfaction ratings.",
+      icon: "✅",
     },
     {
       year: "2022",
-      title: "Top 50 Testing Service Providers",
+      title: "Successfully Delivered 100+ QA Projects Across Industries",
       description:
-        "Named one of the Top 50 Testing Service Providers globally by TechReview Magazine.",
-      icon: "🌟",
+        "Delivered full-cycle manual and automation testing for clients in HealthTech, FinTech, SaaS, and E-commerce domains across multiple platforms.",
+      icon: "🚀",
     },
     {
       year: "2021",
-      title: "Testing Automation Innovation Award",
+      title: "Global Client Footprint",
       description:
-        "Our proprietary test automation framework was recognized for innovation at the Global Testing Summit.",
-      icon: "💡",
+        "Trusted by clients across the US, UK, Canada, and Europe for high-quality QA processes and reliable team engagement models.",
+      icon: "🌎",
     },
     {
       year: "2020",
-      title: "Fastest Growing QA Company",
+      title: "Expertise in Modern Automation Tools",
       description:
-        "Named the fastest growing QA company in North America by TechGrowth Report.",
-      icon: "📈",
+        "Built and maintained robust automation frameworks using Playwright, Cypress, WebdriverIO, and API tools like Postman, tailored to both agile startups and mature enterprises.",
+      icon: "🛠️",
+    },
+    {
+      year: "2019",
+      title: "Team of 10+ Skilled QA Engineers",
+      description:
+        "Scaled into a QA-driven company with a dedicated in-house team offering manual, automation, API, and performance testing, enabling parallel execution and faster delivery cycles.",
+      icon: "👥",
+    },
+    {
+      year: "2018",
+      title: "End-to-End QA Ownership for Web & Mobile Projects",
+      description:
+        "Provided complete QA ownership from requirement analysis and test strategy to test execution, bug reporting, and CI/CD integration.",
+      icon: "📱",
+    },
+    {
+      year: "2017",
+      title: "Optimized Test Execution with CI Tools",
+      description:
+        "Leveraged tools like GitHub Actions, CircleCI, and AWS to automate over 600 test cases in staging and pre-live environments, reducing regression cycles and boosting deployment confidence.",
+      icon: "⏱",
+    },
+    {
+      year: "2016",
+      title: "Client-Centric Communication & Transparent Delivery",
+      description:
+        "Maintained clear sprint-based reporting, collaborative workflows, and proactive QA support aligned with agile development processes.",
+      icon: "🤝",
     },
   ];
 
@@ -85,7 +112,7 @@ const Achievements = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Our Achievements
+            Clan-AP Technologies – Key Achievements
           </motion.h2>
 
           <motion.p
@@ -120,39 +147,71 @@ const Achievements = () => {
               >
                 {/* For desktop view - alternating sides */}
                 <div className="hidden md:flex items-center">
-                  {/* Content - alternating left/right */}
-                  <div
-                    className={`w-1/2 ${
-                      index % 2 === 0 ? "pr-12 text-right" : "pl-12 ml-auto"
-                    }`}
-                  >
-                    <div
-                      className={`bg-white rounded-xl shadow-sm p-6 border border-gray-100 ${
-                        index % 2 === 0 ? "ml-auto" : "mr-auto"
-                      }`}
-                    >
-                      <div className="flex items-center justify-end mb-4">
-                        <div className="text-3xl mr-4">{achievement.icon}</div>
-                        <div>
-                          <div className="text-yellow-500 font-bold">
-                            {achievement.year}
+                  {index % 2 === 0 ? (
+                    <>
+                      {/* Empty space on left for even indexes (right-side content) */}
+                      <div className="w-1/2"></div>
+
+                      {/* Center node */}
+                      <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
+                        <div className="w-5 h-5 rounded-full bg-yellow-500 border-4 border-white shadow"></div>
+                      </div>
+
+                      {/* Content on right */}
+                      <div className="w-1/2 pl-12">
+                        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                          <div className="flex items-center mb-4">
+                            <div className="text-3xl mr-4">
+                              {achievement.icon}
+                            </div>
+                            <div>
+                              <div className="text-yellow-500 font-bold">
+                                {achievement.year}
+                              </div>
+                              <h3 className="font-bold text-xl">
+                                {achievement.title}
+                              </h3>
+                            </div>
                           </div>
-                          <h3 className="font-bold text-xl">
-                            {achievement.title}
-                          </h3>
+                          <p className="text-gray-600">
+                            {achievement.description}
+                          </p>
                         </div>
                       </div>
-                      <p className="text-gray-600">{achievement.description}</p>
-                    </div>
-                  </div>
+                    </>
+                  ) : (
+                    <>
+                      {/* Content on left */}
+                      <div className="w-1/2 pr-12 text-right">
+                        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 ml-auto">
+                          <div className="flex items-center justify-end mb-4">
+                            <div className="text-3xl mr-4">
+                              {achievement.icon}
+                            </div>
+                            <div>
+                              <div className="text-yellow-500 font-bold">
+                                {achievement.year}
+                              </div>
+                              <h3 className="font-bold text-xl">
+                                {achievement.title}
+                              </h3>
+                            </div>
+                          </div>
+                          <p className="text-gray-600">
+                            {achievement.description}
+                          </p>
+                        </div>
+                      </div>
 
-                  {/* Center node */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-                    <div className="w-5 h-5 rounded-full bg-yellow-500 border-4 border-white shadow"></div>
-                  </div>
+                      {/* Center node */}
+                      <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
+                        <div className="w-5 h-5 rounded-full bg-yellow-500 border-4 border-white shadow"></div>
+                      </div>
 
-                  {/* Empty space for alternating layout */}
-                  <div className="w-1/2"></div>
+                      {/* Empty space on right */}
+                      <div className="w-1/2"></div>
+                    </>
+                  )}
                 </div>
 
                 {/* For mobile view - stacked */}
@@ -189,10 +248,10 @@ const Achievements = () => {
               <motion.div
                 key={index}
                 className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 text-center relative overflow-hidden"
-                initial={{ opacity: 0, y: 30 }}
-                animate={
-                  isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
-                }
+                // initial={{ opacity: 0, y: 30 }}
+                // animate={
+                //   isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
+                // }
                 transition={{
                   duration: 0.5,
                   delay: 0.8 + index * 0.1,
@@ -216,10 +275,10 @@ const Achievements = () => {
 
 // Stats data
 const stats = [
-  { value: "500+", label: "Projects Completed" },
-  { value: "300+", label: "Happy Clients" },
-  { value: "5M+", label: "Test Cases Executed" },
-  { value: "98%", label: "Client Retention" },
+  { value: "100+", label: "Projects Completed" },
+  { value: "10+", label: "Skilled QA Engineers" },
+  { value: "600+", label: "Test Cases Automated" },
+  { value: "4", label: "Global Regions Served" },
 ];
 
 export default Achievements;

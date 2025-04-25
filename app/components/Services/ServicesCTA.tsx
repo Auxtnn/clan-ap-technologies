@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import ServicesPartnerLogos from "./PartnerLogosServices";
 
 const ServicesCTA = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -86,7 +87,7 @@ const ServicesCTA = () => {
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="lg:w-11/12 mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -98,7 +99,7 @@ const ServicesCTA = () => {
           </motion.div>
 
           <motion.h2
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6"
+            className="text-3xl max-w-3xl mx-auto  md:text-4xl lg:text-5xl font-bold text-white mb-6"
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -109,7 +110,7 @@ const ServicesCTA = () => {
           </motion.h2>
 
           <motion.p
-            className="text-gray-300 text-lg mb-8"
+            className="text-gray-300 text-lg mb-8 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -155,25 +156,8 @@ const ServicesCTA = () => {
           </motion.div>
 
           {/* Trust indicators */}
-          <motion.div
-            className="mt-12 pt-8 border-t border-gray-800"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            <p className="text-gray-400 text-sm mb-4">
-              Trusted by companies worldwide
-            </p>
-            <div className="flex flex-wrap justify-center items-center gap-8">
-              {/* Replace with actual logo SVGs or images */}
-              <img src="/images/google.svg" className="h-6 w-20 " />
-              <img src="/images/fedex.svg" className="h-6 w-20  " />
-              <img src="/images/airbnb.svg" className="h-6 w-20  " />
-              <img src="/images/hubspot.svg" className="h-6 w-20 " />
-              <img src="/images/microsoft.svg" className="h-6 w-20  " />
-              <img src="/images/walmart.svg" className="h-6 w-20 " />
-            </div>
-          </motion.div>
+
+          <ServicesPartnerLogos />
         </div>
       </div>
     </section>

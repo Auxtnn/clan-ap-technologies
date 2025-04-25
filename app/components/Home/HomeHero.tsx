@@ -91,6 +91,7 @@ const HeroSection = () => {
   // Terminal animation state
   const [terminalLines, setTerminalLines] = useState<number[]>([]);
   const [activeLine, setActiveLine] = useState(0);
+  const [testPassed, setTestPassed] = useState(false);
 
   // Add lines sequentially for terminal animation
   useEffect(() => {
@@ -108,9 +109,16 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Animate the active line
+  // Animate the active line and show test passed when all lines are complete
   useEffect(() => {
     if (terminalLines.length === 0) return;
+
+    // Show the "Tests Passed!" badge when all lines are displayed
+    if (terminalLines.length === 6) {
+      setTimeout(() => {
+        setTestPassed(true);
+      }, 500);
+    }
 
     const interval = setInterval(() => {
       setActiveLine((prev) => (prev + 1) % terminalLines.length);
@@ -194,268 +202,17 @@ const HeroSection = () => {
   return (
     <section
       ref={targetRef}
-      className="relative min-h-screen md:pt-10 md:pb-20 pt-20 pb-26  flex items-center overflow-hidden bg-gradient-to-br from-amber-50 to-amber-100"
+      className="relative min-h-screen flex items-center overflow-hidden bg-white py-12 md:py-16"
     >
       {/* Neural Network Background - Entire hero section */}
       <div
         className="absolute inset-0 z-0"
         style={{ height: "100%", width: "100%" }}
       >
-        {/* Base gradient with slight transparency */}
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-50/90 to-amber-100/90"></div>
+        {/* Base background - changed from pale yellow to white */}
+        <div className="absolute inset-0 bg-white"></div>
 
         {/* Neural network overlay */}
-        <svg
-          className="absolute inset-0 w-full h-full"
-          viewBox="0 0 1920 1080"
-          preserveAspectRatio="xMidYMid slice"
-          fill="none"
-        >
-          {/* Hexagonal Grid Pattern */}
-          <defs>
-            <pattern
-              id="hexPattern"
-              patternUnits="userSpaceOnUse"
-              width="30"
-              height="52"
-              patternTransform="scale(0.5) rotate(0)"
-            >
-              <path
-                d="M30 0L15 26L0 0M0 52L15 26L30 52"
-                stroke="#D97706"
-                strokeOpacity="0.15"
-                strokeWidth="1"
-                fill="none"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#hexPattern)" />
-
-          {/* Additional grid layer for depth */}
-          <defs>
-            <pattern
-              id="gridPattern"
-              patternUnits="userSpaceOnUse"
-              width="20"
-              height="20"
-              patternTransform="scale(0.5) rotate(15)"
-            >
-              <path
-                d="M20 0L0 0M0 20L20 20M0 0L0 20M20 0L20 20"
-                stroke="#F59E0B"
-                strokeOpacity="0.05"
-                strokeWidth="0.5"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#gridPattern)" />
-
-          {/* Major Neural Network Connections - These span the entire background */}
-          {/* Horizontal and diagonal flows */}
-          <motion.path
-            d="M0,200 Q480,150 960,300 Q1440,450 1920,350"
-            stroke="#D97706"
-            strokeWidth="1.5"
-            strokeOpacity="0.2"
-            strokeDasharray="2,2"
-            fill="none"
-            animate={{
-              d: [
-                "M0,200 Q480,150 960,300 Q1440,450 1920,350",
-                "M0,250 Q480,200 960,350 Q1440,500 1920,400",
-                "M0,200 Q480,150 960,300 Q1440,450 1920,350",
-              ],
-            }}
-            transition={{ repeat: Infinity, duration: 20, ease: "easeInOut" }}
-          />
-
-          <motion.path
-            d="M0,500 Q480,450 960,600 Q1440,750 1920,650"
-            stroke="#F59E0B"
-            strokeWidth="1.5"
-            strokeOpacity="0.2"
-            strokeDasharray="3,3"
-            fill="none"
-            animate={{
-              d: [
-                "M0,500 Q480,450 960,600 Q1440,750 1920,650",
-                "M0,550 Q480,500 960,650 Q1440,800 1920,700",
-                "M0,500 Q480,450 960,600 Q1440,750 1920,650",
-              ],
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 25,
-              ease: "easeInOut",
-              delay: 2,
-            }}
-          />
-
-          <motion.path
-            d="M0,800 Q480,750 960,900 Q1440,950 1920,850"
-            stroke="#FCD34D"
-            strokeWidth="1.5"
-            strokeOpacity="0.2"
-            strokeDasharray="4,2"
-            fill="none"
-            animate={{
-              d: [
-                "M0,800 Q480,750 960,900 Q1440,950 1920,850",
-                "M0,850 Q480,800 960,950 Q1440,1000 1920,900",
-                "M0,800 Q480,750 960,900 Q1440,950 1920,850",
-              ],
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 18,
-              ease: "easeInOut",
-              delay: 1,
-            }}
-          />
-
-          {/* Vertical connections between layers */}
-          {[200, 600, 1000, 1400, 1800].map((x, i) => (
-            <motion.path
-              key={`vertical-${i}`}
-              d={`M${x},100 C${x + 50},300 ${x - 50},600 ${x},900`}
-              stroke="#D97706"
-              strokeWidth="1"
-              strokeOpacity="0.15"
-              strokeDasharray="3,3"
-              animate={{
-                d: [
-                  `M${x},100 C${x + 50},300 ${x - 50},600 ${x},900`,
-                  `M${x},100 C${x - 50},300 ${x + 50},600 ${x},900`,
-                  `M${x},100 C${x + 50},300 ${x - 50},600 ${x},900`,
-                ],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 20,
-                ease: "easeInOut",
-                delay: i * 0.5,
-              }}
-            />
-          ))}
-
-          {/* Major Network Nodes - Spread across the background */}
-          {/* Top layer nodes */}
-          {[150, 450, 750, 1050, 1350, 1650].map((x, i) => (
-            <motion.circle
-              key={`node-top-${i}`}
-              cx={x}
-              cy={200 + (i % 3) * 50}
-              r={5}
-              fill="#D97706"
-              fillOpacity={0.3}
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.2, 0.4, 0.2],
-                y: [0, -5, 0],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 3 + (i % 3),
-                ease: "easeInOut",
-                delay: i * 0.7,
-              }}
-            />
-          ))}
-
-          {/* Middle layer nodes */}
-          {[300, 600, 900, 1200, 1500, 1800].map((x, i) => (
-            <motion.circle
-              key={`node-middle-${i}`}
-              cx={x}
-              cy={500 + (i % 3) * 50}
-              r={6}
-              fill="#F59E0B"
-              fillOpacity={0.3}
-              animate={{
-                scale: [1, 1.4, 1],
-                opacity: [0.2, 0.5, 0.2],
-                y: [0, -8, 0],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 4 + (i % 2),
-                ease: "easeInOut",
-                delay: i * 0.5 + 1,
-              }}
-            />
-          ))}
-
-          {/* Bottom layer nodes */}
-          {[200, 500, 800, 1100, 1400, 1700].map((x, i) => (
-            <motion.circle
-              key={`node-bottom-${i}`}
-              cx={x}
-              cy={800 + (i % 3) * 50}
-              r={5}
-              fill="#FCD34D"
-              fillOpacity={0.3}
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.2, 0.4, 0.2],
-                y: [0, -6, 0],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 3 + (i % 4),
-                ease: "easeInOut",
-                delay: i * 0.6 + 2,
-              }}
-            />
-          ))}
-
-          {/* Data flow animations - spread throughout the network */}
-          {[1, 2, 3, 4, 5].map((i) => (
-            <motion.circle
-              key={`data-flow-${i}`}
-              cx={0}
-              cy={0}
-              r={2}
-              fill="#FFFFFF"
-              animate={{
-                cx: [i * 300, i * 300 + 300, i * 300 + 600, i * 300 + 900],
-                cy: [200, 350, 500, 650],
-                opacity: [0, 0.5, 0.5, 0],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 8,
-                ease: "linear",
-                delay: i * 2,
-              }}
-            />
-          ))}
-
-          {[1, 2, 3, 4, 5].map((i) => (
-            <motion.circle
-              key={`data-flow-reverse-${i}`}
-              cx={0}
-              cy={0}
-              r={2}
-              fill="#FFFFFF"
-              animate={{
-                cx: [
-                  1900 - i * 300,
-                  1900 - i * 300 - 300,
-                  1900 - i * 300 - 600,
-                  1900 - i * 300 - 900,
-                ],
-                cy: [800, 650, 500, 350],
-                opacity: [0, 0.5, 0.5, 0],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 8,
-                ease: "linear",
-                delay: i * 2 + 4,
-              }}
-            />
-          ))}
-        </svg>
 
         {/* Subtle particles overlay */}
         <Particles
@@ -474,149 +231,15 @@ const HeroSection = () => {
         />
       </div>
 
-      {/* Subtle color waves overlay */}
-      <div className="absolute inset-0 pointer-events-none z-10 opacity-60">
-        <div className="absolute top-0 left-0 w-full h-full">
-          <svg
-            viewBox="0 0 1440 800"
-            className="w-full h-full"
-            preserveAspectRatio="xMidYMid slice"
-            fill="none"
-          >
-            <path
-              d="M0,0 L1440,0 L1440,300 Q1080,450 720,350 Q360,250 0,350 L0,0 Z"
-              fill="rgba(254, 250, 245, 0.3)"
-            />
-            <path
-              d="M0,800 L1440,800 L1440,350 Q1080,250 720,330 Q360,410 0,310 L0,800 Z"
-              fill="rgba(254, 250, 245, 0.3)"
-            />
-          </svg>
-        </div>
-      </div>
-
       {/* Main content */}
-      <div className="container mx-auto  px-4 lg:w-11/12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 lg:gap-20 items-center">
+      <div className="container mx-auto px-4 lg:w-11/12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center">
           {/* Left content - 7 columns */}
           <div className="lg:col-span-7 relative">
-            {/* Left side neural network background - More prominent */}
-            <div className="absolute inset-0 -m-8 z-0 overflow-hidden rounded-xl">
-              {/* Additional left-side network nodes */}
-              <svg
-                className="absolute inset-0 w-full h-full"
-                viewBox="0 0 800 600"
-                preserveAspectRatio="xMidYMid slice"
-              >
-                {/* Left side concentrated nodes */}
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                  <motion.circle
-                    key={`left-node-${i}`}
-                    cx={100 + (i % 4) * 80}
-                    cy={100 + Math.floor(i / 4) * 150}
-                    r={4 + (i % 3)}
-                    fill="#D97706"
-                    fillOpacity={0.4}
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.2, 0.5, 0.2],
-                    }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 3 + (i % 3),
-                      ease: "easeInOut",
-                      delay: i * 0.3,
-                    }}
-                  />
-                ))}
-
-                {/* Left side concentrated connections */}
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <motion.path
-                    key={`left-connection-${i}`}
-                    d={`M${50 + i * 60},50 Q${120 + i * 30},200 ${
-                      80 + i * 70
-                    },350`}
-                    stroke="#F59E0B"
-                    strokeWidth="1.5"
-                    strokeOpacity="0.2"
-                    strokeDasharray="3,3"
-                    fill="none"
-                    animate={{
-                      d: [
-                        `M${50 + i * 60},50 Q${120 + i * 30},200 ${
-                          80 + i * 70
-                        },350`,
-                        `M${50 + i * 60},50 Q${150 + i * 30},220 ${
-                          80 + i * 70
-                        },350`,
-                        `M${50 + i * 60},50 Q${120 + i * 30},200 ${
-                          80 + i * 70
-                        },350`,
-                      ],
-                    }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 15,
-                      ease: "easeInOut",
-                      delay: i * 0.8,
-                    }}
-                  />
-                ))}
-
-                {/* Horizontal flow across the left side */}
-                <motion.path
-                  d="M0,150 Q150,120 300,180 Q450,240 600,200"
-                  stroke="#D97706"
-                  strokeWidth="1.5"
-                  strokeOpacity="0.15"
-                  strokeDasharray="4,4"
-                  fill="none"
-                  animate={{
-                    d: [
-                      "M0,150 Q150,120 300,180 Q450,240 600,200",
-                      "M0,170 Q150,140 300,200 Q450,260 600,220",
-                      "M0,150 Q150,120 300,180 Q450,240 600,200",
-                    ],
-                  }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 20,
-                    ease: "easeInOut",
-                  }}
-                />
-
-                {/* Data flow animations on left side */}
-                {[1, 2, 3].map((i) => (
-                  <motion.circle
-                    key={`left-data-flow-${i}`}
-                    cx={0}
-                    cy={0}
-                    r={2}
-                    fill="#FFFFFF"
-                    animate={{
-                      cx: [50, 150, 250, 350],
-                      cy: [100 + i * 50, 150 + i * 20, 200 - i * 30, 250],
-                      opacity: [0, 0.7, 0.7, 0],
-                    }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 6,
-                      ease: "linear",
-                      delay: i * 2,
-                    }}
-                  />
-                ))}
-              </svg>
-
-              {/* Enhanced gradient for better content readability */}
-              <div className="absolute inset-0 bg-gradient-to-r from-white/80 to-white/40 backdrop-blur-sm"></div>
-            </div>
-
             {/* Content - placed over the background */}
-            <div className="relative z-10 pt-16 md:pt-0">
+            <div className="relative z-10">
               <motion.span
-                className="inline-block py-2 px-6 bg-amber-500/10 text-amber-700 rounded-full text-sm font-medium mb-6"
+                className="inline-block py-2 px-4 bg-amber-500/10 text-amber-700 rounded-full text-sm font-medium mb-6"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -635,7 +258,7 @@ const HeroSection = () => {
               </motion.div>
 
               <motion.p
-                className="text-lg text-gray-600 mb-10 max-w-xl leading-relaxed"
+                className="text-lg text-gray-600 mb-8 max-w-xl leading-relaxed"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
@@ -646,7 +269,7 @@ const HeroSection = () => {
               </motion.p>
 
               <motion.div
-                className="flex flex-row gap-4 mb-10 md:mb-0"
+                className="flex flex-row gap-4 mb-6 md:mb-0"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.9 }}
@@ -709,7 +332,7 @@ const HeroSection = () => {
                 </Link>
                 <Link href="/services">
                   <motion.div
-                    className="group relative cursor-pointer" // Fixed: Added relative positioning
+                    className="group relative cursor-pointer"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -730,12 +353,11 @@ const HeroSection = () => {
                     />
 
                     <motion.button
-                      className="relative bg-white text-gray-700 border border-amber-300 px-8 py-4 rounded-lg font-medium" // Fixed: Added relative positioning
+                      className="relative bg-white text-gray-700 border border-amber-300 px-8 py-4 rounded-lg font-medium"
                       whileHover={{
                         borderColor: "#D97706",
                         color: "#D97706",
                       }}
-                      // Removed y animation to prevent text shaking
                       animate={{
                         boxShadow: [
                           "0 4px 6px -1px rgba(253, 230, 138, 0.2), 0 2px 4px -1px rgba(253, 230, 138, 0.1)",
@@ -754,7 +376,7 @@ const HeroSection = () => {
 
                     {/* Subtle pulse effect */}
                     <motion.div
-                      className="absolute inset-0 rounded-lg border border-amber-200 opacity-0 group-hover:opacity-100 pointer-events-none" // Fixed: Added pointer-events-none
+                      className="absolute inset-0 rounded-lg border border-amber-200 opacity-0 group-hover:opacity-100 pointer-events-none"
                       animate={{
                         scale: [1, 1.05, 1],
                         opacity: [0, 0.5, 0],
@@ -792,7 +414,7 @@ const HeroSection = () => {
                   </div>
                 </div>
 
-                <div className="p-5 font-mono text-sm h-64 overflow-hidden bg-gray-900">
+                <div className="p-5 font-mono text-sm h-72 overflow-hidden bg-gray-900">
                   {/* Terminal content */}
                   <div className="space-y-3">
                     {terminalLines.map((index) => (
@@ -814,18 +436,20 @@ const HeroSection = () => {
               </div>
 
               {/* Success badge */}
-              <motion.div
-                className="absolute -top-3 -right-3 bg-green-500 text-white font-bold px-4 py-2 rounded-lg shadow-lg"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.5 }}
-              >
-                Tests Passed!
-              </motion.div>
+              {testPassed && (
+                <motion.div
+                  className="absolute -top-3 -right-3 bg-green-500 text-white font-bold px-4 py-2 rounded-lg shadow-lg"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  Tests Passed!
+                </motion.div>
+              )}
 
               {/* Progress bar */}
               <motion.div
-                className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-gray-200 rounded-full overflow-hidden shadow-md"
+                className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-4/5 h-2 bg-gray-200 rounded-full overflow-hidden shadow-md"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 2 }}
@@ -841,90 +465,33 @@ const HeroSection = () => {
           </motion.div>
         </div>
 
-        {/* Left bottom corner - Neural network pattern (hidden on small screens) */}
-
+        {/* Mouse animation instead of scroll indicator */}
         <motion.div
           className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.8, y: [0, 10, 0] }}
-          transition={{
-            opacity: { delay: 2, duration: 1 },
-            y: { repeat: Infinity, duration: 2 },
-          }}
+          animate={{ opacity: 0.8 }}
+          transition={{ delay: 2, duration: 1 }}
         >
           <motion.div
-            className="text-amber-700 text-sm font-medium mb-2"
-            animate={{ opacity: [0.7, 1, 0.7] }}
+            className="w-8 h-14 border-2 border-amber-600 rounded-full flex justify-center p-1"
+            animate={{
+              boxShadow: [
+                "0 0 0 rgba(217, 119, 6, 0.3)",
+                "0 0 10px rgba(217, 119, 6, 0.5)",
+                "0 0 0 rgba(217, 119, 6, 0.3)",
+              ],
+            }}
             transition={{ repeat: Infinity, duration: 2 }}
           >
-            Scroll Down
-          </motion.div>
-          <motion.div
-            className="relative"
-            animate={{ y: [0, 5, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M12 5V19M12 19L5 12M12 19L19 12"
-                stroke="#D97706"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
             <motion.div
-              className="absolute -inset-1 rounded-full bg-amber-500/20 blur-sm"
-              animate={{
-                scale: [0.8, 1.2, 0.8],
-                opacity: [0.3, 0.7, 0.3],
-              }}
-              transition={{ repeat: Infinity, duration: 2 }}
-            />
-          </motion.div>
-        </motion.div>
-
-        {/* Enhanced mobile scroll indicator */}
-        <motion.div
-          className="absolute -bottom-20 left-1/2 -translate-x-1/2 md:hidden overflow-visible z-20"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 2 }}
-        >
-          <motion.div className="flex flex-col items-center">
-            <motion.span
-              className="text-amber-700 text-xs mb-2"
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-            >
-              Scroll
-            </motion.span>
-            <motion.div
-              className="h-5 w-5 rounded-full bg-amber-500/60 flex items-center justify-center"
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.5, 0.9, 0.5],
-                boxShadow: [
-                  "0 0 0 0 rgba(217, 119, 6, 0.4)",
-                  "0 0 0 8px rgba(217, 119, 6, 0)",
-                  "0 0 0 0 rgba(217, 119, 6, 0.4)",
-                ],
-              }}
+              className="w-1.5 h-3 bg-amber-600 rounded-full"
+              animate={{ y: [0, 6, 0] }}
               transition={{
                 repeat: Infinity,
-                duration: 2.5,
+                duration: 1.5,
+                ease: "easeInOut",
               }}
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path
-                  d="M6 2V10M6 10L2 6M6 10L10 6"
-                  stroke="white"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </motion.div>
+            />
           </motion.div>
         </motion.div>
       </div>

@@ -167,13 +167,13 @@ const Footer = () => {
 
             <div className="flex space-x-6">
               <Link
-                href="#"
+                href="/privacy-policy"
                 className="hover:text-[#FFD966] transition-colors duration-300"
               >
                 Privacy Policy
               </Link>
               <Link
-                href="#"
+                href="/terms"
                 className="hover:text-[#FFD966] transition-colors duration-300"
               >
                 Terms of Service

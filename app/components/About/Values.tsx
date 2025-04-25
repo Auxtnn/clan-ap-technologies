@@ -2,9 +2,17 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import {
+  Award,
+  Fingerprint,
+  Lightbulb,
+  Users,
+  Zap,
+  Target,
+} from "lucide-react";
 
 const Values = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
 
   const values = [
@@ -12,7 +20,7 @@ const Values = () => {
       title: "Excellence",
       description:
         "We pursue perfection in every test, report, and interaction, setting new standards for quality in everything we do.",
-      icon: "🏆",
+      icon: <Award size={24} />,
       color: "bg-blue-50 text-blue-600",
       iconBg: "bg-blue-100",
     },
@@ -20,7 +28,7 @@ const Values = () => {
       title: "Integrity",
       description:
         "We maintain unwavering honesty in our assessments, providing transparent feedback even when it's challenging.",
-      icon: "🤝",
+      icon: <Fingerprint size={24} />,
       color: "bg-purple-50 text-purple-600",
       iconBg: "bg-purple-100",
     },
@@ -28,7 +36,7 @@ const Values = () => {
       title: "Innovation",
       description:
         "We continuously evolve our methods and technologies to stay ahead of emerging testing challenges and opportunities.",
-      icon: "💡",
+      icon: <Lightbulb size={24} />,
       color: "bg-yellow-50 text-yellow-600",
       iconBg: "bg-yellow-100",
     },
@@ -36,7 +44,7 @@ const Values = () => {
       title: "Collaboration",
       description:
         "We work as an extension of our clients' teams, fostering open communication and mutual success.",
-      icon: "🤲",
+      icon: <Users size={24} />,
       color: "bg-green-50 text-green-600",
       iconBg: "bg-green-100",
     },
@@ -44,7 +52,7 @@ const Values = () => {
       title: "Empowerment",
       description:
         "We invest in our team's growth, equipping them with skills and knowledge to excel in an evolving technological landscape.",
-      icon: "⚡",
+      icon: <Zap size={24} />,
       color: "bg-red-50 text-red-600",
       iconBg: "bg-red-100",
     },
@@ -52,7 +60,7 @@ const Values = () => {
       title: "Client Focus",
       description:
         "We align our efforts with our clients' goals, ensuring our testing strategies drive meaningful business outcomes.",
-      icon: "🎯",
+      icon: <Target size={24} />,
       color: "bg-indigo-50 text-indigo-600",
       iconBg: "bg-indigo-100",
     },
@@ -97,7 +105,7 @@ const Values = () => {
           {values.map((value, index) => (
             <motion.div
               key={index}
-              className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden"
+              className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden h-64 flex flex-col"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{
@@ -108,7 +116,7 @@ const Values = () => {
               }}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
             >
-              <div className={`p-6 ${value.color}`}>
+              <div className={`p-6 ${value.color} flex-grow`}>
                 <div className="flex items-center mb-4">
                   <div
                     className={`w-12 h-12 rounded-full ${value.iconBg} flex items-center justify-center text-2xl mr-4`}
@@ -119,7 +127,7 @@ const Values = () => {
                 </div>
                 <p className="text-gray-700">{value.description}</p>
               </div>
-              <div className="h-1 bg-yellow-500" />
+              <div className="h-1 bg-yellow-500 mt-auto" />
             </motion.div>
           ))}
         </div>
@@ -135,10 +143,11 @@ const Values = () => {
             "
           </div>
           <blockquote className="relative z-10 text-lg text-gray-600 italic text-center">
-            Our values aren't just words on a wall – they're reflected in every
-            line of code we test, every bug we find, and every solution we
-            deliver. They're the foundation of how we build trust with our
-            clients and with each other.
+            At Clan-AP Technologies, our values are not just guiding principles
+            — they are embedded in every test we execute, every issue we
+            resolve, and every solution we deliver. They form the cornerstone of
+            the trust we cultivate with our clients and the integrity we uphold
+            within our team.
           </blockquote>
           <div className="text-5xl text-yellow-500 opacity-20 absolute bottom-4 right-4">
             "

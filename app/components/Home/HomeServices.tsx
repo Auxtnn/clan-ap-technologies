@@ -86,7 +86,7 @@ const ServicesSection = () => {
   const isInView = useInView(sectionRef, { once: false, amount: 0.1 });
 
   return (
-    <section className="py-20 bg-white" ref={sectionRef}>
+    <section className="md:py-20 py-10 bg-white" ref={sectionRef}>
       <div className="container mx-auto px-4 lg:w-11/12">
         {/* Section Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">

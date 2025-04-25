@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import Footer from "./Footer";
 import Header from "./Header";
 
-// Dynamically import PageLoader with no SSR
 const PageLoader = dynamic(() => import("./PageLoader"), {
   ssr: false,
   loading: () => null,
@@ -16,7 +15,8 @@ export const ClientLayoutWrapper = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  // Initialize isLoading to true so the loader shows on initial render
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {

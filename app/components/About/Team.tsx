@@ -116,7 +116,7 @@ const OurTeam = () => {
         </div>
 
         {/* Team overview stats */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-6 ">
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 ">
           {teamStats.map((stat, index) => (
             <motion.div
               key={index}
@@ -196,9 +196,8 @@ const teamMembers: TeamMember[] = [
 
 // Team stats
 const teamStats = [
-  { value: "8+", label: "Team Members" },
+  { value: "10+", label: "Team Members" },
   { value: "1", label: "Global Office" },
-  { value: "4+", label: "States in India" },
   { value: "3+", label: "Languages Spoken" },
 ];
 
