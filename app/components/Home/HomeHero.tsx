@@ -239,7 +239,7 @@ const HeroSection = () => {
             {/* Content - placed over the background */}
             <div className="relative z-10">
               <motion.span
-                className="inline-block py-2 px-4 bg-amber-500/10 text-amber-700 rounded-full text-sm font-medium mb-6"
+                className="inline-block py-2 mt-16 md:mt-0 px-4 bg-amber-500/10 text-amber-700 rounded-full text-sm font-medium mb-6"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
