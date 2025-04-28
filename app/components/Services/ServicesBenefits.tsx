@@ -6,7 +6,7 @@ import { motion, useInView } from "framer-motion";
 interface Benefit {
   title: string;
   description: string;
-  icon: string;
+  icon: any;
 }
 
 interface ServiceBenefitsProps {
@@ -91,7 +91,7 @@ const BenefitCard = ({ benefit, index, isInView }: BenefitCardProps) => {
       className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 p-6 h-full flex flex-col"
     >
       {/* Icon */}
-      <div className="mb-4 text-4xl">{benefit.icon}</div>
+      <div className="mb-4 text-4xl text-yellow-500 ">{benefit.icon}</div>
 
       {/* Title */}
       <h3 className="text-xl font-bold mb-3">{benefit.title}</h3>

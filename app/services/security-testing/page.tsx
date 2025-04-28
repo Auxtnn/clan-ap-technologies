@@ -8,6 +8,21 @@ import {
   ServiceDetailCTA,
   RelatedServices,
 } from "../../components";
+import {
+  Plug,
+  Zap,
+  Database,
+  BarChart3,
+  Search,
+  Wrench,
+  Code,
+  CheckCircle,
+  Lock,
+  DollarSign,
+  Key,
+  Handshake,
+  Shield,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Security Testing Services - ClanAP Technologies",
@@ -18,7 +33,7 @@ export const metadata: Metadata = {
 // Service-specific data
 const serviceData = {
   title: "Security Testing",
-  icon: "🛡️",
+  icon: <Shield size={24} />,
   description:
     "Protect your software from vulnerabilities with thorough security testing methodologies and compliance verification to ensure your application and user data remain safe from threats.",
   heroImage: "/images/hero/security-testing.jpg",
@@ -27,37 +42,37 @@ const serviceData = {
       title: "Vulnerability Detection",
       description:
         "Identify security flaws, weaknesses, and potential entry points before malicious actors can exploit them.",
-      icon: "🔍",
+      icon: <Search size={24} />,
     },
     {
       title: "Data Protection",
       description:
         "Ensure sensitive user data is properly encrypted, stored, and transmitted according to industry best practices.",
-      icon: "🔒",
+      icon: <Lock size={24} />,
     },
     {
       title: "Compliance Assurance",
       description:
         "Verify your application meets relevant security standards and regulations like GDPR, HIPAA, PCI DSS, and others.",
-      icon: "✅",
+      icon: <CheckCircle size={24} />,
     },
     {
       title: "Risk Mitigation",
       description:
         "Reduce the financial and reputational risks associated with security breaches and data leaks.",
-      icon: "💰",
+      icon: <DollarSign size={24} />,
     },
     {
       title: "Authentication Validation",
       description:
         "Ensure your user authentication and authorization systems are robust and secure against unauthorized access.",
-      icon: "🔑",
+      icon: <Key size={24} />,
     },
     {
       title: "Trust Building",
       description:
         "Demonstrate your commitment to security to users, partners, and stakeholders, building confidence in your application.",
-      icon: "🤝",
+      icon: <Handshake size={24} />,
     },
   ],
   approach: [
@@ -65,31 +80,31 @@ const serviceData = {
       title: "Security Assessment",
       description:
         "We analyze your application architecture, technology stack, and data flow to identify potential security risks and develop a testing strategy.",
-      icon: "📊",
+      icon: <BarChart3 size={24} />,
     },
     {
       title: "Vulnerability Scanning",
       description:
         "Our team uses specialized tools to scan your application for known security vulnerabilities, misconfigurations, and outdated components.",
-      icon: "🔍",
+      icon: <Search size={24} />,
     },
     {
       title: "Penetration Testing",
       description:
         "We attempt to exploit vulnerabilities in your system to identify security weaknesses that automated scans might miss.",
-      icon: "🛠️",
+      icon: <Wrench size={24} />,
     },
     {
       title: "Security Code Review",
       description:
         "Our experts analyze source code to identify security issues like injection vulnerabilities, weak cryptography, and insecure data handling.",
-      icon: "💻",
+      icon: <Code size={24} />,
     },
     {
       title: "Remediation & Verification",
       description:
         "We provide detailed remediation guidance and verify that security issues have been properly addressed after fixes are implemented.",
-      icon: "✅",
+      icon: <CheckCircle size={24} />,
     },
   ],
   tools: [
@@ -149,21 +164,21 @@ const serviceData = {
       title: "API Testing",
       description:
         "Validate the functionality, reliability, and security of your APIs with comprehensive endpoint testing.",
-      icon: "🔌",
+      icon: <Plug size={24} />,
       link: "/services/api-testing",
     },
     {
       title: "Performance Testing",
       description:
         "Ensure your applications perform optimally under various load conditions and user scenarios.",
-      icon: "⚡",
+      icon: <Zap size={24} />,
       link: "/services/performance-testing",
     },
     {
       title: "Database Testing",
       description:
         "Ensure data integrity, performance, and security with comprehensive database testing.",
-      icon: "🗄️",
+      icon: <Database size={24} />,
       link: "/services/database-testing",
     },
   ],

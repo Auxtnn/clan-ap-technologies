@@ -8,7 +8,21 @@ import {
   ServiceDetailCTA,
   RelatedServices,
 } from "../../components";
-import { Search } from "lucide-react";
+import {
+  Search,
+  TestTube,
+  Zap,
+  RefreshCw,
+  Bug,
+  CheckCircle,
+  DollarSign,
+  BarChart3,
+  Wrench,
+  Code,
+  LineChart,
+  Plug,
+  Smartphone,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Automated Testing Services - ClanAP Technologies",
@@ -19,7 +33,7 @@ export const metadata: Metadata = {
 // Service-specific data
 const serviceData = {
   title: "Automated Testing",
-  icon: "🔍",
+  icon: <TestTube size={24} />,
   description:
     "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage and faster release cycles.",
   heroImage: "/images/hero/automated-testing.jpg",
@@ -28,37 +42,37 @@ const serviceData = {
       title: "Faster Testing Cycles",
       description:
         "Automated tests run significantly faster than manual testing, allowing you to test more frequently and release with confidence.",
-      icon: "⚡",
+      icon: <Zap size={24} />,
     },
     {
       title: "Improved Test Coverage",
       description:
         "Create comprehensive test suites that cover more scenarios and edge cases than manual testing alone could achieve.",
-      icon: "🔄",
+      icon: <RefreshCw size={24} />,
     },
     {
       title: "Reduced Regression Bugs",
       description:
         "Catch regressions immediately with automated tests that run after every code change, preventing issues from reaching production.",
-      icon: "🐛",
+      icon: <Bug size={24} />,
     },
     {
       title: "Consistent Results",
       description:
         "Eliminate human error and variability with tests that execute the same way every time, providing reliable results.",
-      icon: "✅",
+      icon: <CheckCircle size={24} />,
     },
     {
       title: "Lower Long-term Costs",
       description:
         "While initial setup requires investment, automated tests provide significant ROI through reduced manual testing hours and fewer production issues.",
-      icon: "💰",
+      icon: <DollarSign size={24} />,
     },
     {
       title: "Objective Quality Metrics",
       description:
         "Generate detailed reports and analytics that provide objective measures of your application's quality and test coverage.",
-      icon: "📊",
+      icon: <BarChart3 size={24} />,
     },
   ],
   approach: [
@@ -66,31 +80,54 @@ const serviceData = {
       title: "Assessment & Strategy",
       description:
         "We analyze your application and testing needs to develop a tailored automation strategy, identifying the best frameworks and approaches for your specific requirements.",
-      icon: "🔍",
+      icon: <Search size={24} />,
     },
     {
       title: "Test Framework Setup",
       description:
         "Our team establishes a robust automation framework with the necessary infrastructure, including CI/CD integration, reporting tools, and cross-browser/device testing capabilities.",
-      icon: "🔧",
+      icon: <Wrench size={24} />,
     },
     {
       title: "Test Development",
       description:
         "We develop maintainable, reliable automated tests following best practices like the Page Object Model, data-driven testing, and appropriate assertions.",
-      icon: "💻",
+      icon: <Code size={24} />,
     },
     {
       title: "Execution & Monitoring",
       description:
         "Tests are integrated into your development workflow, with scheduled executions and real-time monitoring to quickly identify and address issues.",
-      icon: "📈",
+      icon: <LineChart size={24} />,
     },
     {
       title: "Maintenance & Evolution",
       description:
         "We ensure test suites remain effective as your application evolves, refactoring tests as needed and expanding coverage for new features.",
-      icon: "🔄",
+      icon: <RefreshCw size={24} />,
+    },
+  ],
+  relatedServices: [
+    {
+      title: "API Testing",
+      description:
+        "Comprehensive testing of your application's APIs for reliability, security, and performance.",
+      icon: <Plug size={24} />,
+      link: "/services/api-testing",
+    },
+    {
+      title: "Performance Testing",
+      description:
+        "Ensure your applications perform optimally under various load conditions.",
+      icon: <Zap size={24} />,
+      link: "/services/performance-testing",
+    },
+    {
+      title: "Mobile Testing",
+      description:
+        "Test your mobile applications across multiple devices and operating systems.",
+      icon: <Smartphone size={24} />,
+      link: "/services/mobile-testing",
     },
   ],
   tools: [
@@ -133,40 +170,17 @@ const serviceData = {
     title: "How We Reduced Testing Time by 75% for a FinTech Platform",
     client: "Leading FinTech Company",
     challenge:
-      "The client's manual testing process was taking 2 weeks per release, causing delays in their deployment pipeline and limiting their ability to ship new features quickly.",
+      "The client's manual testing process was consuming up to two weeks per release, leading to deployment delays and slow feature rollouts. Frequent manual errors and the growing volume of test cases further increased execution time, compounding the release cycle bottleneck.",
     solution:
-      "We implemented a comprehensive automated testing strategy using Cypress for frontend testing and REST Assured for API testing, integrated with their CI/CD pipeline.",
+      "We designed a smart automation strategy by clearly segregating test cases between manual and automated workflows. Using Playwright for frontend automation and parallel execution to handle large-scale test scenarios, we integrated the solution into their CI/CD pipeline, ensuring faster, more accurate testing cycles.",
     results: [
-      "Reduced testing time from 2 weeks to 3 days per release",
-      "Increased test coverage from 60% to 92%",
-      "Caught 85% more regression issues before reaching production",
-      "Enabled weekly releases instead of monthly",
+      "Reduced testing time from 2 weeks to just 3 days per release",
+      "Boosted test coverage from 60% to 92% across web and API layers",
+      "Detected 85% more regression issues before production deployments",
+      "Empowered the client to shift from monthly to weekly release cycles",
     ],
     image: "/images/case-study/test2.jpg",
   },
-  relatedServices: [
-    {
-      title: "API Testing",
-      description:
-        "Comprehensive testing of your application's APIs for reliability, security, and performance.",
-      icon: "🔌",
-      link: "/services/api-testing",
-    },
-    {
-      title: "Performance Testing",
-      description:
-        "Ensure your applications perform optimally under various load conditions.",
-      icon: "⚡",
-      link: "/services/performance-testing",
-    },
-    {
-      title: "Mobile Testing",
-      description:
-        "Test your mobile applications across multiple devices and operating systems.",
-      icon: "📱",
-      link: "/services/mobile-testing",
-    },
-  ],
 };
 
 export default function AutomatedTestingPage() {

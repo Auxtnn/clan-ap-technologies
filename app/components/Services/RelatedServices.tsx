@@ -7,7 +7,7 @@ import Link from "next/link";
 interface RelatedService {
   title: string;
   description: string;
-  icon: string;
+  icon: any;
   link: string;
 }
 
@@ -72,7 +72,7 @@ const RelatedServices = ({ services }: RelatedServicesProps) => {
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
             >
               {/* Icon */}
-              <div className="w-12 h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-2xl mb-4">
+              <div className="w-12 h-12 rounded-full bg-yellow-500/10 text-yellow-500 flex items-center justify-center text-2xl mb-4">
                 {service.icon}
               </div>
 

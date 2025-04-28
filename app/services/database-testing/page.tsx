@@ -8,6 +8,17 @@ import {
   ServiceDetailCTA,
   RelatedServices,
 } from "../../components";
+import {
+  Database,
+  CheckCircle,
+  Zap,
+  BarChart3,
+  Lock,
+  RefreshCw,
+  TrendingUp,
+  Plug,
+  Shield,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Database Testing Services - ClanAP Technologies",
@@ -18,7 +29,7 @@ export const metadata: Metadata = {
 // Service-specific data
 const serviceData = {
   title: "Database Testing",
-  icon: "🗄️",
+  icon: <Database size={24} />,
   description:
     "Ensure data integrity, performance, and security with comprehensive database testing, validation, and optimization services that guarantee reliable data management for your applications.",
   heroImage: "/images/hero/database.jpg",
@@ -27,37 +38,37 @@ const serviceData = {
       title: "Data Integrity Assurance",
       description:
         "Verify that your database maintains data accuracy and consistency through all operations and transactions.",
-      icon: "✅",
+      icon: <CheckCircle size={24} />,
     },
     {
       title: "Query Performance Optimization",
       description:
         "Identify and resolve inefficient queries that could cause slowdowns or timeout issues in your application.",
-      icon: "⚡",
+      icon: <Zap size={24} />,
     },
     {
       title: "Schema Validation",
       description:
         "Ensure your database schema is properly designed to support your application's requirements and data relationships.",
-      icon: "📊",
+      icon: <BarChart3 size={24} />,
     },
     {
       title: "Data Security Enhancement",
       description:
         "Identify potential security vulnerabilities in your database configuration and access controls to protect sensitive information.",
-      icon: "🔒",
+      icon: <Lock size={24} />,
     },
     {
       title: "Migration Validation",
       description:
         "Ensure smooth database migrations and upgrades without data loss or corruption during transitions.",
-      icon: "🔄",
+      icon: <RefreshCw size={24} />,
     },
     {
       title: "Scalability Assessment",
       description:
         "Evaluate how your database will perform under increased load and data volume to support business growth.",
-      icon: "📈",
+      icon: <TrendingUp size={24} />,
     },
   ],
   approach: [
@@ -65,31 +76,54 @@ const serviceData = {
       title: "Database Assessment",
       description:
         "We analyze your database architecture, schema design, and query patterns to identify potential issues and optimization opportunities.",
-      icon: "📊",
+      icon: <BarChart3 size={24} />,
     },
     {
       title: "Functional Testing",
       description:
         "Our team verifies data CRUD operations, stored procedures, triggers, and business rule implementation to ensure correct functionality.",
-      icon: "✅",
+      icon: <CheckCircle size={24} />,
     },
     {
       title: "Performance Testing",
       description:
         "We evaluate query execution times, indexing strategies, and database response under various load conditions to optimize performance.",
-      icon: "⚡",
+      icon: <Zap size={24} />,
     },
     {
       title: "Security Testing",
       description:
         "Our experts assess access controls, encryption implementation, and vulnerability protection to ensure data security.",
-      icon: "🔒",
+      icon: <Lock size={24} />,
     },
     {
       title: "Data Integrity Testing",
       description:
         "We validate data consistency, referential integrity, and transaction management to prevent data corruption issues.",
-      icon: "🔄",
+      icon: <RefreshCw size={24} />,
+    },
+  ],
+  relatedServices: [
+    {
+      title: "Performance Testing",
+      description:
+        "Ensure your applications perform optimally under various load conditions and user scenarios.",
+      icon: <Zap size={24} />,
+      link: "/services/performance-testing",
+    },
+    {
+      title: "API Testing",
+      description:
+        "Validate the functionality, reliability, and security of your APIs with comprehensive endpoint testing.",
+      icon: <Plug size={24} />,
+      link: "/services/api-testing",
+    },
+    {
+      title: "Security Testing",
+      description:
+        "Protect your software from vulnerabilities with thorough security testing methodologies.",
+      icon: <Shield size={24} />,
+      link: "/services/security-testing",
     },
   ],
   tools: [
@@ -142,29 +176,6 @@ const serviceData = {
     ],
     image: "/images/case-study/test3.jpg",
   },
-  relatedServices: [
-    {
-      title: "Performance Testing",
-      description:
-        "Ensure your applications perform optimally under various load conditions and user scenarios.",
-      icon: "⚡",
-      link: "/services/performance-testing",
-    },
-    {
-      title: "API Testing",
-      description:
-        "Validate the functionality, reliability, and security of your APIs with comprehensive endpoint testing.",
-      icon: "🔌",
-      link: "/services/api-testing",
-    },
-    {
-      title: "Security Testing",
-      description:
-        "Protect your software from vulnerabilities with thorough security testing methodologies.",
-      icon: "🛡️",
-      link: "/services/security-testing",
-    },
-  ],
 };
 
 export default function DatabaseTestingPage() {

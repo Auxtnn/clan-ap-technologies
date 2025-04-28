@@ -95,7 +95,7 @@ const AboutHero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            Since 2015, we've been perfecting the art and science of software
+            Since 2020, we've been perfecting the art and science of software
             quality assurance. Our dedicated team of QA experts works to ensure
             your software delivers exceptional experiences.
           </motion.p>

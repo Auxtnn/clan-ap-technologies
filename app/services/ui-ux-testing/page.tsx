@@ -8,6 +8,20 @@ import {
   ServiceDetailCTA,
   RelatedServices,
 } from "../../components";
+import {
+  Palette,
+  SmilePlus,
+  Accessibility,
+  RefreshCw,
+  Route,
+  Smartphone,
+  BarChart3,
+  ClipboardList,
+  Eye,
+  Search,
+  Eye as EyeIcon,
+  TestTube,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "UI/UX Testing Services - ClanAP Technologies",
@@ -18,7 +32,7 @@ export const metadata: Metadata = {
 // Service-specific data
 const serviceData = {
   title: "UI/UX Testing",
-  icon: "🎨",
+  icon: <Palette size={24} />,
   description:
     "Validate user interface design, accessibility, and overall user experience to ensure intuitive and engaging applications that delight users and meet their needs effectively.",
   heroImage: "/images/hero/ui.jpg",
@@ -27,37 +41,37 @@ const serviceData = {
       title: "Enhanced User Satisfaction",
       description:
         "Identify and address usability issues that could frustrate users and decrease engagement with your application.",
-      icon: "😊",
+      icon: <SmilePlus size={24} />,
     },
     {
       title: "Improved Accessibility",
       description:
         "Ensure your application is usable by people with disabilities and complies with accessibility standards like WCAG.",
-      icon: "♿",
+      icon: <Accessibility size={24} />,
     },
     {
       title: "Consistent User Interface",
       description:
         "Verify design consistency across your application, ensuring elements behave predictably for users.",
-      icon: "🔄",
+      icon: <RefreshCw size={24} />,
     },
     {
       title: "Optimized User Flows",
       description:
         "Identify bottlenecks and friction points in user journeys that could impact task completion and conversion rates.",
-      icon: "🛣️",
+      icon: <Route size={24} />,
     },
     {
       title: "Cross-device Validation",
       description:
         "Ensure your application provides a consistent, high-quality experience across all devices and screen sizes.",
-      icon: "📱",
+      icon: <Smartphone size={24} />,
     },
     {
       title: "Data-driven Design Decisions",
       description:
         "Make informed design decisions based on testing data rather than assumptions about user behavior.",
-      icon: "📊",
+      icon: <BarChart3 size={24} />,
     },
   ],
   approach: [
@@ -65,31 +79,54 @@ const serviceData = {
       title: "Heuristic Evaluation",
       description:
         "Our experts evaluate your interface against established usability principles and best practices to identify potential issues.",
-      icon: "📋",
+      icon: <ClipboardList size={24} />,
     },
     {
       title: "Usability Testing",
       description:
         "We observe real users completing tasks in your application to identify friction points, confusion, and opportunities for improvement.",
-      icon: "👁️",
+      icon: <Eye size={24} />,
     },
     {
       title: "Accessibility Assessment",
       description:
         "Our team evaluates your application against WCAG guidelines and tests with assistive technologies to ensure inclusive access.",
-      icon: "♿",
+      icon: <Accessibility size={24} />,
     },
     {
       title: "Visual Regression Testing",
       description:
         "We verify that UI components render correctly across browsers and devices, catching visual defects before users do.",
-      icon: "🔍",
+      icon: <Search size={24} />,
     },
     {
       title: "User Flow Analysis",
       description:
         "We analyze critical user journeys to identify and optimize conversion paths and improve task completion rates.",
-      icon: "🛣️",
+      icon: <Route size={24} />,
+    },
+  ],
+  relatedServices: [
+    {
+      title: "Manual Testing",
+      description:
+        "Leverage human intuition and exploratory testing to identify issues that automated tests might miss.",
+      icon: <EyeIcon size={24} />,
+      link: "/services/manual-testing",
+    },
+    {
+      title: "Mobile Testing",
+      description:
+        "Ensure your mobile applications perform flawlessly across all devices and operating systems.",
+      icon: <Smartphone size={24} />,
+      link: "/services/mobile-testing",
+    },
+    {
+      title: "Automated Testing",
+      description:
+        "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage.",
+      icon: <TestTube size={24} />,
+      link: "/services/automated-testing",
     },
   ],
   tools: [
@@ -145,29 +182,6 @@ const serviceData = {
     ],
     image: "/images/case-study/ui.jpg",
   },
-  relatedServices: [
-    {
-      title: "Manual Testing",
-      description:
-        "Leverage human intuition and exploratory testing to identify issues that automated tests might miss.",
-      icon: "👁️",
-      link: "/services/manual-testing",
-    },
-    {
-      title: "Mobile Testing",
-      description:
-        "Ensure your mobile applications perform flawlessly across all devices and operating systems.",
-      icon: "📱",
-      link: "/services/mobile-testing",
-    },
-    {
-      title: "Automated Testing",
-      description:
-        "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage.",
-      icon: "🔍",
-      link: "/services/automated-testing",
-    },
-  ],
 };
 
 export default function UiUxTestingPage() {

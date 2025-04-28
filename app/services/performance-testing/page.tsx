@@ -9,16 +9,33 @@ import {
   RelatedServices,
 } from "../../components";
 
+import {
+  Plug,
+  Database,
+  Search,
+  Zap,
+  Gauge,
+  LineChart,
+  SmilePlus,
+  Shield,
+  DollarSign,
+  BarChart3,
+  ClipboardList,
+  Map,
+  Wrench,
+  Play,
+  PieChart,
+} from "lucide-react";
+
 export const metadata: Metadata = {
   title: "Performance Testing Services - ClanAP Technologies",
   description:
     "Optimize your application's speed, responsiveness, and stability under various load conditions and user scenarios to ensure exceptional user experiences.",
 };
 
-// Service-specific data
 const serviceData = {
   title: "Performance Testing",
-  icon: "⚡",
+  icon: <Zap size={24} />,
   description:
     "Optimize your application's speed, responsiveness, and stability under various load conditions and user scenarios to ensure exceptional user experiences even during peak usage.",
   heroImage: "/images/hero/performance-testing.jpg",
@@ -27,37 +44,37 @@ const serviceData = {
       title: "Identify Bottlenecks",
       description:
         "Pinpoint specific components, queries, or processes that limit your application's performance before they impact users.",
-      icon: "🔍",
+      icon: <Search size={24} />,
     },
     {
       title: "Capacity Planning",
       description:
         "Determine your system's maximum capacity and establish scaling strategies to handle growth and traffic spikes.",
-      icon: "📈",
+      icon: <LineChart size={24} />,
     },
     {
       title: "Improve User Experience",
       description:
         "Enhance user satisfaction by ensuring your application responds quickly and consistently under all conditions.",
-      icon: "😊",
+      icon: <SmilePlus size={24} />,
     },
     {
       title: "Prevent Outages",
       description:
         "Avoid costly downtime by identifying breaking points before they occur in production environments.",
-      icon: "🛡️",
+      icon: <Shield size={24} />,
     },
     {
       title: "Optimize Resources",
       description:
         "Efficiently utilize hardware resources and identify opportunities for cost savings in infrastructure.",
-      icon: "💰",
+      icon: <DollarSign size={24} />,
     },
     {
       title: "Data-Driven Decisions",
       description:
         "Make informed architectural and scaling decisions based on concrete performance metrics rather than assumptions.",
-      icon: "📊",
+      icon: <BarChart3 size={24} />,
     },
   ],
   approach: [
@@ -65,31 +82,31 @@ const serviceData = {
       title: "Performance Requirements Analysis",
       description:
         "We collaborate with you to understand your performance expectations, SLAs, and critical user journeys that require optimization.",
-      icon: "📝",
+      icon: <ClipboardList size={24} />,
     },
     {
       title: "Test Planning & Scenario Design",
       description:
         "Our team develops detailed test plans with realistic user scenarios, data sets, and load patterns to simulate real-world conditions.",
-      icon: "🗺️",
+      icon: <Map size={24} />,
     },
     {
       title: "Environment Setup",
       description:
         "We configure test environments and monitoring tools to capture comprehensive performance metrics across all system components.",
-      icon: "🔧",
+      icon: <Wrench size={24} />,
     },
     {
       title: "Test Execution",
       description:
         "We execute various performance tests including load, stress, endurance, and spike testing to evaluate different aspects of system performance.",
-      icon: "▶️",
+      icon: <Play size={24} />,
     },
     {
       title: "Analysis & Optimization",
       description:
         "Our experts analyze results, identify bottlenecks, and provide detailed recommendations for performance improvements and optimizations.",
-      icon: "📊",
+      icon: <PieChart size={24} />,
     },
   ],
   tools: [
@@ -148,21 +165,21 @@ const serviceData = {
       title: "API Testing",
       description:
         "Validate the functionality, reliability, and security of your APIs with comprehensive endpoint testing.",
-      icon: "🔌",
+      icon: <Plug size={24} />,
       link: "/services/api-testing",
     },
     {
       title: "Database Testing",
       description:
         "Ensure data integrity, performance, and security with comprehensive database testing.",
-      icon: "🗄️",
+      icon: <Database size={24} />,
       link: "/services/database-testing",
     },
     {
       title: "Automated Testing",
       description:
         "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage.",
-      icon: "🔍",
+      icon: <Search size={24} />,
       link: "/services/automated-testing",
     },
   ],

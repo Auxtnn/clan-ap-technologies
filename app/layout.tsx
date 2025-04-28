@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { Header, Footer } from "./components";
 import { ClientLayoutWrapper } from "./components/Layout/LayoutWrapper";
 
 const font = Space_Grotesk({ subsets: ["latin"] });

@@ -6,7 +6,7 @@ import { motion, useInView } from "framer-motion";
 interface ApproachStep {
   title: string;
   description: string;
-  icon: string;
+  icon: any;
 }
 
 interface ServiceApproachProps {
@@ -97,7 +97,7 @@ const ApproachStep = ({ step, index, isInView }: ApproachStepProps) => {
 
       {/* Step number */}
       <div className="hidden md:flex md:items-center md:justify-center md:mx-auto md:mb-6">
-        <div className="w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-3xl">
+        <div className="w-16 h-16 rounded-full text-yellow-500  bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-3xl">
           {step.icon}
         </div>
 

@@ -18,9 +18,9 @@ const stats: StatProps[] = [
     delay: 0.1,
   },
   {
-    value: 250,
+    value: 100,
     label: "Projects Completed",
-    delay: 0.3,
+    delay: 0.1,
   },
   {
     value: 15000,

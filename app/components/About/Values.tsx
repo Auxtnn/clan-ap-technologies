@@ -139,7 +139,7 @@ const Values = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.7 }}
         >
-          <div className="text-5xl text-yellow-500 opacity-20 absolute top-4 left-4">
+          <div className="text-5xl text-yellow-500 absolute top-0 left-4 rotate-180">
             "
           </div>
           <blockquote className="relative z-10 text-lg text-gray-600 italic text-center">
@@ -149,7 +149,7 @@ const Values = () => {
             the trust we cultivate with our clients and the integrity we uphold
             within our team.
           </blockquote>
-          <div className="text-5xl text-yellow-500 opacity-20 absolute bottom-4 right-4">
+          <div className="text-5xl text-yellow-500 absolute bottom-0 right-6">
             "
           </div>
         </motion.div>

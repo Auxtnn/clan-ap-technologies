@@ -3,15 +3,40 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
   FaLinkedin,
   FaXTwitter,
   FaFacebook,
   FaInstagram,
+  FaArrowUp,
 } from "react-icons/fa6";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [showButton, setShowButton] = useState(false);
+
+  // Show button when scrolling down
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   const footerSections = [
     {
@@ -59,7 +84,6 @@ const Footer = () => {
       href: "https://www.facebook.com/clanAPtechnologies",
       icon: <FaFacebook size={20} />,
     },
-
     {
       name: "Instagram",
       href: "https://www.instagram.com/clanap_technologies/",
@@ -83,8 +107,34 @@ const Footer = () => {
     visible: { opacity: 1, y: 0 },
   };
 
+  // Animation variants for the return to top button
+  const buttonVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+    hover: {
+      scale: 1.1,
+      boxShadow: "0px 5px 15px rgba(255, 217, 102, 0.4)",
+      transition: { type: "spring", stiffness: 400, damping: 10 },
+    },
+    tap: { scale: 0.9 },
+  };
+
   return (
     <footer className="bg-black text-white pt-16 pb-8 relative overflow-hidden">
+      {/* Return to top button */}
+      <motion.button
+        className="fixed bottom-8 right-8 bg-gradient-to-r from-amber-500 to-amber-600 text-white p-3 rounded-full shadow-lg z-50"
+        onClick={scrollToTop}
+        initial="hidden"
+        animate={showButton ? "visible" : "hidden"}
+        variants={buttonVariants}
+        whileHover="hover"
+        whileTap="tap"
+        aria-label="Return to top"
+      >
+        <FaArrowUp size={20} />
+      </motion.button>
+
       {/* Background dots pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="h-full w-full bg-dot-pattern" />
@@ -102,8 +152,8 @@ const Footer = () => {
           viewport={{ once: true, amount: 0.2 }}
         >
           {/* Logo and company info */}
-          <motion.div variants={itemVariants}>
-            <Link href="/" className="block mb-6">
+          <motion.div variants={itemVariants} className="z-10">
+            <Link href="/" className="block mb-6 inline-block">
               <Image
                 src="/images/logo2.png"
                 alt="ClanAP Technologies"
@@ -125,6 +175,8 @@ const Footer = () => {
                   href={link.href}
                   className="text-gray-400 hover:text-[#FFD966] transition-colors duration-300"
                   aria-label={link.name}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {link.icon}
                 </Link>
@@ -134,14 +186,18 @@ const Footer = () => {
 
           {/* Footer navigation sections */}
           {footerSections.map((section) => (
-            <motion.div key={section.title} variants={itemVariants}>
+            <motion.div
+              key={section.title}
+              variants={itemVariants}
+              className="z-10"
+            >
               <h3 className="text-lg font-bold mb-4">{section.title}</h3>
               <ul className="space-y-3">
                 {section.links.map((link) => (
-                  <li key={link.name}>
+                  <li key={link.name} className="relative">
                     <Link
                       href={link.href}
-                      className="text-gray-400 hover:text-[#FFD966] transition-colors duration-300"
+                      className="text-gray-400 hover:text-[#FFD966] transition-colors duration-300 inline-block relative z-10 w-auto"
                     >
                       {link.name}
                     </Link>
@@ -162,19 +218,19 @@ const Footer = () => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              &copy; {currentYear} ClanAP Technologies. All rights reserved.
+              &copy; {currentYear} Clan-AP Technologies. All rights reserved.
             </div>
 
             <div className="flex space-x-6">
               <Link
                 href="/privacy-policy"
-                className="hover:text-[#FFD966] transition-colors duration-300"
+                className="hover:text-[#FFD966] transition-colors duration-300 inline-block"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="/terms"
-                className="hover:text-[#FFD966] transition-colors duration-300"
+                className="hover:text-[#FFD966] transition-colors duration-300 inline-block"
               >
                 Terms of Service
               </Link>

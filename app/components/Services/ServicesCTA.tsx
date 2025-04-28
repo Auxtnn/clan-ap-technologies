@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import ServicesPartnerLogos from "./PartnerLogosServices";
+import PartnerLogos from "../Home/PartnerLogos";
 
 const ServicesCTA = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -154,10 +155,6 @@ const ServicesCTA = () => {
               </motion.button>
             </Link>
           </motion.div>
-
-          {/* Trust indicators */}
-
-          <ServicesPartnerLogos />
         </div>
       </div>
     </section>

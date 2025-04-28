@@ -9,6 +9,20 @@ import {
   ServiceDetailCTA,
   RelatedServices,
 } from "../../components";
+import {
+  Smartphone,
+  Layers,
+  RefreshCw,
+  Signal,
+  Battery,
+  Fingerprint,
+  Lock,
+  BarChart3,
+  CheckCircle,
+  Zap,
+  TestTube,
+  Palette,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Mobile Testing Services - ClanAP Technologies",
@@ -19,7 +33,7 @@ export const metadata: Metadata = {
 // Service-specific data
 const serviceData = {
   title: "Mobile Testing",
-  icon: "📱",
+  icon: <Smartphone size={24} />,
   description:
     "Ensure your mobile applications perform flawlessly across all devices, operating systems, and screen sizes with comprehensive testing that validates functionality, usability, and performance.",
   heroImage: "/images/hero/mobile-testing.jpg",
@@ -28,37 +42,37 @@ const serviceData = {
       title: "Cross-Device Compatibility",
       description:
         "Validate your application's performance across various device types, screen sizes, and resolutions to ensure consistent user experience.",
-      icon: "📲",
+      icon: <Layers size={24} />,
     },
     {
       title: "Platform Verification",
       description:
         "Test across multiple operating systems and versions (iOS, Android) to ensure your app functions correctly for all users.",
-      icon: "🔄",
+      icon: <RefreshCw size={24} />,
     },
     {
       title: "Network Condition Testing",
       description:
         "Evaluate app performance across different network environments from 2G to 5G and offline modes to ensure reliability in all conditions.",
-      icon: "📶",
+      icon: <Signal size={24} />,
     },
     {
       title: "Battery & Resource Optimization",
       description:
         "Identify and resolve issues related to battery consumption, memory usage, and device resources to enhance app efficiency.",
-      icon: "🔋",
+      icon: <Battery size={24} />,
     },
     {
       title: "Usability & User Experience",
       description:
         "Ensure intuitive navigation, appropriate touch targets, and adherence to platform-specific design guidelines for superior user experience.",
-      icon: "👆",
+      icon: <Fingerprint size={24} />,
     },
     {
       title: "Security & Performance",
       description:
         "Validate data protection, authentication mechanisms, and performance benchmarks to deliver secure, high-performing mobile applications.",
-      icon: "🔒",
+      icon: <Lock size={24} />,
     },
   ],
   approach: [
@@ -66,31 +80,54 @@ const serviceData = {
       title: "Device Selection Strategy",
       description:
         "We analyze your target audience to develop a comprehensive testing matrix covering the most relevant devices, operating systems, and screen sizes.",
-      icon: "📊",
+      icon: <BarChart3 size={24} />,
     },
     {
       title: "Functional Testing",
       description:
         "We verify all app features and functionalities work as expected across platforms, focusing on user flows and critical paths.",
-      icon: "✅",
+      icon: <CheckCircle size={24} />,
     },
     {
       title: "Compatibility Testing",
       description:
         "Our extensive device lab and emulation tools ensure your app works properly across different hardware configurations and OS versions.",
-      icon: "🔄",
+      icon: <RefreshCw size={24} />,
     },
     {
       title: "Performance Evaluation",
       description:
         "We measure and optimize startup time, response rates, animation smoothness, and resource usage to ensure optimal performance.",
-      icon: "⚡",
+      icon: <Zap size={24} />,
     },
     {
       title: "Usability Analysis",
       description:
         "Our experts evaluate the mobile-specific user experience, including touch interactions, gestures, and platform-specific design patterns.",
-      icon: "👆",
+      icon: <Fingerprint size={24} />,
+    },
+  ],
+  relatedServices: [
+    {
+      title: "Automated Testing",
+      description:
+        "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage.",
+      icon: <TestTube size={24} />,
+      link: "/services/automated-testing",
+    },
+    {
+      title: "Performance Testing",
+      description:
+        "Ensure your applications perform optimally under various load conditions and user scenarios.",
+      icon: <Zap size={24} />,
+      link: "/services/performance-testing",
+    },
+    {
+      title: "UI/UX Testing",
+      description:
+        "Validate user interface design, accessibility, and overall user experience.",
+      icon: <Palette size={24} />,
+      link: "/services/ui-ux-testing",
     },
   ],
   tools: [
@@ -134,7 +171,7 @@ const serviceData = {
     challenge:
       "The client's mobile shopping app was experiencing inconsistent performance across different devices, with crash rates as high as 8% on certain Android devices and poor performance on older iOS versions.",
     solution:
-      "We implemented a comprehensive mobile testing strategy including automated testing with Appium, real device testing on 50+ device configurations, and deep performance analysis to identify memory leaks and UI rendering bottlenecks.",
+      "We implemented a comprehensive mobile testing strategy including automated testing with Maestro, real device testing on 50+ device configurations, and deep performance analysis to identify memory leaks and UI rendering bottlenecks.",
     results: [
       "Reduced crash rate from 8% to 0.5% across all devices",
       "Improved app store rating from 3.2 to 4.7 stars",
@@ -143,29 +180,6 @@ const serviceData = {
     ],
     image: "/images/case-study/ui.jpg",
   },
-  relatedServices: [
-    {
-      title: "Automated Testing",
-      description:
-        "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage.",
-      icon: "🔍",
-      link: "/services/automated-testing",
-    },
-    {
-      title: "Performance Testing",
-      description:
-        "Ensure your applications perform optimally under various load conditions and user scenarios.",
-      icon: "⚡",
-      link: "/services/performance-testing",
-    },
-    {
-      title: "UI/UX Testing",
-      description:
-        "Validate user interface design, accessibility, and overall user experience.",
-      icon: "🎨",
-      link: "/services/ui-ux-testing",
-    },
-  ],
 };
 
 export default function MobileTestingPage() {

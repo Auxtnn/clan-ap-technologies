@@ -122,7 +122,7 @@ const ServiceDetailHero = ({
 
             {/* Icon */}
             <div className="mb-4">
-              <div className="w-16 h-16 rounded-full bg-yellow-500/10 flex items-center justify-center text-3xl">
+              <div className="w-16 h-16 rounded-full text-yellow-500  bg-yellow-500/10 flex items-center justify-center text-3xl">
                 {icon}
               </div>
             </div>

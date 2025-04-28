@@ -333,7 +333,7 @@ export default function PrivacyPolicy() {
                         href="mailto:support@clanap.com"
                         className="text-yellow-600 hover:text-yellow-700"
                       >
-                        support@clanap.com
+                        support@clanaptech.com
                       </a>
                     </div>
                   </div>
@@ -375,7 +375,7 @@ export default function PrivacyPolicy() {
                   href="mailto:contact@clanap.com"
                   className="text-yellow-600 hover:text-yellow-700"
                 >
-                  contact@clanap.com
+                  support@clanaptech.com
                 </a>
               </div>
             </div>
