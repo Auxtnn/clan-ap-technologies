@@ -178,7 +178,7 @@ const serviceData = {
       "Decreased load time by 40% on older devices",
       "Increased conversion rate by 27% due to improved stability",
     ],
-    image: "/images/case-study/ui.jpg",
+    image: "/images/case-study/retail.jpg",
   },
 };
 

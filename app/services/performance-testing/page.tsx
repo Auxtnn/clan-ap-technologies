@@ -158,7 +158,7 @@ const serviceData = {
       "Increased maximum concurrent users from 5,000 to 25,000 without degradation",
       "Handled Black Friday traffic (4.3x normal volume) with zero downtime",
     ],
-    image: "/images/case-study/test2.jpg",
+    image: "/images/case-study/black.jpg",
   },
   relatedServices: [
     {

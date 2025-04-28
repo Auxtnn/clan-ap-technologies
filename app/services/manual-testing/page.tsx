@@ -182,7 +182,7 @@ const serviceData = {
       "Improved task completion rate from 62% to 94%",
       "Reduced support ticket volume by 40% following improvements",
     ],
-    image: "/images/case-study/test1.jpg",
+    image: "/images/case-study/health.jpg",
   },
 };
 

@@ -157,7 +157,7 @@ const serviceData = {
       "Ensured 100% compliance with PCI DSS security requirements",
       "Successfully passed external security audit with zero high-severity findings",
     ],
-    image: "/images/case-study/test3.jpg",
+    image: "/images/case-study/security.jpg",
   },
   relatedServices: [
     {

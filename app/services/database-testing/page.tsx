@@ -174,7 +174,7 @@ const serviceData = {
       "Decreased database server CPU utilization from 95% to 40% during peak hours",
       "Supported 3x user growth without additional hardware resources",
     ],
-    image: "/images/case-study/test3.jpg",
+    image: "/images/case-study/saas.jpg",
   },
 };
 

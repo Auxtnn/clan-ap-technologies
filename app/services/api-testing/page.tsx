@@ -173,7 +173,7 @@ const serviceData = {
       "Achieved 100% test coverage across all API endpoints and scenarios",
       "Ensured zero downtime since deployment with 99.99% API availability",
     ],
-    image: "/images/case-study/test1.jpg",
+    image: "/images/case-study/payment.jpg",
   },
 };
 
