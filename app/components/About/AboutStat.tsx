@@ -9,56 +9,48 @@ const Achievements = () => {
 
   const achievements = [
     {
-      year: "2023",
       title: "Top Rated Plus on Upwork – Agency & Freelancer",
       description:
         "Both our agency and founder, Manpreet Bains, hold Top Rated Plus status on Upwork, a recognition earned through consistent delivery, long-term client relationships, and high satisfaction ratings.",
       icon: "✅",
     },
     {
-      year: "2022",
       title: "Successfully Delivered 100+ QA Projects Across Industries",
       description:
         "Delivered full-cycle manual and automation testing for clients in HealthTech, FinTech, SaaS, and E-commerce domains across multiple platforms.",
       icon: "🚀",
     },
     {
-      year: "2021",
       title: "Global Client Footprint",
       description:
         "Trusted by clients across the US, UK, Canada, and Europe for high-quality QA processes and reliable team engagement models.",
       icon: "🌎",
     },
     {
-      year: "2020",
       title: "Expertise in Modern Automation Tools",
       description:
         "Built and maintained robust automation frameworks using Playwright, Cypress, WebdriverIO, and API tools like Postman, tailored to both agile startups and mature enterprises.",
       icon: "🛠️",
     },
     {
-      year: "2019",
       title: "Team of 10+ Skilled QA Engineers",
       description:
         "Scaled into a QA-driven company with a dedicated in-house team offering manual, automation, API, and performance testing, enabling parallel execution and faster delivery cycles.",
       icon: "👥",
     },
     {
-      year: "2018",
       title: "End-to-End QA Ownership for Web & Mobile Projects",
       description:
         "Provided complete QA ownership from requirement analysis and test strategy to test execution, bug reporting, and CI/CD integration.",
       icon: "📱",
     },
     {
-      year: "2017",
       title: "Optimized Test Execution with CI Tools",
       description:
-        "Leveraged tools like GitHub Actions, CircleCI, and AWS to automate over 600 test cases in staging and pre-live environments, reducing regression cycles and boosting deployment confidence.",
+        "Leveraged tools like GitHub Actions, CircleCI, and AWS to automate over 2500 test cases in staging and pre-live environments, reducing regression cycles and boosting deployment confidence.",
       icon: "⏱",
     },
     {
-      year: "2016",
       title: "Client-Centric Communication & Transparent Delivery",
       description:
         "Maintained clear sprint-based reporting, collaborative workflows, and proactive QA support aligned with agile development processes.",
@@ -121,8 +113,8 @@ const Achievements = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            We're proud of our industry recognition and the impact we've made in
-            the quality assurance field.
+            Driving excellence in QA services through global delivery, advanced
+            automation, and client-focused solutions
           </motion.p>
         </div>
 
@@ -165,9 +157,6 @@ const Achievements = () => {
                               {achievement.icon}
                             </div>
                             <div>
-                              <div className="text-yellow-500 font-bold">
-                                {achievement.year}
-                              </div>
                               <h3 className="font-bold text-xl">
                                 {achievement.title}
                               </h3>
@@ -189,9 +178,6 @@ const Achievements = () => {
                               {achievement.icon}
                             </div>
                             <div>
-                              <div className="text-yellow-500 font-bold">
-                                {achievement.year}
-                              </div>
                               <h3 className="font-bold text-xl">
                                 {achievement.title}
                               </h3>
@@ -226,9 +212,6 @@ const Achievements = () => {
 
                   {/* Content */}
                   <div className="ml-6 bg-white rounded-xl shadow-sm p-5 border border-gray-100 flex-grow">
-                    <div className="text-yellow-500 font-bold">
-                      {achievement.year}
-                    </div>
                     <div className="flex items-center mb-2">
                       <h3 className="font-bold text-lg">{achievement.title}</h3>
                       <div className="text-2xl ml-2">{achievement.icon}</div>
@@ -277,7 +260,7 @@ const Achievements = () => {
 const stats = [
   { value: "100+", label: "Projects Completed" },
   { value: "10+", label: "Skilled QA Engineers" },
-  { value: "600+", label: "Test Cases Automated" },
+  { value: "2500+", label: "Test Cases Automated" },
   { value: "4", label: "Global Regions Served" },
 ];
 

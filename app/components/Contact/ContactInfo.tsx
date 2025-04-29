@@ -52,8 +52,7 @@ const ContactInfo = () => {
     },
     {
       title: "Head Office",
-      value:
-        "Clan-AP Technologies, near Omega City, Kharar, Punjab 140301, India",
+      value: "Clan-AP Technologies office, Khanpur – 140301, Punjab, India",
       icon: (
         <svg
           className="w-5 h-5"

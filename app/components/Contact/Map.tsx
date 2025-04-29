@@ -46,11 +46,9 @@ const Map = () => {
 
       <div className="container mx-auto px-4 md:px-6 py-10">
         <div className="bg-white rounded-lg shadow-lg p-6 -mt-20 relative z-10 max-w-lg mx-auto border border-gray-100">
-          <h3 className="text-xl font-bold mb-2">Chandigarh Office</h3>
+          <h3 className="text-xl font-bold mb-2">Our Office</h3>
           <p className="text-gray-700 mb-4">
-            SCO 167-168, Sector 9-C, Madhya Marg
-            <br />
-            Chandigarh, India 160009
+            Clan-AP Technologies office, Khanpur - 140301, Punjab, India
           </p>
           <div className="flex items-center text-gray-600">
             <svg
@@ -66,7 +64,7 @@ const Map = () => {
                 d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
               />
             </svg>
-            <span>+91 1234 567890</span>
+            <span>+91 781 432-0230</span>
           </div>
         </div>
       </div>
