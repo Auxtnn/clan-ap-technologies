@@ -64,33 +64,31 @@ const OurTeam = () => {
               }}
             >
               <div className="bg-white flex flex-col h-full rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
-                {/* Image container - adjusted height and positioning */}
+                {/* Image container - improved responsive behavior */}
                 <div
-                  className="relative overflow-hidden"
-                  style={{ height: "360px" }}
+                  className="relative overflow-hidden w-full"
+                  style={{ paddingBottom: "100%" }}
                 >
-                  <div className="w-full h-full relative transition-transform duration-300">
-                    {member.image ? (
-                      <div className="relative w-full h-full">
-                        <Image
-                          src={member.image}
-                          alt={member.name}
-                          fill
-                          className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          priority
-                        />
-                        {/* Yellow overlay gradient that blends with the image */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-yellow-500/30 via-yellow-500/10 to-transparent"></div>
-                      </div>
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400">
-                        <span className="text-5xl font-bold">
-                          {member.name.charAt(0)}
-                        </span>
-                      </div>
-                    )}
-                  </div>
+                  {member.image ? (
+                    <div className="absolute inset-0">
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        priority
+                      />
+                      {/* Yellow overlay gradient that blends with the image */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-yellow-500/30 via-yellow-500/10 to-transparent"></div>
+                    </div>
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400">
+                      <span className="text-5xl font-bold">
+                        {member.name.charAt(0)}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Info */}
