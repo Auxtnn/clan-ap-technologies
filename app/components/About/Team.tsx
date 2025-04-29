@@ -64,16 +64,19 @@ const OurTeam = () => {
               }}
             >
               <div className="bg-white flex flex-col h-full rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
-                {/* Image with yellow gradient overlay */}
-                <div className="aspect-w-3 flex-grow aspect-h-4 relative overflow-hidden">
-                  <div className="w-full h-80 relative transition-transform duration-300">
+                {/* Image container - adjusted height and positioning */}
+                <div
+                  className="relative overflow-hidden"
+                  style={{ height: "360px" }}
+                >
+                  <div className="w-full h-full relative transition-transform duration-300">
                     {member.image ? (
                       <div className="relative w-full h-full">
                         <Image
                           src={member.image}
                           alt={member.name}
                           fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           priority
                         />
@@ -81,8 +84,8 @@ const OurTeam = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-yellow-500/30 via-yellow-500/10 to-transparent"></div>
                       </div>
                     ) : (
-                      <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                        <span className="text-lg font-bold">
+                      <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400">
+                        <span className="text-5xl font-bold">
                           {member.name.charAt(0)}
                         </span>
                       </div>
@@ -120,7 +123,7 @@ const OurTeam = () => {
           {teamStats.map((stat, index) => (
             <motion.div
               key={index}
-              className="bg-white  rounded-xl p-6 text-center shadow-sm border border-gray-100"
+              className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{
