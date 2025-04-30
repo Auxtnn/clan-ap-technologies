@@ -57,29 +57,43 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-const testimonialPairs: any[][] = [];
-for (let i = 0; i < testimonials.length; i += 2) {
-  if (i + 1 < testimonials.length) {
-    testimonialPairs.push([testimonials[i], testimonials[i + 1]]);
-  } else {
-    testimonialPairs.push([testimonials[i]]);
-  }
-}
-
 const TestimonialsSection = () => {
-  const [currentPairIndex, setCurrentPairIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [direction, setDirection] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const carouselContainerRef = useRef<HTMLDivElement>(null);
+
+  // Responsive layout detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    // Check initially
+    checkMobile();
+
+    // Add resize listener
+    window.addEventListener("resize", checkMobile);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
+  // Get the total number of slides based on responsive layout
+  const totalSlides = isMobile
+    ? testimonials.length
+    : Math.ceil(testimonials.length / 2);
 
   useEffect(() => {
     if (!isAutoPlaying) return;
 
     autoPlayRef.current = setInterval(() => {
       setDirection(1);
-      setCurrentPairIndex(
-        (prevIndex) => (prevIndex + 1) % testimonialPairs.length
-      );
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
     }, 6000);
 
     return () => {
@@ -87,22 +101,20 @@ const TestimonialsSection = () => {
         clearInterval(autoPlayRef.current);
       }
     };
-  }, [isAutoPlaying, testimonialPairs.length]);
+  }, [isAutoPlaying, totalSlides]);
 
   const handlePrevious = () => {
     setIsAutoPlaying(false);
     setDirection(-1);
-    setCurrentPairIndex((prevIndex) =>
-      prevIndex === 0 ? testimonialPairs.length - 1 : prevIndex - 1
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? totalSlides - 1 : prevIndex - 1
     );
   };
 
   const handleNext = () => {
     setIsAutoPlaying(false);
     setDirection(1);
-    setCurrentPairIndex(
-      (prevIndex) => (prevIndex + 1) % testimonialPairs.length
-    );
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
   };
 
   const pauseAutoPlay = () => {
@@ -126,6 +138,18 @@ const TestimonialsSection = () => {
       x: direction > 0 ? -1000 : 1000,
       opacity: 0,
     }),
+  };
+
+  // Get current testimonials to show based on device
+  const getCurrentTestimonials = () => {
+    if (isMobile) {
+      // For mobile, show only one testimonial
+      return [testimonials[currentIndex]];
+    } else {
+      // For desktop, show two testimonials per slide
+      const startIndex = currentIndex * 2;
+      return testimonials.slice(startIndex, startIndex + 2).filter(Boolean);
+    }
   };
 
   return (
@@ -158,10 +182,15 @@ const TestimonialsSection = () => {
           onMouseEnter={pauseAutoPlay}
           onMouseLeave={resumeAutoPlay}
         >
-          <div className="overflow-hidden mx-auto">
+          {/* Fixed height container */}
+          <div
+            ref={carouselContainerRef}
+            className="overflow-hidden mx-auto"
+            style={{ height: isMobile ? "450px" : "350px" }}
+          >
             <AnimatePresence custom={direction} mode="wait">
               <motion.div
-                key={currentPairIndex}
+                key={currentIndex}
                 custom={direction}
                 variants={variants}
                 initial="enter"
@@ -171,12 +200,12 @@ const TestimonialsSection = () => {
                   x: { type: "spring", stiffness: 300, damping: 30 },
                   opacity: { duration: 0.5 },
                 }}
-                className="flex flex-col lg:flex-row gap-6"
+                className="flex flex-col lg:flex-row gap-6 h-full"
               >
-                {testimonialPairs[currentPairIndex].map((testimonial) => (
+                {getCurrentTestimonials().map((testimonial) => (
                   <div
                     key={testimonial.id}
-                    className="flex-1 bg-white border border-gray-100 rounded-xl shadow-sm p-6 transition-all duration-300"
+                    className="flex-1 bg-white border border-gray-100 rounded-xl shadow-sm p-6 transition-all duration-300 flex flex-col h-full"
                   >
                     {/* Highlight badge */}
                     <div className="mb-4">
@@ -185,8 +214,8 @@ const TestimonialsSection = () => {
                       </span>
                     </div>
 
-                    {/* Quote */}
-                    <div className="relative">
+                    {/* Quote - with flex-grow to push author to bottom */}
+                    <div className="relative flex-grow overflow-y-auto">
                       <div className="absolute -top-2 -left-2 text-4xl text-yellow-500 opacity-20">
                         "
                       </div>
@@ -195,12 +224,15 @@ const TestimonialsSection = () => {
                       </p>
                     </div>
 
-                    {/* Author info */}
-                    <div className="flex items-center mt-6">
-                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                    {/* Author info - positioned at bottom */}
+                    <div className="flex items-center mt-4">
+                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
                         <img
                           src={testimonial.image}
-                          className="text-base font-bold rounded-full text-gray-500"
+                          alt={testimonial.author}
+                          className="w-full h-full object-cover"
+                          width={40}
+                          height={40}
                         />
                       </div>
                       <div className="ml-3">
@@ -216,43 +248,44 @@ const TestimonialsSection = () => {
                 ))}
               </motion.div>
             </AnimatePresence>
-
-            {/* Progress bar */}
-            <div className="w-full h-1 bg-gray-100 rounded-full mt-10 overflow-hidden">
-              <motion.div
-                className="h-full bg-yellow-500 rounded-full"
-                initial={{ width: "0%" }}
-                animate={{ width: "100%" }}
-                transition={{
-                  duration: 6,
-                  ease: "linear",
-                  repeatType: "loop",
-                  repeat: isAutoPlaying ? Infinity : 0,
-                  repeatDelay: 0,
-                }}
-                key={currentPairIndex + isAutoPlaying.toString()}
-              />
-            </div>
           </div>
 
-          {/* Navigation buttons */}
-          <div className="flex justify-between absolute top-1/2 -translate-y-1/2 left-0 right-0 z-10 px-2">
+          {/* Progress bar */}
+          <div className="w-full h-1 bg-gray-100 rounded-full mt-10 overflow-hidden">
+            <motion.div
+              className="h-full bg-yellow-500 rounded-full"
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{
+                duration: 6,
+                ease: "linear",
+                repeatType: "loop",
+                repeat: isAutoPlaying ? Infinity : 0,
+                repeatDelay: 0,
+              }}
+              key={currentIndex + isAutoPlaying.toString()}
+            />
+          </div>
+
+          {/* Navigation buttons - positioned outside fixed height container */}
+          <div className="flex justify-between absolute top-1/2 -translate-y-1/2 left-0 right-0 z-10 px-1 sm:px-2 md:px-4 pointer-events-none">
             <motion.button
               onClick={handlePrevious}
-              className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center focus:outline-none text-black border border-gray-100"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center focus:outline-none text-black border border-gray-100 pointer-events-auto"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
+                width="16"
+                height="16"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className="sm:w-5 sm:h-5"
               >
                 <path d="M15 18l-6-6 6-6" />
               </svg>
@@ -260,20 +293,21 @@ const TestimonialsSection = () => {
 
             <motion.button
               onClick={handleNext}
-              className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center focus:outline-none text-black border border-gray-100"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center focus:outline-none text-black border border-gray-100 pointer-events-auto"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
+                width="16"
+                height="16"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className="sm:w-5 sm:h-5"
               >
                 <path d="M9 18l6-6-6-6" />
               </svg>
@@ -283,18 +317,18 @@ const TestimonialsSection = () => {
 
         {/* Testimonial indicators */}
         <div className="flex justify-center mt-8 space-x-2">
-          {testimonialPairs.map((_, index) => (
+          {Array.from({ length: totalSlides }).map((_, index) => (
             <button
               key={index}
               onClick={() => {
                 setIsAutoPlaying(false);
-                setDirection(index > currentPairIndex ? 1 : -1);
-                setCurrentPairIndex(index);
+                setDirection(index > currentIndex ? 1 : -1);
+                setCurrentIndex(index);
               }}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentPairIndex ? "bg-yellow-500 w-8" : "bg-gray-300"
+                index === currentIndex ? "bg-yellow-500 w-8" : "bg-gray-300"
               }`}
-              aria-label={`Go to testimonial pair ${index + 1}`}
+              aria-label={`Go to testimonial ${index + 1}`}
             />
           ))}
         </div>
