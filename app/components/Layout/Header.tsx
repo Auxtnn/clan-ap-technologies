@@ -214,7 +214,7 @@ const Header = () => {
             }}
             className="mt-8"
           >
-            <Link href="/contact">
+            <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
               <motion.button
                 className="bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-8 py-4 rounded-xl font-bold relative overflow-hidden group shadow-xl shadow-yellow-500/20"
                 whileHover={{
