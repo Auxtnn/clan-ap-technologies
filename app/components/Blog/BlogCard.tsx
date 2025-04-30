@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { useState, useEffect } from "react";
 import { PostSummary } from "@/app/types";
 import { FeaturedMedia } from "./FeaturedMedia";
 

@@ -1,6 +1,99 @@
 import { WordPressPost, PostSummary } from "../types";
 
 /**
+ 
+ * @param html String containing HTML entities to decode
+ * @returns Decoded string
+ */
+export function decodeHtmlEntities(html: string): string {
+  if (!html) return "";
+
+  // Comprehensive replacement map for HTML entities
+  const entityMap: Record<string, string> = {
+    "&amp;": "&",
+    "&lt;": "<",
+    "&gt;": ">",
+    "&quot;": '"',
+    "&#39;": "'",
+    "&apos;": "'",
+    "&#x2F;": "/",
+    "&#x27;": "'",
+    "&#x60;": "`",
+    "&ldquo;": "\u201C",
+    "&rdquo;": "\u201D",
+    "&lsquo;": "\u2018",
+    "&rsquo;": "\u2019",
+    "&mdash;": "\u2014",
+    "&ndash;": "\u2013",
+    "&hellip;": "\u2026",
+    "&trade;": "\u2122",
+    "&reg;": "\u00AE",
+    "&copy;": "\u00A9",
+    "&nbsp;": " ",
+    "&cent;": "\u00A2",
+    "&pound;": "\u00A3",
+    "&yen;": "\u00A5",
+    "&euro;": "\u20AC",
+    "&sect;": "\u00A7",
+    "&bull;": "\u2022",
+    "&circ;": "\u02C6",
+    "&deg;": "\u00B0",
+    "&laquo;": "\u00AB",
+    "&raquo;": "\u00BB",
+    "&dagger;": "\u2020",
+    "&Dagger;": "\u2021",
+    "&permil;": "\u2030",
+    "&prime;": "\u2032",
+    "&Prime;": "\u2033",
+    "&minus;": "\u2212",
+    "&plusmn;": "\u00B1",
+    "&times;": "\u00D7",
+    "&divide;": "\u00F7",
+    "&frasl;": "\u2044",
+    "&lowast;": "\u2217",
+    "&sim;": "\u223C",
+    "&larr;": "\u2190",
+    "&uarr;": "\u2191",
+    "&rarr;": "\u2192",
+    "&darr;": "\u2193",
+    "&harr;": "\u2194",
+    "&spades;": "\u2660",
+    "&clubs;": "\u2663",
+    "&hearts;": "\u2665",
+    "&diams;": "\u2666",
+    "&oelig;": "\u0153",
+    "&scaron;": "\u0161",
+    "&Scaron;": "\u0160",
+    "&yuml;": "\u00FF",
+    "&fnof;": "\u0192",
+    "&ensp;": "\u2002",
+    "&emsp;": "\u2003",
+    "&thinsp;": "\u2009",
+    "&zwnj;": "\u200C",
+    "&zwj;": "\u200D",
+    "&lrm;": "\u200E",
+    "&rlm;": "\u200F",
+  };
+
+  // Replace numeric entities
+  let decoded = html.replace(/&#(\d+);/g, (match, dec) => {
+    return String.fromCharCode(dec);
+  });
+
+  // Replace hex entities
+  decoded = decoded.replace(/&#x([0-9a-f]+);/gi, (match, hex) => {
+    return String.fromCharCode(parseInt(hex, 16));
+  });
+
+  // Replace named entities
+  decoded = decoded.replace(/&([^;]+);/g, (match, entity) => {
+    return entityMap[match] || match;
+  });
+
+  return decoded;
+}
+
+/**
  * Fetches posts from WordPress API
  */
 // utils/blog.ts - Update your fetchPosts function
@@ -27,6 +120,8 @@ export async function fetchPosts(page = 1, perPage = 10) {
 
   const posts = (await response.json()) as WordPressPost[];
 
+  // console.log("posts: ", posts);
+
   return {
     posts,
     totalPosts,
@@ -48,6 +143,15 @@ export async function fetchPostBySlug(slug: string) {
   if (!response.ok) throw new Error("Failed to fetch post");
 
   const posts = (await response.json()) as WordPressPost[];
+
+  // If post found, decode HTML entities in content
+  if (posts && posts.length > 0) {
+    // Decode HTML entities in content
+    posts[0].content.rendered = decodeHtmlEntities(posts[0].content.rendered);
+    posts[0].title.rendered = decodeHtmlEntities(posts[0].title.rendered);
+    posts[0].excerpt.rendered = decodeHtmlEntities(posts[0].excerpt.rendered);
+  }
+
   return posts[0] || null;
 }
 
@@ -80,10 +184,13 @@ export function formatPostData(post: WordPressPost): PostSummary {
     day: "numeric",
   });
 
-  // Remove HTML tags and trim excerpt
-  const plainExcerpt = post.excerpt.rendered
-    .replace(/<\/?[^>]+(>|$)/g, "")
-    .trim();
+  // Decode HTML entities in title
+  const decodedTitle = decodeHtmlEntities(post.title.rendered);
+
+  // Remove HTML tags and decode HTML entities in excerpt
+  const plainExcerpt = decodeHtmlEntities(
+    post.excerpt.rendered.replace(/<\/?[^>]+(>|$)/g, "")
+  ).trim();
 
   const excerpt =
     plainExcerpt.length > 160
@@ -96,7 +203,7 @@ export function formatPostData(post: WordPressPost): PostSummary {
     formattedDate,
     slug: post.slug,
     link: post.link,
-    title: post.title.rendered,
+    title: decodedTitle,
     excerpt,
     featuredMediaId: post.featured_media,
     categories: post.categories || [],
@@ -144,145 +251,16 @@ export async function fetchSearchResults(
 
   const posts = (await response.json()) as WordPressPost[];
 
+  // Decode HTML entities in search results
+  posts.forEach((post) => {
+    post.title.rendered = decodeHtmlEntities(post.title.rendered);
+    post.excerpt.rendered = decodeHtmlEntities(post.excerpt.rendered);
+    post.content.rendered = decodeHtmlEntities(post.content.rendered);
+  });
+
   return {
     posts,
     totalPosts,
     totalPages,
   };
 }
-
-// /**
-//  * Fetches comments for a specific post
-//  * @param postId The ID of the post to fetch comments for
-//  * @returns Array of comments
-//  */
-// export async function fetchComments(
-//   postId: number
-// ): Promise<WordPressComment[]> {
-//   try {
-//     const response = await fetch(
-//       `https://clanap.com/wp-json/wp/v2/comments?post=${postId}&orderby=date&order=asc&per_page=100`,
-//       {
-//         next: { revalidate: 30 }, // Comments can update more frequently
-//       }
-//     );
-
-//     if (!response.ok) {
-//       throw new Error(`Failed to fetch comments: ${response.status}`);
-//     }
-
-//     const comments = (await response.json()) as WordPressComment[];
-//     return comments;
-//   } catch (error) {
-//     console.error("Error fetching comments:", error);
-//     return [];
-//   }
-// }
-
-// /**
-//  * Organizes comments into a nested structure (for threaded comments)
-//  * @param comments Flat array of comments
-//  * @returns Nested structure of comments
-//  */
-// export function organizeCommentThreads(comments: WordPressComment[]) {
-//   const commentMap = new Map<
-//     number,
-//     WordPressComment & { replies?: WordPressComment[] }
-//   >();
-//   const rootComments: (WordPressComment & { replies?: WordPressComment[] })[] =
-//     [];
-
-//   // First, add all comments to the map
-//   comments.forEach((comment) => {
-//     commentMap.set(comment.id, { ...comment, replies: [] });
-//   });
-
-//   // Then organize them into threads
-//   comments.forEach((comment) => {
-//     const commentWithReplies = commentMap.get(comment.id)!;
-
-//     if (comment.parent === 0) {
-//       // This is a root level comment
-//       rootComments.push(commentWithReplies);
-//     } else {
-//       // This is a reply to another comment
-//       const parentComment = commentMap.get(comment.parent);
-//       if (parentComment) {
-//         if (!parentComment.replies) {
-//           parentComment.replies = [];
-//         }
-//         parentComment.replies.push(commentWithReplies);
-//       } else {
-//         // Parent comment not found (unusual case), add to root
-//         rootComments.push(commentWithReplies);
-//       }
-//     }
-//   });
-
-//   return rootComments;
-// }
-
-// /**
-//  * Submits a new comment to WordPress
-//  * @param commentData Comment data to submit
-//  * @returns The created comment or null if there was an error
-//  */
-// export async function submitComment(
-//   commentData: CommentFormData
-// ): Promise<WordPressComment | null> {
-//   try {
-//     const response = await fetch("https://clanap.com/wp-json/wp/v2/comments", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(commentData),
-//     });
-
-//     if (!response.ok) {
-//       // Check for specific error messages
-//       const errorData = await response.json();
-//       throw new Error(
-//         errorData.message || `Failed to submit comment: ${response.status}`
-//       );
-//     }
-
-//     return await response.json();
-//   } catch (error) {
-//     console.error("Error submitting comment:", error);
-//     throw error;
-//   }
-// }
-
-// /**
-//  * Formats a comment date for display
-//  * @param dateString ISO date string from WordPress
-//  * @returns Formatted date string
-//  */
-// export function formatCommentDate(dateString: string): string {
-//   const date = new Date(dateString);
-//   const now = new Date();
-//   const diffMs = now.getTime() - date.getTime();
-//   const diffSecs = Math.floor(diffMs / 1000);
-//   const diffMins = Math.floor(diffSecs / 60);
-//   const diffHours = Math.floor(diffMins / 60);
-//   const diffDays = Math.floor(diffHours / 24);
-
-//   if (diffDays > 7) {
-//     // More than a week old, show full date
-//     return date.toLocaleDateString("en-US", {
-//       year: "numeric",
-//       month: "long",
-//       day: "numeric",
-//     });
-//   } else if (diffDays > 0) {
-//     // Less than a week old
-//     return `${diffDays} ${diffDays === 1 ? "day" : "days"} ago`;
-//   } else if (diffHours > 0) {
-//     return `${diffHours} ${diffHours === 1 ? "hour" : "hours"} ago`;
-//   } else if (diffMins > 0) {
-//     return `${diffMins} ${diffMins === 1 ? "minute" : "minutes"} ago`;
-//   } else {
-//     return "Just now";
-//   }
-// }
