@@ -155,29 +155,18 @@ const ServicesFAQ = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 mb-8">
             Can't find the answer you're looking for?
           </p>
-          <a
+          <motion.a
             href="/contact"
-            className="inline-flex items-center text-yellow-500 font-medium hover:text-yellow-600 transition-colors duration-300"
+            className="bg-transparent border-2 border-yellow-500 text-black px-8 py-3 rounded-full font-bold hover:bg-yellow-500 hover:text-white transition-colors duration-300"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            Contact our team
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 ml-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
-          </a>
+            Contact Our Team
+          </motion.a>
         </motion.div>
       </div>
     </section>
