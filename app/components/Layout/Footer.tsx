@@ -78,7 +78,7 @@ const Footer = () => {
     },
     {
       name: "Twitter",
-      href: "https://x.com/ClanapTech",
+      href: "https://twitter.com/ClanapTech",
       icon: <FaXTwitter size={20} />,
     },
     {
@@ -88,7 +88,7 @@ const Footer = () => {
     },
     {
       name: "Instagram",
-      href: "https://www.instagram.com/clanap_technologies/",
+      href: "https://instagram.com/clanap_technologies",
       icon: <FaInstagram size={20} />,
     },
   ];
