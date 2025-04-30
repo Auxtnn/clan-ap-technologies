@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Footer from "./Footer";
 import Header from "./Header";
+import { MobileMenuProvider } from "./MobileMenuContext";
 
 const PageLoader = dynamic(() => import("./PageLoader"), {
   ssr: false,
@@ -31,17 +32,19 @@ export const ClientLayoutWrapper = ({
       {isLoading ? (
         <PageLoader />
       ) : (
-        <div
-          className="flex flex-col min-h-screen"
-          style={{
-            opacity: isLoading ? 0 : 1,
-            transition: "opacity 500ms ease-in-out",
-          }}
-        >
-          <Header />
-          <div className="flex-grow">{children}</div>
-          <Footer />
-        </div>
+        <MobileMenuProvider>
+          <div
+            className="flex flex-col min-h-screen"
+            style={{
+              opacity: isLoading ? 0 : 1,
+              transition: "opacity 500ms ease-in-out",
+            }}
+          >
+            <Header />
+            <div className="flex-grow">{children}</div>
+            <Footer />
+          </div>
+        </MobileMenuProvider>
       )}
     </>
   );

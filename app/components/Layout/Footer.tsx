@@ -11,10 +11,12 @@ import {
   FaInstagram,
   FaArrowUp,
 } from "react-icons/fa6";
+import { useMobileMenu } from "./MobileMenuContext";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [showButton, setShowButton] = useState(false);
+  const { mobileMenuOpen } = useMobileMenu();
 
   // Show button when scrolling down
   useEffect(() => {
@@ -121,12 +123,12 @@ const Footer = () => {
 
   return (
     <footer className="bg-black text-white pt-16 pb-8 relative overflow-hidden">
-      {/* Return to top button */}
+      {/* Return to top button - hide when mobile menu is open */}
       <motion.button
         className="fixed bottom-8 right-8 bg-gradient-to-r from-amber-500 to-amber-600 text-white p-3 rounded-full shadow-lg z-50"
         onClick={scrollToTop}
         initial="hidden"
-        animate={showButton ? "visible" : "hidden"}
+        animate={showButton && !mobileMenuOpen ? "visible" : "hidden"}
         variants={buttonVariants}
         whileHover="hover"
         whileTap="tap"
