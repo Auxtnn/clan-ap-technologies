@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const OurStory = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
   console.log("Is section in view:", isInView); // Debugging line
 
