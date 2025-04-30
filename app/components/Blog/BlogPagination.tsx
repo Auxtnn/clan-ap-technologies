@@ -26,6 +26,14 @@ export function BlogPagination({
     setCurrentPage(initialPage);
   }, [initialPage]);
 
+  // Add effect to scroll to top when currentPage changes
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // For smooth scrolling
+    });
+  }, [currentPage]);
+
   const handlePageChange = (page: number) => {
     if (page === currentPage) return;
 
