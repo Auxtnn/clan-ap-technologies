@@ -11,6 +11,7 @@ import {
 import {
   Search,
   TestTube,
+  Bot,
   Zap,
   RefreshCw,
   Bug,
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
 // Service-specific data
 const serviceData = {
   title: "Automated Testing",
-  icon: <TestTube size={24} />,
+  icon: <Bot size={24} />,
   description:
     "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage and faster release cycles.",
   heroImage: "/images/hero/automated-testing.jpg",

@@ -25,6 +25,7 @@ import {
   Wrench,
   Play,
   PieChart,
+  Bot,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -179,7 +180,7 @@ const serviceData = {
       title: "Automated Testing",
       description:
         "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage.",
-      icon: <Search size={24} />,
+      icon: <Bot size={24} />,
       link: "/services/automated-testing",
     },
   ],

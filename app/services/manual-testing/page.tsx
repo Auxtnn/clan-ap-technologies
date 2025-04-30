@@ -23,6 +23,8 @@ import {
   CheckCircle,
   Users,
   BarChart3,
+  Hand,
+  Bot,
 } from "lucide-react";
 export const metadata: Metadata = {
   title: "Manual Testing Services - ClanAP Technologies",
@@ -33,7 +35,7 @@ export const metadata: Metadata = {
 // Service-specific data
 const serviceData = {
   title: "Manual Testing",
-  icon: <User size={24} />,
+  icon: <Hand size={24} />,
   description:
     "Leverage human intuition and exploratory testing to identify issues that automated tests might miss and validate the complete user experience of your application.",
   heroImage: "/images/hero/manual-testing.jpg",
@@ -119,7 +121,7 @@ const serviceData = {
       title: "Automated Testing",
       description:
         "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage.",
-      icon: <TestTube size={24} />,
+      icon: <Bot size={24} />,
       link: "/services/automated-testing",
     },
     {

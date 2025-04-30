@@ -22,15 +22,13 @@ export function BlogPagination({
   const [currentPage, setCurrentPage] = useState(initialPage);
 
   useEffect(() => {
-    // Update current page when initialPage changes (from URL)
     setCurrentPage(initialPage);
   }, [initialPage]);
 
-  // Add effect to scroll to top when currentPage changes
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth", // For smooth scrolling
+      behavior: "smooth",
     });
   }, [currentPage]);
 
@@ -41,7 +39,7 @@ export function BlogPagination({
     const params = new URLSearchParams(searchParams);
 
     if (page === 1) {
-      params.delete("page"); // Remove page parameter for page 1
+      params.delete("page");
     } else {
       params.set("page", page.toString());
     }
@@ -97,10 +95,8 @@ export function BlogPagination({
 
             {/* Page numbers */}
             {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
-              // Add proper type annotation for pageNum
               let pageNum: number;
 
-              // Logic to show 5 pages max with current page in the middle when possible
               if (totalPages <= 5) {
                 pageNum = i + 1;
               } else if (currentPage <= 3) {

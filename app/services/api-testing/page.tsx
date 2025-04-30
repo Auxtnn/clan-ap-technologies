@@ -17,6 +17,7 @@ import {
   Zap,
   FileText,
   TestTube,
+  Bot,
   Shield,
 } from "lucide-react";
 
@@ -108,7 +109,7 @@ const serviceData = {
       title: "Automated Testing",
       description:
         "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage.",
-      icon: <TestTube size={24} />,
+      icon: <Bot size={24} />,
       link: "/services/automated-testing",
     },
     {

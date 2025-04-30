@@ -11,14 +11,16 @@ import {
   Plug,
   Hand,
   Database,
+  Palette,
   Layout,
+  Bot,
 } from "lucide-react";
 
 // Detailed services information
 const services = [
   {
     id: "automated-testing",
-    icon: Search,
+    icon: Bot,
     title: "Automated Testing",
     description:
       "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage and faster release cycles.",
@@ -123,7 +125,7 @@ const services = [
   },
   {
     id: "ui-ux-testing",
-    icon: Layout,
+    icon: Palette,
     title: "UI/UX Testing",
     description:
       "Validate user interface design, accessibility, and overall user experience to ensure intuitive and engaging applications.",
