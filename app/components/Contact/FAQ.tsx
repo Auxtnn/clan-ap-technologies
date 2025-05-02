@@ -6,7 +6,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.1 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);

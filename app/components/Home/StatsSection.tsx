@@ -38,7 +38,7 @@ const stats: StatProps[] = [
 
 const StatsSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.3 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
   const controls = useAnimationControls();
 
   useEffect(() => {

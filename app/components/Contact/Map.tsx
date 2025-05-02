@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 
 const Map = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.3 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
 
   return (
     <section ref={sectionRef} className="py-12 bg-white relative">

@@ -83,7 +83,7 @@ const services = [
 
 const ServicesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.1 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
   return (
     <section className="md:py-20 py-10 bg-white" ref={sectionRef}>

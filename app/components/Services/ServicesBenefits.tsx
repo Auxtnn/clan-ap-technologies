@@ -15,7 +15,7 @@ interface ServiceBenefitsProps {
 
 const ServiceBenefits = ({ benefits }: ServiceBenefitsProps) => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.1 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
   return (
     <section

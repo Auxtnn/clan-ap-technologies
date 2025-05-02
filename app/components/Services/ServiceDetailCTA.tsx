@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const ServiceDetailCTA = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.3 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
 
   return (
     <section
