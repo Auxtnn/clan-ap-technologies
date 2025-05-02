@@ -121,7 +121,10 @@ const ServiceDetailCTA = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Link href="/contact">
+            <Link
+              href="https://calendly.com/manpreetbains_clan-ap_technologies/discovery-call"
+              target="_blank"
+            >
               <motion.button
                 className="bg-yellow-500 text-black px-8 py-4 rounded-full font-bold relative overflow-hidden group"
                 whileHover={{ scale: 1.05 }}
