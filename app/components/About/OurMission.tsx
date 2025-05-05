@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 
 const OurMission = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
   return (
     <section
@@ -25,7 +25,7 @@ const OurMission = () => {
           }}
           transition={{
             repeat: Infinity,
-            duration: 15,
+            duration: 10,
             ease: "easeInOut",
           }}
         />
@@ -36,7 +36,7 @@ const OurMission = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.3 }}
             className="mb-6"
           >
             <span className="inline-block py-1 px-3 bg-yellow-500/20 text-black rounded-full text-sm font-medium">

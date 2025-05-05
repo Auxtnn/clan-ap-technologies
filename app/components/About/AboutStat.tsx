@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 
 const Achievements = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
   const achievements = [
     {
@@ -79,7 +79,7 @@ const Achievements = () => {
           }}
           transition={{
             repeat: Infinity,
-            duration: 15,
+            duration: 10,
             ease: "easeInOut",
           }}
         />
@@ -90,7 +90,7 @@ const Achievements = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.3 }}
             className="mb-6"
           >
             <span className="inline-block py-1 px-3 bg-yellow-500/20 text-black rounded-full text-sm font-medium">
@@ -102,7 +102,7 @@ const Achievements = () => {
             className="text-3xl md:text-4xl font-bold mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
           >
             Clan-AP Technologies – Key Achievements
           </motion.h2>
@@ -111,7 +111,7 @@ const Achievements = () => {
             className="text-gray-600"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
           >
             Driving excellence in QA services through global delivery, advanced
             automation, and client-focused solutions
@@ -133,7 +133,7 @@ const Achievements = () => {
                   isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
                 }
                 transition={{
-                  duration: 0.5,
+                  duration: 0.3,
                   delay: 0.3 + index * 0.1,
                 }}
               >
