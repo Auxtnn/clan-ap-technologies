@@ -48,8 +48,6 @@ export async function POST(request: any) {
     `,
       });
 
-      const logoBase64 = "";
-
       // Send confirmation email to the user with enhanced design using Clan-AP Technologies branding
       await transporter.sendMail({
         from: mailOptions.from,
@@ -59,15 +57,15 @@ export async function POST(request: any) {
           <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; line-height: 1.6;">
             <!-- Clan-AP Technologies Brand Header -->
             <div style="text-align: center; margin-bottom: 30px; padding: 30px 20px; background: linear-gradient(to bottom, #F59E0B, #D97706); border-radius: 8px; color: white;">
-              <!-- Logo using base64 - replace with your actual logo -->
-              <div style="margin-bottom: 15px;">
-                <img src="${logoBase64}" alt="Clan-AP Technologies Logo" style="max-width: 200px; height: auto;">
+            
+              <div style="margin-bottom: 15px; color: white;">
+               Clan-AP Technologies
               </div>
               <p style="color: #FEF3C7; margin-top: 15px;">Quality Assurance Experts Dedicated to Exceptional Software Testing</p>
             </div>
       
             <!-- Content -->
-            <div style="background-color: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(217,119,6,0.12); padding: 30px; margin-bottom: 30px; border-top: 5px solid #F59E0B;">
+            <div style="background-color: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(217,119,6,0.12); padding: 30px; margin-bottom: 16px; border-top: 5px solid #F59E0B;">
               <h2 style="color: #92400E; margin: 0 0 20px 0; text-align: center;">We've received your message!</h2>
       
               <p style="color: #374151;">Hi ${body.name},</p>
@@ -95,7 +93,13 @@ export async function POST(request: any) {
       
             <!-- Footer -->
             <div style="border-top: 1px solid #E5E7EB; padding-top: 20px; text-align: center; margin-top: 30px;">
-              <div style="margin-bottom: 15px;">
+            <div style="margin-bottom: 15px;">
+            <a href="https://www.facebook.com/clanAPtechnologies" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/174/174848.png" alt="Facebook" style="width: 20px; height: 20px;"></a>
+            <a href="https://twitter.com/ClanapTech" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" style="width: 20px; height: 20px;"></a>
+            <a href="https://instagram.com/clanap_technologies" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" style="width: 20px; height: 20px;"></a>
+            <a href="https://www.linkedin.com/company/81815969/admin/dashboard" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" style="width: 20px; height: 20px;"></a>
+          </div>
+            <div style="margin-bottom: 15px;">
                 <a href="https://www.clanap.com" style="color: #92400E; text-decoration: none; font-size: 14px; font-weight: bold;">www.clanap.com</a>
               </div>
               <div style="margin-bottom: 15px;">

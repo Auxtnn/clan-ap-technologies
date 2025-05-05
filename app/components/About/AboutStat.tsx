@@ -2,10 +2,22 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+// Import icons from Lucide React
+import {
+  Award,
+  Rocket,
+  Globe,
+  Wrench,
+  Users,
+  Smartphone,
+  Timer,
+  Handshake,
+} from "lucide-react";
+import React from "react";
 
 const Achievements = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef(null);
+  const statsRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
   const isStatsInView = useInView(statsRef, {
     once: true,
@@ -17,49 +29,49 @@ const Achievements = () => {
       title: "Top Rated Plus on Upwork – Agency & Freelancer",
       description:
         "Both our agency and founder, Manpreet Bains, hold Top Rated Plus status on Upwork, a recognition earned through consistent delivery, long-term client relationships, and high satisfaction ratings.",
-      icon: "✅",
+      icon: Award,
     },
     {
       title: "Successfully Delivered 100+ QA Projects Across Industries",
       description:
         "Delivered full-cycle manual and automation testing for clients in HealthTech, FinTech, SaaS, and E-commerce domains across multiple platforms.",
-      icon: "🚀",
+      icon: Rocket,
     },
     {
       title: "Global Client Footprint",
       description:
         "Trusted by clients across the US, UK, Canada, and Europe for high-quality QA processes and reliable team engagement models.",
-      icon: "🌎",
+      icon: Globe,
     },
     {
       title: "Expertise in Modern Automation Tools",
       description:
         "Built and maintained robust automation frameworks using Playwright, Cypress, WebdriverIO, and API tools like Postman, tailored to both agile startups and mature enterprises.",
-      icon: "🛠️",
+      icon: Wrench,
     },
     {
       title: "Team of 10+ Skilled QA Engineers",
       description:
         "Scaled into a QA-driven company with a dedicated in-house team offering manual, automation, API, and performance testing, enabling parallel execution and faster delivery cycles.",
-      icon: "👥",
+      icon: Users,
     },
     {
       title: "End-to-End QA Ownership for Web & Mobile Projects",
       description:
         "Provided complete QA ownership from requirement analysis and test strategy to test execution, bug reporting, and CI/CD integration.",
-      icon: "📱",
+      icon: Smartphone,
     },
     {
       title: "Optimized Test Execution with CI Tools",
       description:
         "Leveraged tools like GitHub Actions, CircleCI, and AWS to automate over 2500 test cases in staging and pre-live environments, reducing regression cycles and boosting deployment confidence.",
-      icon: "⏱",
+      icon: Timer,
     },
     {
       title: "Client-Centric Communication & Transparent Delivery",
       description:
         "Maintained clear sprint-based reporting, collaborative workflows, and proactive QA support aligned with agile development processes.",
-      icon: "🤝",
+      icon: Handshake,
     },
   ];
 
@@ -158,8 +170,11 @@ const Achievements = () => {
                       <div className="w-1/2 pl-12">
                         <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
                           <div className="flex items-center mb-4">
-                            <div className="text-3xl mr-4">
-                              {achievement.icon}
+                            <div className="text-yellow-500 mr-4 bg-yellow-500/20 rounded-full p-2">
+                              {React.createElement(achievement.icon, {
+                                size: 24,
+                                className: "stroke-2",
+                              })}
                             </div>
                             <div>
                               <h3 className="font-bold text-xl">
@@ -179,13 +194,16 @@ const Achievements = () => {
                       <div className="w-1/2 pr-12 text-right">
                         <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 ml-auto">
                           <div className="flex items-center justify-end mb-4">
-                            <div className="text-3xl mr-4">
-                              {achievement.icon}
-                            </div>
                             <div>
                               <h3 className="font-bold text-xl">
                                 {achievement.title}
                               </h3>
+                            </div>
+                            <div className="text-yellow-500 ml-4 bg-yellow-500/20 rounded-full p-2">
+                              {React.createElement(achievement.icon, {
+                                size: 24,
+                                className: "stroke-2",
+                              })}
                             </div>
                           </div>
                           <p className="text-gray-600">
@@ -219,7 +237,12 @@ const Achievements = () => {
                   <div className="ml-6 bg-white rounded-xl shadow-sm p-5 border border-gray-100 flex-grow">
                     <div className="flex items-center mb-2">
                       <h3 className="font-bold text-lg">{achievement.title}</h3>
-                      <div className="text-2xl ml-2">{achievement.icon}</div>
+                      <div className="text-yellow-500 ml-2 bg-yellow-500/20 rounded-full p-2">
+                        {React.createElement(achievement.icon, {
+                          size: 20,
+                          className: "stroke-2",
+                        })}
+                      </div>
                     </div>
                     <p className="text-gray-600">{achievement.description}</p>
                   </div>

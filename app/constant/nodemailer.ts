@@ -1,16 +1,16 @@
 import nodemailer from "nodemailer";
 
 export const transporter = nodemailer.createTransport({
-  host: "smtp.zoho.com",
+  host: "smtp.gmail.com",
   secure: true,
   port: 465,
   auth: {
-    user: "info@damsa.network",
-    pass: "Fz5BEJTTTJSd",
+    user: "contact@clanap.com",
+    pass: "g66@SPyT7^f&",
   },
 });
 
 export const mailOptions = {
-  from: "info@damsa.network",
-  to: "info@damsa.network",
+  from: "contact@clanap.com",
+  to: "contact@clanap.com",
 };
