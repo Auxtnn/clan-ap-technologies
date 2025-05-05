@@ -2,6 +2,21 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import {
+  Award,
+  Rocket,
+  Globe,
+  Wrench,
+  Users,
+  Smartphone,
+  Timer,
+  Handshake,
+  Target,
+  Eye,
+  Lightbulb,
+  Compass,
+} from "lucide-react";
+import React from "react";
 
 const OurMission = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -66,7 +81,10 @@ const OurMission = () => {
             <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/5 rounded-full -mr-16 -mt-16" />
 
             <div className="relative z-10">
-              <div className="text-3xl mb-4">🎯</div>
+              <div className="inline-flex items-center justify-center w-14 h-14 mb-4 text-yellow-500 bg-yellow-500/20 rounded-full">
+                <Target size={35} className="stroke-2" />
+              </div>
+
               <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
               <p className="text-gray-600 mb-4">
                 To elevate software quality across the industry by providing
@@ -89,7 +107,9 @@ const OurMission = () => {
             <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/5 rounded-full -mr-16 -mt-16" />
 
             <div className="relative z-10">
-              <div className="text-3xl mb-4">🔭</div>
+              <div className="inline-flex items-center justify-center w-14 h-14 mb-4 text-yellow-500 bg-yellow-500/20 rounded-full">
+                <Lightbulb size={35} />
+              </div>
               <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
               <p className="text-gray-600 mb-4">
                 To become the global standard for software quality assurance by
