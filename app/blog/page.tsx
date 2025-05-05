@@ -1,6 +1,8 @@
 // app/blog/page.tsx
-import { fetchPosts } from "@/app/utils/blog";
-import { formatPostData } from "@/app/utils/blog";
+import {
+  enhancedFetchPosts,
+  prefetchAdjacentPages,
+} from "@/app/utils/enhanced-blog";
 import { Suspense } from "react";
 import { BlogPagination } from "../components/Blog/BlogPagination";
 import { BlogHero } from "../components";
@@ -14,16 +16,18 @@ interface BlogPageProps {
 export const revalidate = 60; // Revalidate page every 60 seconds
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
+  const params = await searchParams;
+  const currentPage = params?.page ? parseInt(params.page) : 1;
   const postsPerPage = 9;
 
   try {
-    // Modify your fetchPosts function to include headers and total count
-    const { posts, totalPosts } = await fetchPosts(currentPage, postsPerPage);
-    const formattedPosts = posts.map(formatPostData);
+    const { formattedPosts, totalPosts, totalPages } = await enhancedFetchPosts(
+      currentPage,
+      postsPerPage
+    );
 
-    // Calculate total pages based on the total number of posts from the API
-    const totalPages = Math.ceil(totalPosts / postsPerPage);
+    // Prefetch adjacent pages for faster navigation
+    prefetchAdjacentPages(currentPage, totalPages, postsPerPage);
 
     return (
       <main className="container mx-auto lg:w-11/12 px-4 py-10">

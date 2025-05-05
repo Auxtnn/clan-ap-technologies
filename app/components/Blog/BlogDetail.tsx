@@ -17,7 +17,7 @@ export function BlogDetail({ post }: BlogDetailProps) {
   });
 
   return (
-    <div className="max-w-3xl mx-auto py-16">
+    <div className="lg:w-11/12 mx-auto py-16">
       {/* Back to blog link */}
       <div className="mb-12">
         <Link
@@ -54,7 +54,7 @@ export function BlogDetail({ post }: BlogDetailProps) {
           <FeaturedMedia
             mediaId={post.featured_media}
             title={post.title.rendered}
-            className="w-full h-96 rounded-lg"
+            className="w-full rounded-lg"
             priority={true}
           />
         </div>
@@ -129,7 +129,7 @@ function EnhancedWordPressContent({ content }: { content: string }) {
               "text-yellow-600 hover:text-yellow-700 underline font-medium";
             break;
           case "img":
-            className = "my-10 rounded-lg shadow-md max-w-full h-auto";
+            className = "my-10 rounded-lg shadow-md w-full h-auto";
             break;
           case "code":
             className = "bg-gray-100 p-1 rounded text-sm font-mono";

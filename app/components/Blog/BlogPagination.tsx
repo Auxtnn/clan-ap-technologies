@@ -4,6 +4,11 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { PostSummary } from "@/app/types";
 import { BlogList } from "./BlogList";
 import { useEffect, useState } from "react";
+import { useBlogStore } from "@/app/store/blogstore";
+import {
+  enhancedFetchPosts,
+  prefetchAdjacentPages,
+} from "@/app/utils/enhanced-blog";
 
 interface BlogPaginationProps {
   posts: PostSummary[];
@@ -21,6 +26,18 @@ export function BlogPagination({
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(initialPage);
 
+  // Get state from global store
+  // const isLoading = useBlogStore((state) => state.isLoading);
+  const error = useBlogStore((state) => state.error);
+  const setPostsData = useBlogStore((state) => state.setPostsData);
+
+  // Initialize store with SSR data
+  useEffect(() => {
+    if (posts.length > 0) {
+      setPostsData(posts, posts.length, totalPages, initialPage);
+    }
+  }, [posts, totalPages, initialPage, setPostsData]);
+
   useEffect(() => {
     setCurrentPage(initialPage);
   }, [initialPage]);
@@ -32,20 +49,53 @@ export function BlogPagination({
     });
   }, [currentPage]);
 
-  const handlePageChange = (page: number) => {
+  const handlePageChange = async (page: number) => {
     if (page === currentPage) return;
 
-    setCurrentPage(page);
-    const params = new URLSearchParams(searchParams);
+    try {
+      // Update UI immediately for better UX
+      setCurrentPage(page);
 
-    if (page === 1) {
-      params.delete("page");
-    } else {
-      params.set("page", page.toString());
+      // Update URL
+      const params = new URLSearchParams(searchParams);
+      if (page === 1) {
+        params.delete("page");
+      } else {
+        params.set("page", page.toString());
+      }
+      router.push(`${pathname}?${params.toString()}`);
+
+      // Fetch new data from client-side if not already cached
+      const { formattedPosts, totalPages: newTotalPages } =
+        await enhancedFetchPosts(page, 9);
+
+      // Prefetch adjacent pages
+      prefetchAdjacentPages(page, newTotalPages, 9);
+    } catch (error) {
+      console.error("Error changing page:", error);
+      // Error is handled by the store
     }
-
-    router.push(`${pathname}?${params.toString()}`);
   };
+
+  if (error) {
+    return (
+      <div className="bg-red-50 border border-red-200 text-red-700 p-6 rounded-lg text-center">
+        <h2 className="text-lg font-bold mb-2">Failed to load blog posts</h2>
+        <p>
+          Please try again later or contact support if the problem persists.
+        </p>
+      </div>
+    );
+  }
+
+  // if (isLoading) {
+  //   return (
+  //     <div className="text-center py-12">
+  //       <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-yellow-500 mb-4"></div>
+  //       <p className="text-gray-500">Loading blog posts...</p>
+  //     </div>
+  //   );
+  // }
 
   if (!posts.length && totalPages > 0) {
     return (

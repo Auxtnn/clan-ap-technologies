@@ -1,4 +1,8 @@
-import { fetchPostBySlug, fetchFeaturedMedia } from "@/app/utils/blog";
+// app/blog/[slug]/page.tsx
+import {
+  enhancedFetchPostBySlug,
+  enhancedFetchFeaturedMedia,
+} from "@/app/utils/enhanced-blog";
 import { BlogDetail } from "@/app/components/Blog/BlogDetail";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
@@ -14,7 +18,7 @@ export const revalidate = 60;
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const post = await fetchPostBySlug(params.slug);
+  const post = await enhancedFetchPostBySlug(params.slug);
 
   if (!post) {
     return {
@@ -41,7 +45,7 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   try {
-    const post = await fetchPostBySlug(params.slug);
+    const post = await enhancedFetchPostBySlug(params.slug);
 
     if (!post) {
       notFound();
@@ -50,7 +54,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     // Fetch featured image if available
     let featuredImage = null;
     if (post.featured_media) {
-      featuredImage = await fetchFeaturedMedia(post.featured_media);
+      featuredImage = await enhancedFetchFeaturedMedia(post.featured_media);
     }
 
     return (

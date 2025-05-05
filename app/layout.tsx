@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ClientLayoutWrapper } from "./components/Layout/LayoutWrapper";
+import { StoreHydration } from "./providers/StoreHydration";
 
 const font = Space_Grotesk({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://clanap.com"),
   title: "Clan-AP Technologies | Quality Assurance Experts",
   description:
     "Professional QA services including manual testing, automation, API testing, and performance testing for web and mobile applications.",
@@ -53,6 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${font.className} max-w-[2520px] min-h-screen`}>
+        <StoreHydration />
         <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </body>
     </html>

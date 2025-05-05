@@ -4,6 +4,8 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { fetchFeaturedMedia } from "@/app/utils/blog";
+import { useBlogStore } from "@/app/store/blogstore";
+import { enhancedFetchFeaturedMedia } from "@/app/utils/enhanced-blog";
 
 interface FeaturedMediaProps {
   mediaId: number;
@@ -18,33 +20,46 @@ export function FeaturedMedia({
   className = "",
   priority = false,
 }: FeaturedMediaProps) {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [mediaUrl, setMediaUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+  const cachedMedia = useBlogStore((state) => state.getMedia(mediaId));
 
   useEffect(() => {
-    const loadImage = async () => {
-      if (!mediaId) {
-        setLoading(false);
-        return;
-      }
+    if (!mediaId) {
+      setIsLoading(false);
+      return;
+    }
 
-      try {
-        setLoading(true);
-        const url = await fetchFeaturedMedia(mediaId);
-        setImageUrl(url);
-      } catch (err) {
-        console.error("Failed to fetch featured media:", err);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
+    // If media is already in cache, use it
+    if (cachedMedia !== undefined) {
+      setMediaUrl(cachedMedia);
+      setIsLoading(false);
+      return;
+    }
+
+    let isMounted = true;
+
+    enhancedFetchFeaturedMedia(mediaId)
+      .then((url) => {
+        if (isMounted) {
+          setMediaUrl(url);
+          setIsLoading(false);
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setError(true);
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
     };
+  }, [mediaId, cachedMedia]);
 
-    loadImage();
-  }, [mediaId]);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className={`bg-gray-100 animate-pulse ${className}`}>
         <div className="w-full h-full flex items-center justify-center">
@@ -54,7 +69,7 @@ export function FeaturedMedia({
     );
   }
 
-  if (error || !imageUrl) {
+  if (error || !mediaUrl) {
     return (
       <div className={`bg-yellow-500 bg-opacity-10 ${className}`}>
         <div className="w-full h-full flex items-center justify-center text-yellow-500 font-bold">
@@ -66,16 +81,21 @@ export function FeaturedMedia({
 
   return (
     <div
-      className={`relative w-full overflow-hidden ${className}`}
+      className={`relative w-full overflow-hidden h-full ${className}`}
       style={{ paddingBottom: "60%" }}
     >
       <Image
-        src={imageUrl}
-        alt={title}
+        src={mediaUrl}
+        alt={title || "blog post"}
         fill
+        onLoad={() => setIsLoading(false)}
         className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         priority={priority}
+        onError={() => {
+          setError(true);
+          setIsLoading(false);
+        }}
       />
     </div>
   );
