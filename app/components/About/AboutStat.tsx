@@ -5,7 +5,12 @@ import { motion, useInView } from "framer-motion";
 
 const Achievements = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const isStatsInView = useInView(statsRef, {
+    once: true,
+    amount: 0.2,
+  });
 
   const achievements = [
     {
@@ -225,19 +230,19 @@ const Achievements = () => {
         </div>
 
         {/* Statistics */}
-        <div className="mt-20">
+        <div className="mt-20" ref={statsRef}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
                 className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 text-center relative overflow-hidden"
-                // initial={{ opacity: 0, y: 30 }}
-                // animate={
-                //   isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
-                // }
+                initial={{ opacity: 0, y: 30 }}
+                animate={
+                  isStatsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
+                }
                 transition={{
-                  duration: 0.5,
-                  delay: 0.8 + index * 0.1,
+                  duration: 0.4,
+                  delay: 0.1 + index * 0.05,
                 }}
               >
                 <div className="absolute -right-5 -top-5 w-20 h-20 bg-yellow-500/10 rounded-full"></div>
