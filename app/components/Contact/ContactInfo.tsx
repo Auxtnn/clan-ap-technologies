@@ -74,7 +74,7 @@ const ContactInfo = () => {
           />
         </svg>
       ),
-      link: "https://maps.google.com",
+      link: "https://www.google.com/maps/place/Clan-AP+Technologies/@30.7569417,76.6163664,17z/data=!3m1!4b1!4m6!3m5!1s0x390ffb6c8296b563:0xd516ea8f77e9fc5d!8m2!3d30.7569371!4d76.6189413!16s%2Fg%2F11pzx7jzy3?entry=ttu&g_ep=EgoyMDI1MDQzMC4xIKXMDSoASAFQAw%3D%3D",
     },
   ];
 
