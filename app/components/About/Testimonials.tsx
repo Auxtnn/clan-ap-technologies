@@ -82,7 +82,7 @@ const Testimonials = () => {
         {/* Testimonials carousel */}
         <div className="max-w-5xl mx-auto">
           <div className="relative overflow-hidden">
-            <AnimatePresence custom={direction} mode="wait">
+            <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={currentIndex}
                 custom={direction}
@@ -97,12 +97,13 @@ const Testimonials = () => {
                 exit={{
                   opacity: 0,
                   x: direction === 1 ? -200 : 200,
+                  position: "absolute",
                 }}
                 transition={{
                   x: { type: "spring", stiffness: 300, damping: 30 },
                   opacity: { duration: 0.5 },
                 }}
-                className="bg-white rounded-xl shadow-sm overflow-hidden"
+                className="bg-white rounded-xl shadow-sm w-full"
               >
                 <div className="grid grid-cols-1 md:grid-cols-2">
                   {/* Left side - Content */}
@@ -172,6 +173,7 @@ const Testimonials = () => {
                 className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center focus:outline-none text-black"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                aria-label="Previous testimonial"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -193,6 +195,7 @@ const Testimonials = () => {
                 className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center focus:outline-none text-black"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                aria-label="Next testimonial"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -228,25 +231,6 @@ const Testimonials = () => {
             ))}
           </div>
         </div>
-
-        {/* Client logos */}
-        <motion.div
-          className="mt-20 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
-          <h3 className="text-xl font-bold mb-8">Trusted by Top Companies</h3>
-
-          <div className="flex flex-wrap justify-center items-center gap-12 opacity-60">
-            {/* Replace with actual client logos */}
-            <div className="w-32 h-10 bg-gray-300 rounded"></div>
-            <div className="w-32 h-10 bg-gray-300 rounded"></div>
-            <div className="w-32 h-10 bg-gray-300 rounded"></div>
-            <div className="w-32 h-10 bg-gray-300 rounded"></div>
-            <div className="w-32 h-10 bg-gray-300 rounded"></div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
