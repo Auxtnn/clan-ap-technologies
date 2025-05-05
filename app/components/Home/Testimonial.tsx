@@ -60,7 +60,7 @@ const testimonials: Testimonial[] = [
 const TestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [direction, setDirection] = useState(1);
+  // const [direction, setDirection] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
   const carouselContainerRef = useRef<HTMLDivElement>(null);
@@ -92,7 +92,7 @@ const TestimonialsSection = () => {
     if (!isAutoPlaying) return;
 
     autoPlayRef.current = setInterval(() => {
-      setDirection(1);
+      // setDirection(1);
       setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
     }, 6000);
 
@@ -105,7 +105,7 @@ const TestimonialsSection = () => {
 
   const handlePrevious = () => {
     setIsAutoPlaying(false);
-    setDirection(-1);
+    // setDirection(-1);
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? totalSlides - 1 : prevIndex - 1
     );
@@ -113,7 +113,7 @@ const TestimonialsSection = () => {
 
   const handleNext = () => {
     setIsAutoPlaying(false);
-    setDirection(1);
+    // setDirection(1);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
   };
 
@@ -125,21 +125,7 @@ const TestimonialsSection = () => {
     setIsAutoPlaying(true);
   };
 
-  // Modified variants with smaller x distance and better transition properties
-  const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 200 : -200,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      x: direction > 0 ? -200 : 200,
-      opacity: 0,
-    }),
-  };
+  // No need for animation variants anymore
 
   // Get current testimonials to show based on device
   const getCurrentTestimonials = () => {
@@ -189,66 +175,52 @@ const TestimonialsSection = () => {
             className="overflow-hidden mx-auto bg-white"
             style={{ height: isMobile ? "450px" : "350px" }}
           >
-            <AnimatePresence custom={direction} initial={false}>
-              <motion.div
-                key={currentIndex}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 },
-                }}
-                className="flex flex-col lg:flex-row gap-6 h-full"
-              >
-                {getCurrentTestimonials().map((testimonial) => (
-                  <div
-                    key={testimonial.id}
-                    className="flex-1 bg-white border border-gray-100 rounded-xl shadow-sm p-6 transition-all duration-300 flex flex-col h-full"
-                  >
-                    {/* Highlight badge */}
-                    <div className="mb-4">
-                      <span className="inline-block py-1 px-3 bg-yellow-500/10 text-yellow-600 rounded-full text-xs font-medium">
-                        {testimonial.highlight}
-                      </span>
-                    </div>
+            <div className="flex flex-col lg:flex-row gap-6 h-full">
+              {getCurrentTestimonials().map((testimonial) => (
+                <div
+                  key={testimonial.id}
+                  className="flex-1 bg-white border border-gray-100 rounded-xl shadow-sm p-6 flex flex-col h-full"
+                >
+                  {/* Highlight badge */}
+                  <div className="mb-4">
+                    <span className="inline-block py-1 px-3 bg-yellow-500/10 text-yellow-600 rounded-full text-xs font-medium">
+                      {testimonial.highlight}
+                    </span>
+                  </div>
 
-                    {/* Quote - with flex-grow to push author to bottom */}
-                    <div className="relative flex-grow overflow-y-auto">
-                      <div className="absolute -top-2 -left-2 text-4xl text-yellow-500 opacity-20">
-                        "
-                      </div>
-                      <p className="text-gray-700 mb-4 relative pl-3">
-                        {testimonial.quote}
-                      </p>
+                  {/* Quote - with flex-grow to push author to bottom */}
+                  <div className="relative flex-grow overflow-y-auto">
+                    <div className="absolute -top-2 -left-2 text-4xl text-yellow-500 opacity-20">
+                      "
                     </div>
+                    <p className="text-gray-700 mb-4 relative pl-3">
+                      {testimonial.quote}
+                    </p>
+                  </div>
 
-                    {/* Author info - positioned at bottom */}
-                    <div className="flex items-center mt-4">
-                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-                        <img
-                          src={testimonial.image}
-                          alt={testimonial.author}
-                          className="w-full h-full object-cover"
-                          width={40}
-                          height={40}
-                        />
+                  {/* Author info - positioned at bottom */}
+                  <div className="flex items-center mt-4">
+                    <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.author}
+                        className="w-full h-full object-cover"
+                        width={40}
+                        height={40}
+                      />
+                    </div>
+                    <div className="ml-3">
+                      <div className="font-bold text-sm">
+                        {testimonial.author}
                       </div>
-                      <div className="ml-3">
-                        <div className="font-bold text-sm">
-                          {testimonial.author}
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          {testimonial.role}, {testimonial.company}
-                        </div>
+                      <div className="text-xs text-gray-500">
+                        {testimonial.role}, {testimonial.company}
                       </div>
                     </div>
                   </div>
-                ))}
-              </motion.div>
-            </AnimatePresence>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Progress bar */}
@@ -323,7 +295,7 @@ const TestimonialsSection = () => {
               key={index}
               onClick={() => {
                 setIsAutoPlaying(false);
-                setDirection(index > currentIndex ? 1 : -1);
+                // setDirection(index > currentIndex ? 1 : -1);
                 setCurrentIndex(index);
               }}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
