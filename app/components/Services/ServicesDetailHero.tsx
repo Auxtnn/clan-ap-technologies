@@ -151,7 +151,7 @@ const ServiceDetailHero = ({
                 </motion.button>
               </Link>
 
-              <a href="#case-study">
+              <a href="/case-studies">
                 <motion.button
                   className="border-2 border-yellow-500 bg-transparent px-8 py-4 rounded-full font-bold hover:bg-yellow-500 hover:text-white transition-all duration-300"
                   whileHover={{ scale: 1.02 }}
