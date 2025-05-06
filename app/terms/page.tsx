@@ -295,7 +295,7 @@ export default function TermsOfService() {
                         href="mailto:contact@clanap.com"
                         className="text-yellow-600 hover:text-yellow-700"
                       >
-                        support@clanaptech.com
+                        contact@clanap.com
                       </a>
                     </div>
                   </div>
