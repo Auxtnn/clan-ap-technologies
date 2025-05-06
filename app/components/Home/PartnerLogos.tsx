@@ -16,6 +16,7 @@ const PartnerLogos = () => {
     { name: "Joules", path: "/images/partners/joules.png" },
     { name: "Scaura", path: "/images/partners/scaura.png" },
     { name: "Bittewallet", path: "/images/partners/bittewallet.png" },
+    { name: "Passes", path: "/images/partners/passes.svg" },
     { name: "Cinelytic", path: "/images/partners/cinelytic.png" },
     { name: "Steerhealth", path: "/images/partners/steer-health.png" },
     { name: "Dashy", path: "/images/partners/dashy.png" },

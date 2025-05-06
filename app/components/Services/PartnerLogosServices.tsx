@@ -30,6 +30,7 @@ const PartnerLogosServices = () => {
     { name: "Scaura", path: "/images/partners/scaura.png" },
     { name: "Bittewallet", path: "/images/partners/bittewallet.png" },
     { name: "Cinelytic", path: "/images/partners/cinelytic.png" },
+    { name: "Passes", path: "/images/partners/passes.svg" },
     { name: "Steerhealth", path: "/images/partners/steer-health.png" },
     { name: "Dashy", path: "/images/partners/dashy.png" },
     { name: "Flatirons", path: "/images/partners/flatirons.png" },
