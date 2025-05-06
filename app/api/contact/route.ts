@@ -58,7 +58,7 @@ export async function POST(request: any) {
             <!-- Clan-AP Technologies Brand Header -->
             <div style="text-align: center; margin-bottom: 30px; padding: 30px 20px; background: linear-gradient(to bottom, #F59E0B, #D97706); border-radius: 8px; color: white;">
             
-              <div style="margin-bottom: 15px; color: white;">
+              <div style="margin-bottom: 15px; font-size: 24px; font-weight:bold; color: white;">
                Clan-AP Technologies
               </div>
               <p style="color: #FEF3C7; margin-top: 15px;">Quality Assurance Experts Dedicated to Exceptional Software Testing</p>
