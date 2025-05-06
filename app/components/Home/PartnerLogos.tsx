@@ -86,7 +86,7 @@ const PartnerLogos = () => {
   );
 
   return (
-    <div className="pt-12 mt-6 border-t border-gray-100">
+    <div className="pb-12 mt-6 border-t border-gray-100">
       <p className="text-center text-gray-500 text-sm mb-8">
         Trusted by innovative companies worldwide
       </p>

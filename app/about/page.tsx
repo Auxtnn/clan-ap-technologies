@@ -7,6 +7,7 @@ import {
   TestimonialsSection,
   OurTeam,
   Achievements,
+  PartnerLogos,
 } from "../components";
 
 export const metadata: Metadata = {
@@ -25,6 +26,8 @@ export default function AboutPage() {
       <OurTeam />
       <Achievements />
       <TestimonialsSection />
+
+      <PartnerLogos />
     </main>
   );
 }

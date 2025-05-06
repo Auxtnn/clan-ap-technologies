@@ -18,13 +18,14 @@ const stats: StatProps[] = [
     delay: 0.1,
   },
   {
-    value: 100,
+    value: 75,
     label: "Projects Completed",
+    suffix: "+",
     delay: 0.1,
   },
   {
-    value: 15000,
-    label: "Testing Hours",
+    value: 25000,
+    label: "Test Cases Automated",
     suffix: "+",
     delay: 0.5,
   },

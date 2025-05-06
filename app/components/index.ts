@@ -31,9 +31,24 @@ import Testimonials from "./About/Testimonials";
 import OurTeam from "./About/Team";
 import Achievements from "./About/AboutStat";
 import BlogHero from "./Blog/BlogHero";
-
+import CaseStudyHeroMain from "./Case-Study/CaseStudyHeroMain";
+import CaseStudyCTA from "./Case-Study/CaseStudyCTA";
+import { Solution } from "./Case-Study/SolutionItem";
+import { Testimonial as CaseStudyTestimonials } from "./Case-Study/Testimonial";
+import { Benefit } from "./Case-Study/BenefitItem";
+import CaseStudyHeading from "./Case-Study/CaseStudyHeading";
+import { StatItem } from "./Case-Study/StatItem";
+import PartnerLogos from "./Home/PartnerLogos";
 export {
+  PartnerLogos,
+  CaseStudyTestimonials,
+  StatItem,
+  CaseStudyHeading,
+  Solution,
+  Benefit,
   BlogHero,
+  CaseStudyCTA,
+  CaseStudyHeroMain,
   Achievements,
   OurTeam,
   Testimonials,

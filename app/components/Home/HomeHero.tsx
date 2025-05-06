@@ -13,7 +13,6 @@ import Particles from "react-tsparticles";
 import Engine from "react-tsparticles";
 import { Container } from "tsparticles-engine";
 
-// Terminal line component with TypeScript interface
 interface TerminalLineProps {
   index: number;
   isActive: boolean;
@@ -74,9 +73,7 @@ const TerminalLine = ({ index, isActive }: TerminalLineProps) => {
 const HeroSection = () => {
   const targetRef = useRef<HTMLElement | null>(null);
 
-  // Updated particles initialization with proper types
   const particlesInit = useCallback(async (engine: Engine) => {
-    // This is the correct way to initialize tsparticles
     await loadSlim(engine);
   }, []);
 

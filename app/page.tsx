@@ -6,6 +6,7 @@ import {
   StatsSection,
   HeroSection,
   WhyChooseUs,
+  PartnerLogos,
 } from "./components";
 
 export const metadata: Metadata = {
@@ -22,6 +23,8 @@ export default function Home() {
       <WhyChooseUs />
       <StatsSection />
       <TestimonialsSection />
+
+      <PartnerLogos />
       <CTASection />
     </main>
   );

@@ -140,7 +140,7 @@ const TestimonialsSection = () => {
   };
 
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
+    <section className="pt-10 bg-white relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div className="h-full w-full bg-grid-pattern" />
@@ -305,9 +305,6 @@ const TestimonialsSection = () => {
             />
           ))}
         </div>
-
-        {/* Partner logos */}
-        <PartnerLogos />
       </div>
     </section>
   );

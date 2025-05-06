@@ -64,13 +64,21 @@ const ContactForm = () => {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      setSubmitStatus({
-        success: false,
-        error: true,
-        message:
-          error.message ||
-          "There was an error sending your message. Please try again.",
-      });
+      if (error instanceof Error) {
+        setSubmitStatus({
+          success: false,
+          error: true,
+          message:
+            error.message ||
+            "There was an error sending your message. Please try again.",
+        });
+      } else {
+        setSubmitStatus({
+          success: false,
+          error: true,
+          message: "An unknown error occurred. Please try again.",
+        });
+      }
     } finally {
       setIsSubmitting(false);
 
