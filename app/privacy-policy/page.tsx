@@ -270,7 +270,7 @@ export default function PrivacyPolicy() {
                 </ul>
                 <p className="text-gray-700">
                   To exercise these rights, please contact us at
-                  support@clanaptech.com.
+                  contact@clanap.com.
                 </p>
               </section>
 
@@ -330,10 +330,10 @@ export default function PrivacyPolicy() {
                     <span className="text-xl mr-3">📧</span>
                     <div>
                       <a
-                        href="mailto:support@clanap.com"
+                        href="mailto:contact@clanap.com"
                         className="text-yellow-600 hover:text-yellow-700"
                       >
-                        support@clanaptech.com
+                        contact@clanap.com
                       </a>
                     </div>
                   </div>
@@ -375,7 +375,7 @@ export default function PrivacyPolicy() {
                   href="mailto:contact@clanap.com"
                   className="text-yellow-600 hover:text-yellow-700"
                 >
-                  support@clanaptech.com
+                  contact@clanap.com
                 </a>
               </div>
             </div>
