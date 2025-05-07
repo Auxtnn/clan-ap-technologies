@@ -320,7 +320,7 @@ export const CaseStudyPage = () => {
       title: "Establishing Robust QA Processes for a Restaurant POS System",
       subtitle:
         "How Clan-AP Technologies implemented comprehensive testing strategies to improve software reliability and enhance user experience for the Loving Loyalty platform",
-      category: "Restaurant Technology",
+      category: "POS System",
 
       challenges: [
         "Frequent production bugs and system failures",
