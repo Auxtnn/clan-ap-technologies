@@ -148,7 +148,7 @@ const ServicesCTA = () => {
               </motion.button>
             </Link>
 
-            <Link href="#">
+            <Link href="/case-studies">
               <motion.button
                 className="border-2 border-white text-white bg-transparent px-8 py-4 rounded-full font-bold hover:bg-white hover:text-black transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
