@@ -41,8 +41,8 @@ export const CaseStudyHeading: React.FC<CaseStudyHeadingProps> = ({
       {/* Pattern background */}
       {backgroundVariant === "pattern" && (
         <div className="absolute inset-0 overflow-hidden opacity-5 pointer-events-none">
-          <div className="absolute right-0 top-50 w-64 h-64 rounded-full bg-yellow-500"></div>
-          <div className="absolute md:block hidden left-20 bottom-0 w-32 h-32 rounded-full bg-black"></div>
+          <div className="absolute md:block hidden right-0 top-50 w-64 h-64 rounded-full bg-yellow-500"></div>
+          <div className="absolute md:block  lg:bottom-[40%] hidden left-20  w-32 h-32 rounded-full bg-black"></div>
         </div>
       )}
 

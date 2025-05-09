@@ -11,6 +11,10 @@ import {
 import {
   Clock,
   Shield,
+  Database,
+  ShieldCheck,
+  LineChart,
+  Lock,
   Users,
   CheckCircle,
   Zap,
@@ -207,7 +211,7 @@ export const CaseStudyPage = () => {
       ],
       testimonial: {
         quote:
-          "We express our sincere appreciation for selecting Clan-APTechnologies as your trusted partner. Your confidence in our software testing services is invaluable, and we are committed tosurpassing your expectations. We look forward to a continued collaboration marked by mutual success and growth.",
+          "We express our sincere appreciation for selecting Clan-AP Technologies as your trusted partner. Your confidence in our software testing services is invaluable, and we are committed to surpassing your expectations. We look forward to a continued collaboration marked by mutual success and growth.",
       },
     },
     {
@@ -372,13 +376,13 @@ export const CaseStudyPage = () => {
         },
         {
           icon: "shield",
-          value: "25,000+",
-          label: "Automated test cases maintained",
+          value: "900+",
+          label: "Automated test cases",
         },
         {
           icon: "chart",
-          value: "40,000+",
-          label: "Testing hours invested",
+          value: "Remarkable",
+          label: "Rise in user happiness and experience quality",
         },
       ],
       benefits: [
@@ -456,6 +460,80 @@ export const CaseStudyPage = () => {
         },
       ],
     },
+
+    {
+      id: "courier-project",
+      title:
+        "Enhancing Data Reliability and Platform Security for a Freight Logistics Platform",
+      subtitle:
+        "How Clan-AP Technologies optimized backend performance and fortified application security to support reliable courier operations and safeguard sensitive logistics data.",
+      category: "Freight & Courier Software",
+
+      challenges: [
+        "Inaccurate delivery tracking due to data inconsistency",
+        "Performance issues from unoptimized database queries",
+        "Exposure to potential security threats in customer and vendor data modules",
+        "Lack of secure access controls and audit logging",
+      ],
+      background:
+        "A leading freight and courier service platform handling thousands of deliveries daily was encountering backend challenges. Data inconsistencies in shipment status, route updates, and billing records were creating operational inefficiencies. Moreover, the absence of structured security testing left the platform vulnerable to breaches and data leaks.",
+      backgroundDetails:
+        "Clan-AP Technologies was engaged to conduct end-to-end database validation and implement security testing strategies to ensure fast, accurate, and secure delivery management.",
+      solutions: [
+        {
+          icon: "database",
+          title: "Database Testing",
+          description:
+            "Implemented a robust strategy to validate and optimize data operations across the platform, including optimization of complex delivery and tracking queries for performance, ensuring consistency in shipment updates, invoicing, and route planning, and applying data constraints, indexing, and transactional validation to maintain integrity.",
+        },
+        {
+          icon: "shield",
+          title: "Security Testing",
+          description:
+            "Performed thorough security validation to secure the platform by assessing API endpoints and access flows for security gaps, conducting SQL injection, XSS, and session management testing, and ensuring encryption of sensitive data like addresses, billing info, and user credentials.",
+        },
+        {
+          icon: "refresh",
+          title: "API-Database Sync Validation",
+          description:
+            "Verified data consistency between mobile/web user interfaces and backend services via API-layer validation.",
+        },
+        {
+          icon: "lock",
+          title: "Audit Logging & Access Control",
+          description:
+            "Implemented secure access layers for roles (admin, driver, vendor) and ensured traceable data access logs for accountability.",
+        },
+      ],
+      stats: [
+        {
+          icon: "clock",
+          value: "50%",
+          label: "Reduction in delivery update failures due to database issues",
+        },
+        {
+          icon: "zap",
+          value: "65%",
+          label:
+            "Boost in API response and data fetch time through query tuning",
+        },
+        {
+          icon: "shieldCheck",
+          value: "85%",
+          label: "Elimination of major security vulnerabilities",
+        },
+        {
+          icon: "lineChart",
+          value: "99%",
+          label: "Data consistency across delivery lifecycle maintained",
+        },
+      ],
+
+      testimonial: {
+        quote:
+          "Partnering with Clan-AP Technologies helped us eliminate backend delays and security risks. Their structured approach enabled our operations team to confidently manage daily deliveries at scale with accurate and secure data handling.",
+      },
+    },
   ];
 
   // Helper function to render the appropriate Lucide icon
@@ -488,6 +566,16 @@ export const CaseStudyPage = () => {
         return <Code className="h-6 w-6" />;
       case "refresh":
         return <RefreshCcw className="h-6 w-6" />;
+      case "database":
+        return <Database className="h-6 w-6" />;
+      case "shieldCheck":
+        return <ShieldCheck className="h-6 w-6" />;
+      case "lineChart":
+        return <LineChart className="h-6 w-6" />;
+      case "lock":
+        return <Lock className="h-6 w-6" />;
+      case "zap":
+        return <Zap className="h-6 w-6" />;
       case "eye":
         return <Eye className="h-6 w-6" />;
       case "sparkles":
