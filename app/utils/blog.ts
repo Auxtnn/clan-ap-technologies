@@ -103,7 +103,7 @@ export function decodeHtmlEntities(html: string): string {
  */
 export async function fetchPosts(page = 1, perPage = 10) {
   const response = await fetch(
-    `https://clanap.com/wp-json/wp/v2/posts?page=${page}&per_page=${perPage}`,
+    `https://blog.clanap.com/wp-json/wp/v2/posts?page=${page}&per_page=${perPage}`,
     {
       next: { revalidate: 60 }, // Revalidate every 60 seconds
     }
@@ -134,7 +134,7 @@ export async function fetchPosts(page = 1, perPage = 10) {
  */
 export async function fetchPostBySlug(slug: string) {
   const response = await fetch(
-    `https://clanap.com/wp-json/wp/v2/posts?slug=${slug}`,
+    `https://blog.clanap.com/wp-json/wp/v2/posts?slug=${slug}`,
     {
       next: { revalidate: 60 },
     }
@@ -162,7 +162,7 @@ export async function fetchFeaturedMedia(mediaId: number) {
   if (!mediaId) return null;
 
   const response = await fetch(
-    `https://clanap.com/wp-json/wp/v2/media/${mediaId}`,
+    `https://blog.clanap.com/wp-json/wp/v2/media/${mediaId}`,
     {
       next: { revalidate: 3600 }, // Cache for longer since images don't change often
     }
@@ -228,7 +228,7 @@ export async function fetchSearchResults(
 
   // Use WordPress REST API's search parameter
   const response = await fetch(
-    `https://clanap.com/wp-json/wp/v2/posts?search=${encodedQuery}&page=${page}&per_page=${perPage}`,
+    `https://blog.clanap.com/wp-json/wp/v2/posts?search=${encodedQuery}&page=${page}&per_page=${perPage}`,
     {
       next: { revalidate: 60 }, // Revalidate every 60 seconds
     }

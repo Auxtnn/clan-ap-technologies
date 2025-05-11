@@ -61,7 +61,7 @@ export async function enhancedFetchPosts(page = 1, perPage = 10) {
     store.clearError();
 
     const response = await fetchWithRetry(
-      `https://clanap.com/wp-json/wp/v2/posts?page=${page}&per_page=${perPage}`,
+      `https://blog.clanap.com/wp-json/wp/v2/posts?page=${page}&per_page=${perPage}`,
       { next: { revalidate: 60 } }
     );
 
@@ -118,7 +118,7 @@ export async function enhancedFetchPostBySlug(slug: string) {
     store.clearError();
 
     const response = await fetchWithRetry(
-      `https://clanap.com/wp-json/wp/v2/posts?slug=${slug}`,
+      `https://blog.clanap.com/wp-json/wp/v2/posts?slug=${slug}`,
       { next: { revalidate: 60 } }
     );
 
@@ -165,7 +165,7 @@ export async function enhancedFetchFeaturedMedia(mediaId: number) {
   try {
     // No need to set global loading state for media to avoid UI flicker
     const response = await fetchWithRetry(
-      `https://clanap.com/wp-json/wp/v2/media/${mediaId}`,
+      `https://blog.clanap.com/wp-json/wp/v2/media/${mediaId}`,
       { next: { revalidate: 3600 } }
     );
 
