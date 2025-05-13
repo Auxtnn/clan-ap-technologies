@@ -540,23 +540,23 @@ export const CaseStudyPage = () => {
   const renderIcon = (iconName: string) => {
     switch (iconName) {
       case "clock":
-        return <Clock className="h-8 w-8" />;
+        return <Clock className="h-6 w-6" />;
       case "shield":
-        return <Shield className="h-8 w-8" />;
+        return <Shield className="h-6 w-6" />;
       case "users":
-        return <Users className="h-8 w-8" />;
+        return <Users className="h-6 w-6" />;
       case "check":
-        return <CheckCircle className="h-8 w-8" />;
+        return <CheckCircle className="h-6 w-6" />;
       case "lightning":
-        return <Zap className="h-5 w-5" />;
+        return <Zap className="h-6 w-6" />;
       case "smile":
-        return <Smile className="h-5 w-5" />;
+        return <Smile className="h-6 w-6" />;
       case "chart":
-        return <BarChart3 className="h-5 w-5" />;
+        return <BarChart3 className="h-6 w-6" />;
       case "scale":
-        return <Scale className="h-5 w-5" />;
+        return <Scale className="h-6 w-6" />;
       case "analytics":
-        return <BarChart2 className="h-5 w-5" />;
+        return <BarChart2 className="h-6 w-6" />;
       case "clipboard":
         return <Clipboard className="h-6 w-6" />;
       case "beaker":
@@ -565,7 +565,7 @@ export const CaseStudyPage = () => {
       case "code":
         return <Code className="h-6 w-6" />;
       case "refresh":
-        return <RefreshCcw className="h-6 w-6" />;
+        return <RefreshCcw className="h-6 w-6" />; // Also fixed this one to be square
       case "database":
         return <Database className="h-6 w-6" />;
       case "shieldCheck":
@@ -701,7 +701,7 @@ export const CaseStudyPage = () => {
                   Results & Impact
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-4 mb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 gap-4 mb-12">
                   {caseStudy.stats.map((stat, i) => (
                     <StatItem
                       key={i}
