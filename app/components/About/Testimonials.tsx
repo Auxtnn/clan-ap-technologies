@@ -37,7 +37,7 @@ const Testimonials = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-20 bg-gray-50 relative overflow-hidden"
+      className="py-16 bg-gray-50 relative overflow-hidden"
     >
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

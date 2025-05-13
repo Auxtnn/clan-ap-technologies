@@ -143,7 +143,10 @@ const ProcessSection = () => {
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
   return (
-    <section className="py-20 bg-white" ref={sectionRef}>
+    <section
+      className="md:pt-20 md:pb-20 pt-10 pb-10 bg-white"
+      ref={sectionRef}
+    >
       <div className="container mx-auto px-4 lg:w-11/12">
         {/* Section Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">

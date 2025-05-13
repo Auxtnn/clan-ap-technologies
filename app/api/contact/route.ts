@@ -95,7 +95,7 @@ export async function POST(request: any) {
             <div style="border-top: 1px solid #E5E7EB; padding-top: 20px; text-align: center; margin-top: 30px;">
             <div style="margin-bottom: 15px;">
             <a href="https://www.facebook.com/clanAPtechnologies" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/174/174848.png" alt="Facebook" style="width: 20px; height: 20px;"></a>
-            <a href="https://twitter.com/ClanapTech" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" style="width: 20px; height: 20px;"></a>
+            <a href="https://twitter.com/ClanapTech" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/5969/5969020.png" alt="X" style="width: 20px; height: 20px;"></a>
             <a href="https://instagram.com/clanap_technologies" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" style="width: 20px; height: 20px;"></a>
             <a href="https://www.linkedin.com/company/81815969/admin/dashboard" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" style="width: 20px; height: 20px;"></a>
           </div>

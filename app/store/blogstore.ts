@@ -2,7 +2,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { WordPressPost, PostSummary } from "@/app/types";
-import { decodeHtmlEntities, formatPostData } from "@/app/utils/blog";
 
 interface MediaCache {
   [key: number]: string | null;

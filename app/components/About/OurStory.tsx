@@ -11,7 +11,10 @@ const OurStory = () => {
   console.log("Is section in view:", isInView); // Debugging line
 
   return (
-    <section ref={sectionRef} className="py-20 bg-white">
+    <section
+      ref={sectionRef}
+      className="md:pt-20 md:pb-20 pt-20 pb-10 bg-white"
+    >
       <div className="container mx-auto px-4 lg:w-11/12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Image with simpler animation for testing */}

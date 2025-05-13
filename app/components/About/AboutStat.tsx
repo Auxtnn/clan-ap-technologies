@@ -78,7 +78,7 @@ const Achievements = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-20 bg-white relative overflow-hidden"
+      className="md:pt-20 md:pb-20 pt-14 pb-10 bg-white relative overflow-hidden"
     >
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -253,7 +253,7 @@ const Achievements = () => {
         </div>
 
         {/* Statistics */}
-        <div className="mt-20" ref={statsRef}>
+        <div className="mt-16" ref={statsRef}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div

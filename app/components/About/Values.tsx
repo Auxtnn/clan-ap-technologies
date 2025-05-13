@@ -67,7 +67,10 @@ const Values = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="py-20 bg-white">
+    <section
+      ref={sectionRef}
+      className="md:pt-20 md:pb-20 pt-14 pb-10 bg-white"
+    >
       <div className="container mx-auto px-4 lg:w-11/12">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <motion.div

@@ -337,7 +337,7 @@ export default function PrivacyPolicy() {
                       </a>
                     </div>
                   </div>
-                  <div className="flex items-start">
+                  <div className="flex items-start mb-3">
                     <span className="text-xl mr-3">📞</span>
                     <div>
                       <a
@@ -348,48 +348,19 @@ export default function PrivacyPolicy() {
                       </a>
                     </div>
                   </div>
+                  <div className="flex items-center">
+                    <span className="text-xl mr-3">🌐</span>
+                    <div>
+                      <a
+                        href="https://www.clanap.com"
+                        className="text-yellow-600 hover:text-yellow-700"
+                      >
+                        www.clanap.com
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </section>
-            </div>
-          </div>
-
-          {/* Website and Contact Info */}
-          <div className="bg-white shadow-sm rounded-xl p-6 mb-8 flex flex-col md:flex-row justify-between md:items-center gap-4">
-            <div className="flex items-center">
-              <span className="text-xl mr-3">🌐</span>
-              <div>
-                <p className="text-gray-500 text-sm mb-1">Website</p>
-                <a
-                  href="https://www.clanap.com"
-                  className="text-yellow-600 hover:text-yellow-700"
-                >
-                  www.clanap.com
-                </a>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <span className="text-xl mr-3">📧</span>
-              <div>
-                <p className="text-gray-500 text-sm mb-1">Email</p>
-                <a
-                  href="mailto:contact@clanap.com"
-                  className="text-yellow-600 hover:text-yellow-700"
-                >
-                  contact@clanap.com
-                </a>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <span className="text-xl mr-3">📞</span>
-              <div>
-                <p className="text-gray-500 text-sm mb-1">Phone</p>
-                <a
-                  href="tel:+917814320230"
-                  className="text-yellow-600 hover:text-yellow-700"
-                >
-                  +91 78143 20230
-                </a>
-              </div>
             </div>
           </div>
 

@@ -288,6 +288,16 @@ export default function TermsOfService() {
                   contact:
                 </p>
                 <div className="bg-gray-50 p-5 rounded-lg">
+                  <div className="mb-2">Clan-AP Technologies</div>
+                  <div className="flex items-start mb-3">
+                    <span className="text-xl mr-3">📍</span>
+                    <div>
+                      <p className="text-gray-700">
+                        Clan-AP Technologies office, Khanpur – 140301, Punjab,
+                        India
+                      </p>
+                    </div>
+                  </div>
                   <div className="flex items-start mb-3">
                     <span className="text-xl mr-3">📧</span>
                     <div>
@@ -300,15 +310,6 @@ export default function TermsOfService() {
                     </div>
                   </div>
                   <div className="flex items-start mb-3">
-                    <span className="text-xl mr-3">📍</span>
-                    <div>
-                      <p className="text-gray-700">
-                        Clan-AP Technologies office, Khanpur – 140301, Punjab,
-                        India
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
                     <span className="text-xl mr-3">📞</span>
                     <div>
                       <a
@@ -316,6 +317,17 @@ export default function TermsOfService() {
                         className="text-yellow-600 hover:text-yellow-700"
                       >
                         +91 78143 20230
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-xl mr-3">🌐</span>
+                    <div>
+                      <a
+                        href="https://www.clanap.com"
+                        className="text-yellow-600 hover:text-yellow-700"
+                      >
+                        www.clanap.com
                       </a>
                     </div>
                   </div>

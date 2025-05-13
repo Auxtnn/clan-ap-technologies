@@ -18,7 +18,7 @@ const ServiceDetailHero = ({
   image,
 }: ServiceDetailHeroProps) => {
   return (
-    <section className="pt-32 pb-16 bg-white relative overflow-hidden">
+    <section className="pt-32 md:pb-16 pb-4 bg-white relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Grid pattern */}

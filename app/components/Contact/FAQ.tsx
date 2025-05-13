@@ -13,7 +13,10 @@ const FAQ = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50" ref={sectionRef}>
+    <section
+      className="md:pt-20 md:pb-20 pt-10 pb-10 bg-gray-50"
+      ref={sectionRef}
+    >
       <div className="container mx-auto px-4 md:px-6">
         {/* Section header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">

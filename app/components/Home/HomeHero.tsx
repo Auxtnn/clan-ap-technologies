@@ -199,7 +199,7 @@ const HeroSection = () => {
   return (
     <section
       ref={targetRef}
-      className="relative min-h-screen flex items-center overflow-hidden bg-white py-20 md:py-16"
+      className="relative md:pt-32 pt-16 sm:pt-24 pb-6 flex items-center overflow-hidden bg-white"
     >
       {/* Neural Network Background - Entire hero section */}
       <div

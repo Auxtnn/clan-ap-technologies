@@ -60,7 +60,6 @@ const testimonials: Testimonial[] = [
 const TestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  // const [direction, setDirection] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
   const carouselContainerRef = useRef<HTMLDivElement>(null);
@@ -92,7 +91,6 @@ const TestimonialsSection = () => {
     if (!isAutoPlaying) return;
 
     autoPlayRef.current = setInterval(() => {
-      // setDirection(1);
       setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
     }, 6000);
 
@@ -105,7 +103,6 @@ const TestimonialsSection = () => {
 
   const handlePrevious = () => {
     setIsAutoPlaying(false);
-    // setDirection(-1);
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? totalSlides - 1 : prevIndex - 1
     );
@@ -113,7 +110,6 @@ const TestimonialsSection = () => {
 
   const handleNext = () => {
     setIsAutoPlaying(false);
-    // setDirection(1);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
   };
 
@@ -124,8 +120,6 @@ const TestimonialsSection = () => {
   const resumeAutoPlay = () => {
     setIsAutoPlaying(true);
   };
-
-  // No need for animation variants anymore
 
   // Get current testimonials to show based on device
   const getCurrentTestimonials = () => {
@@ -146,7 +140,7 @@ const TestimonialsSection = () => {
         <div className="h-full w-full bg-grid-pattern" />
       </div>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
+      <div className="container mx-auto px-4 relative z-10">
         {/* Section header */}
         <div className="text-center mb-12">
           <span className="inline-block py-1 px-3 bg-yellow-500/20 text-black rounded-full text-sm font-medium mb-4">
@@ -165,7 +159,7 @@ const TestimonialsSection = () => {
 
         {/* Testimonials carousel */}
         <div
-          className="relative max-w-5xl mx-auto"
+          className="relative lg:w-11/12 mx-auto"
           onMouseEnter={pauseAutoPlay}
           onMouseLeave={resumeAutoPlay}
         >
@@ -173,7 +167,7 @@ const TestimonialsSection = () => {
           <div
             ref={carouselContainerRef}
             className="overflow-hidden mx-auto bg-white"
-            style={{ height: isMobile ? "450px" : "350px" }}
+            style={{ height: isMobile ? "470px" : "350px" }}
           >
             <div className="flex flex-col lg:flex-row gap-6 h-full">
               {getCurrentTestimonials().map((testimonial) => (
@@ -188,14 +182,23 @@ const TestimonialsSection = () => {
                     </span>
                   </div>
 
-                  {/* Quote - with flex-grow to push author to bottom */}
+                  {/* Redesigned quote section with quotes at beginning and end */}
                   <div className="relative flex-grow overflow-y-auto">
-                    <div className="absolute -top-2 -left-2 text-4xl text-yellow-500 opacity-20">
-                      "
+                    <div className="flex items-start">
+                      <span className="text-3xl text-yellow-500 leading-none mr-1">
+                        ❝
+                      </span>
                     </div>
-                    <p className="text-gray-700 mb-4 relative pl-3">
+
+                    <p className="text-gray-700 md:text-base text-sm leading-[1.35rem] px-2">
                       {testimonial.quote}
                     </p>
+
+                    <div className="flex items-start justify-end">
+                      <span className="text-3xl text-yellow-500 leading-none">
+                        ❞
+                      </span>
+                    </div>
                   </div>
 
                   {/* Author info - positioned at bottom */}
@@ -295,7 +298,6 @@ const TestimonialsSection = () => {
               key={index}
               onClick={() => {
                 setIsAutoPlaying(false);
-                // setDirection(index > currentIndex ? 1 : -1);
                 setCurrentIndex(index);
               }}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
