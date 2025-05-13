@@ -462,9 +462,9 @@ const HeroSection = () => {
           </motion.div>
         </div>
 
-        {/* Mouse animation instead of scroll indicator */}
+        {/* Mouse animation  */}
         <motion.div
-          className="absolute md:bottom-10  hidden -bottom-20 left-1/2 -translate-x-1/2 z-20 md:flex flex-col items-center"
+          className="absolute md:bottom-10 hidden -bottom-20 left-1/2 -translate-x-1/2 z-20 lg:flex flex-col items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.8 }}
           transition={{ delay: 2, duration: 1 }}

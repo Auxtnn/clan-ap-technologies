@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import PartnerLogos from "./PartnerLogos";
 
 interface Testimonial {
   id: number;
@@ -61,31 +60,35 @@ const TestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
   const carouselContainerRef = useRef<HTMLDivElement>(null);
 
   // Responsive layout detection
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
+    const checkDeviceType = () => {
+      const width = window.innerWidth;
+      setIsMobile(width < 640);
+      setIsTablet(width >= 640 && width < 1024);
     };
 
     // Check initially
-    checkMobile();
+    checkDeviceType();
 
     // Add resize listener
-    window.addEventListener("resize", checkMobile);
+    window.addEventListener("resize", checkDeviceType);
 
     // Cleanup
     return () => {
-      window.removeEventListener("resize", checkMobile);
+      window.removeEventListener("resize", checkDeviceType);
     };
   }, []);
 
   // Get the total number of slides based on responsive layout
-  const totalSlides = isMobile
-    ? testimonials.length
-    : Math.ceil(testimonials.length / 2);
+  const totalSlides =
+    isMobile || isTablet
+      ? testimonials.length
+      : Math.ceil(testimonials.length / 2);
 
   useEffect(() => {
     if (!isAutoPlaying) return;
@@ -123,13 +126,24 @@ const TestimonialsSection = () => {
 
   // Get current testimonials to show based on device
   const getCurrentTestimonials = () => {
-    if (isMobile) {
-      // For mobile, show only one testimonial
+    if (isMobile || isTablet) {
+      // For mobile and tablet, show only one testimonial
       return [testimonials[currentIndex]];
     } else {
       // For desktop, show two testimonials per slide
       const startIndex = currentIndex * 2;
       return testimonials.slice(startIndex, startIndex + 2).filter(Boolean);
+    }
+  };
+
+  // Get container height based on device type
+  const getContainerHeight = () => {
+    if (isMobile) {
+      return "470px";
+    } else if (isTablet) {
+      return "310px";
+    } else {
+      return "350px";
     }
   };
 
@@ -167,13 +181,13 @@ const TestimonialsSection = () => {
           <div
             ref={carouselContainerRef}
             className="overflow-hidden mx-auto bg-white"
-            style={{ height: isMobile ? "470px" : "350px" }}
+            style={{ height: getContainerHeight() }}
           >
-            <div className="flex flex-col lg:flex-row gap-6 h-full">
+            <div className="flex flex-col lg:flex-row gap-4 h-full">
               {getCurrentTestimonials().map((testimonial) => (
                 <div
                   key={testimonial.id}
-                  className="flex-1 bg-white border border-gray-100 rounded-xl shadow-sm p-6 flex flex-col h-full"
+                  className="flex-1 bg-white border border-gray-100 rounded-xl shadow-sm p-4 flex flex-col h-full"
                 >
                   {/* Highlight badge */}
                   <div className="mb-4">

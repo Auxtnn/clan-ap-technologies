@@ -137,7 +137,7 @@ const serviceData = {
       name: "TestRail",
       description:
         "Test case management tool for organizing and tracking manual test execution",
-      logo: "/images/tools/testrail-logo.svg",
+      logo: "/images/tools/testrail-logo.jpeg",
     },
     {
       name: "JIRA",

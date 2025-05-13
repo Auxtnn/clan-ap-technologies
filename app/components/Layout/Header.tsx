@@ -61,74 +61,137 @@ const Header = () => {
     },
   };
 
+  // Use a better breakpoint strategy for iPads
+  const useBreakpointDetection = () => {
+    const [breakpoint, setBreakpoint] = useState({
+      isTablet: false,
+      isSmallTablet: false,
+    });
+
+    useEffect(() => {
+      const handleResize = () => {
+        const width = window.innerWidth;
+        setBreakpoint({
+          isTablet: width >= 768 && width <= 1024,
+          isSmallTablet: width >= 768 && width <= 900, // For iPad Mini and Air
+        });
+      };
+
+      // Set initial value
+      handleResize();
+
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return breakpoint;
+  };
+
+  const { isTablet, isSmallTablet } = useBreakpointDetection();
+
   return (
     <motion.header
       className={`fixed w-full z-50 transition-all duration-500 ${
         scrolled ? "bg-white backdrop-blur-xl shadow-xl" : ""
-      }`}
+      } ${isTablet ? "py-1" : ""}`}
       initial="hidden"
       animate="visible"
       variants={navVariants}
     >
-      <div className="container mx-auto px-4 md:px-6 py-4">
+      <div className="container mx-auto px-4 md:px-5 py-3">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo - increased right margin for better spacing */}
           <motion.div
             variants={logoVariants}
             initial="hidden"
             animate="visible"
-            className="relative z-10"
+            className="relative z-10 mr-6 lg:mr-0 flex-shrink-0"
           >
             <Link href="/">
               <Image
                 src="/images/logo.png"
                 alt="ClanAP Technologies"
-                width={100}
-                height={80}
-                className="h-8 w-auto transition-transform"
+                width={isSmallTablet ? 80 : 100}
+                height={isSmallTablet ? 64 : 80}
+                className="h-6 md:h-7 lg:h-8 w-auto transition-transform"
                 priority
                 loading="eager"
               />
             </Link>
           </motion.div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop/Tablet Navigation with improved spacing */}
           <motion.nav
-            className="hidden md:flex items-center space-x-10"
+            className="hidden md:flex items-center"
             variants={navVariants}
           >
-            {navLinks.map((link) => (
-              <motion.div key={link.name} variants={itemVariants}>
-                <Link
-                  href={link.href}
-                  className="relative text-black font-medium text-lg tracking-wide uppercase transition-colors duration-300 group"
+            <div
+              className={`flex flex-wrap items-center ${
+                isSmallTablet
+                  ? "space-x-1"
+                  : isTablet
+                  ? "space-x-2 md:space-x-3"
+                  : "space-x-6 lg:space-x-10"
+              }`}
+            >
+              {navLinks.map((link) => (
+                <motion.div
+                  key={link.name}
+                  variants={itemVariants}
+                  className={isTablet ? "px-2" : ""}
                 >
-                  {link.name}
-                  <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-500 transition-all duration-300 group-hover:w-full" />
+                  <Link
+                    href={link.href}
+                    className={`relative text-black font-medium tracking-wide uppercase transition-colors duration-300 group ${
+                      isSmallTablet
+                        ? "text-sm"
+                        : isTablet
+                        ? "text-base"
+                        : "text-base lg:text-lg"
+                    }`}
+                  >
+                    {link.name}
+                    <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-500 transition-all duration-300 group-hover:w-full" />
+                  </Link>
+                </motion.div>
+              ))}
+
+              <motion.div
+                variants={itemVariants}
+                className={
+                  isSmallTablet
+                    ? "ml-1 mt-1"
+                    : isTablet
+                    ? "ml-1 md:ml-2"
+                    : "ml-4"
+                }
+              >
+                <Link href="/contact">
+                  <motion.button
+                    className={`bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-xl font-bold relative overflow-hidden group shadow-xl shadow-yellow-500/20 ${
+                      isSmallTablet
+                        ? "px-3 py-2 text-sm"
+                        : isTablet
+                        ? "px-3 py-2 text-base"
+                        : "px-8 py-3 text-base"
+                    }`}
+                    whileHover={{
+                      scale: 1.02,
+                      boxShadow: "0 20px 40px -10px rgba(245, 158, 11, 0.3)",
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span className="relative z-10">Contact Us</span>
+                    <motion.span
+                      className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-amber-600"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: 0 }}
+                      transition={{ duration: 0.4 }}
+                    />
+                  </motion.button>
                 </Link>
               </motion.div>
-            ))}
-
-            <motion.div variants={itemVariants}>
-              <Link href="/contact">
-                <motion.button
-                  className="bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-8 py-3 rounded-xl font-bold relative overflow-hidden group shadow-xl shadow-yellow-500/20"
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: "0 20px 40px -10px rgba(245, 158, 11, 0.3)",
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span className="relative z-10">Contact Us</span>
-                  <motion.span
-                    className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-amber-600"
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: 0 }}
-                    transition={{ duration: 0.4 }}
-                  />
-                </motion.button>
-              </Link>
-            </motion.div>
+            </div>
           </motion.nav>
 
           {/* Mobile Menu Button */}
