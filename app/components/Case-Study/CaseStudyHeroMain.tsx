@@ -28,7 +28,7 @@ const CaseStudyHeroMain = () => {
         />
 
         <motion.div
-          className="absolute -bottom-40 -left-40 w-96 h-96 bg-gray-100 rounded-full"
+          className="absolute -bottom-[20%] -left-[20%] w-96 h-96 bg-gray-100 rounded-full"
           animate={{
             scale: [1, 1.1, 1],
             opacity: [0.1, 0.15, 0.1],
