@@ -278,47 +278,63 @@ body {
     font-size: 1rem;
   }
 }
+/* testimonial-slider.css */
 
-/* .blog-content p {
-  margin-bottom: 2rem;
-  line-height: 1.8;
+/* Remove default slick dots */
+.slick-dots {
+  display: none !important;
 }
-.blog-content h1,
-.blog-content h2,
-.blog-content h3 {
-  margin-top: 3rem;
-  margin-bottom: 1.5rem;
+
+/* Remove default arrow styles */
+.slick-prev,
+.slick-next {
+  width: auto;
+  height: auto;
+  z-index: 10;
 }
-.blog-content h2 {
-  font-size: 1.875rem;
-  font-weight: 700;
+
+.slick-prev:before,
+.slick-next:before {
+  display: none;
 }
-.blog-content h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
+
+/* Fix spacing between slides */
+.slick-slide > div {
+  padding: 0 8px;
 }
-.blog-content ul,
-.blog-content ol {
-  margin: 2rem 0;
-  padding-left: 2rem;
+
+/* Make sure heights are preserved properly */
+.slick-track {
+  display: flex !important;
 }
-.blog-content li {
-  margin-bottom: 0.75rem;
+
+.slick-slide {
+  height: inherit !important;
+  display: flex !important;
 }
-.blog-content img {
-  margin: 2.5rem 0;
-  border-radius: 0.5rem;
+
+.slick-slide > div {
+  width: 100%;
+  height: 100%;
 }
-.blog-content blockquote {
-  margin: 2.5rem 0;
-  padding-left: 1.5rem;
-  border-left: 4px solid #e5e7eb;
-  font-style: italic;
+
+/* Custom progress bar animation */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
-.blog-content a {
-  color: #eab308;
-  text-decoration: underline;
+
+/* Ensure custom dots are visible and have proper spacing */
+.custom-dots {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
 }
-.blog-content * + * {
-  margin-top: 1.5rem;
-} */
+
+.custom-dots button {
+  transition: all 0.3s ease;
+  outline: none;
+}

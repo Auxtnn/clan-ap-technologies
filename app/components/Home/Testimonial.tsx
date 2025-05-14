@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 interface Testimonial {
   id: number;
@@ -56,15 +58,106 @@ const testimonials: Testimonial[] = [
   },
 ];
 
+interface ProgressBarProps {
+  autoplaySpeed: number;
+  isPlaying: boolean;
+  slideIndex: number;
+}
+
+// Progress Bar Component for autoplay visualization
+const ProgressBar = ({
+  autoplaySpeed,
+  isPlaying,
+  slideIndex,
+}: ProgressBarProps) => {
+  const [width, setWidth] = useState(0);
+  const animationRef = useRef<number | null>(null);
+  const startTimeRef = useRef<number | null>(null);
+
+  // Animation function for smooth progress
+  const animate = (timestamp: number) => {
+    if (!startTimeRef.current) {
+      startTimeRef.current = timestamp;
+    }
+
+    const elapsed = timestamp - startTimeRef.current;
+    const progress = Math.min(elapsed / autoplaySpeed, 1);
+
+    setWidth(progress * 100);
+
+    if (progress < 1 && isPlaying) {
+      animationRef.current = requestAnimationFrame(animate);
+    }
+  };
+
+  useEffect(() => {
+    // Reset animation when slide changes or play state changes
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
+
+    startTimeRef.current = null;
+    setWidth(0);
+
+    if (isPlaying) {
+      animationRef.current = requestAnimationFrame(animate);
+    }
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isPlaying, slideIndex, autoplaySpeed]);
+
+  return (
+    <div className="w-full h-1 bg-gray-100 rounded-full mt-10 overflow-hidden">
+      <div
+        className="h-full bg-yellow-500 rounded-full"
+        style={{ width: `${width}%` }}
+      />
+    </div>
+  );
+};
+
 const TestimonialsSection = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [isUserInteracting, setIsUserInteracting] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
-  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
-  const userInteractionTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const carouselContainerRef = useRef<HTMLDivElement>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const sliderRef = useRef<Slider | null>(null);
+  const autoplaySpeed = 6000;
+  const autoplayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Function to safely clear any existing autoplay timeouts
+  const clearAutoplayTimeout = () => {
+    if (autoplayTimeoutRef.current) {
+      clearTimeout(autoplayTimeoutRef.current);
+      autoplayTimeoutRef.current = null;
+    }
+  };
+
+  // Function to safely restart autoplay
+  const restartAutoplay = () => {
+    clearAutoplayTimeout();
+    setIsAutoPlaying(false);
+
+    // Force a small delay before restarting to ensure state updates properly
+    autoplayTimeoutRef.current = setTimeout(() => {
+      if (sliderRef.current) {
+        setIsAutoPlaying(true);
+        // Explicitly restart Slick's autoplay
+        sliderRef.current.slickPlay();
+      }
+    }, 100);
+  };
+
+  // Cleanup timeouts on unmount
+  useEffect(() => {
+    return () => {
+      clearAutoplayTimeout();
+    };
+  }, []);
 
   // Responsive layout detection
   useEffect(() => {
@@ -86,84 +179,119 @@ const TestimonialsSection = () => {
     };
   }, []);
 
+  // Ensure slider autoplays correctly after manual navigation
+  useEffect(() => {
+    if (isAutoPlaying && sliderRef.current) {
+      sliderRef.current.slickPlay();
+    }
+  }, [isAutoPlaying]);
+
+  // Custom Previous Arrow component that matches existing design
+  const CustomPrevArrow = (props: any) => {
+    const { onClick } = props;
+    return (
+      <button
+        onClick={(e) => {
+          if (onClick) {
+            onClick(e);
+            restartAutoplay();
+
+            // Restart the progress bar and autoplay after full cycle
+            autoplayTimeoutRef.current = setTimeout(() => {
+              setIsAutoPlaying(true);
+            }, autoplaySpeed);
+          }
+        }}
+        className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center focus:outline-none text-black border border-gray-100 absolute top-1/2 left-0 z-10 -translate-y-1/2 transform"
+        style={{ left: "-5px" }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="sm:w-5 sm:h-5"
+        >
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+    );
+  };
+
+  // Custom Next Arrow component that matches existing design
+  const CustomNextArrow = (props: any) => {
+    const { onClick } = props;
+    return (
+      <button
+        onClick={(e) => {
+          if (onClick) {
+            onClick(e);
+            restartAutoplay();
+
+            // Restart the progress bar and autoplay after full cycle
+            autoplayTimeoutRef.current = setTimeout(() => {
+              setIsAutoPlaying(true);
+            }, autoplaySpeed);
+          }
+        }}
+        className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center focus:outline-none text-black border border-gray-100 absolute top-1/2 right-0 z-10 -translate-y-1/2 transform"
+        style={{ right: "-5px" }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="sm:w-5 sm:h-5"
+        >
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </button>
+    );
+  };
+
   // Get the total number of slides based on responsive layout
   const totalSlides =
     isMobile || isTablet
       ? testimonials.length
       : Math.ceil(testimonials.length / 2);
 
-  // Autoplay effect
-  useEffect(() => {
-    // Only autoplay if it's enabled and user is not interacting
-    if (!isAutoPlaying || isUserInteracting) return;
+  // Custom Dots component with proper TypeScript typing
+  const renderCustomDots = () => {
+    return (
+      <div className="custom-dots flex justify-center mt-8 space-x-2">
+        {Array.from({ length: totalSlides }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => {
+              if (sliderRef.current) {
+                sliderRef.current.slickGoTo(index);
+                restartAutoplay();
 
-    autoPlayRef.current = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
-    }, 6000);
-
-    return () => {
-      if (autoPlayRef.current) {
-        clearInterval(autoPlayRef.current);
-        autoPlayRef.current = null;
-      }
-    };
-  }, [isAutoPlaying, isUserInteracting, totalSlides]);
-
-  // User interaction timer effect
-  useEffect(() => {
-    // When user interaction state changes to true, set a timer to reset it
-    if (isUserInteracting) {
-      // Clear any existing timer
-      if (userInteractionTimerRef.current) {
-        clearTimeout(userInteractionTimerRef.current);
-      }
-
-      // Set a new timer to reset user interaction state after 5 seconds
-      userInteractionTimerRef.current = setTimeout(() => {
-        setIsUserInteracting(false);
-      }, 5000);
-    }
-
-    // Cleanup
-    return () => {
-      if (userInteractionTimerRef.current) {
-        clearTimeout(userInteractionTimerRef.current);
-      }
-    };
-  }, [isUserInteracting]);
-
-  const handlePrevious = () => {
-    // Temporarily pause autoplay during user interaction
-    setIsUserInteracting(true);
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? totalSlides - 1 : prevIndex - 1
+                // Restart the progress bar and autoplay after full cycle
+                autoplayTimeoutRef.current = setTimeout(() => {
+                  setIsAutoPlaying(true);
+                }, autoplaySpeed);
+              }
+            }}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === activeSlide ? "bg-yellow-500 w-8" : "bg-gray-300"
+            }`}
+            aria-label={`Go to testimonial ${index + 1}`}
+          />
+        ))}
+      </div>
     );
-  };
-
-  const handleNext = () => {
-    // Temporarily pause autoplay during user interaction
-    setIsUserInteracting(true);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
-  };
-
-  const pauseAutoPlay = () => {
-    setIsUserInteracting(true);
-  };
-
-  const resumeAutoPlay = () => {
-    setIsUserInteracting(false);
-  };
-
-  // Get current testimonials to show based on device
-  const getCurrentTestimonials = () => {
-    if (isMobile || isTablet) {
-      // For mobile and tablet, show only one testimonial
-      return [testimonials[currentIndex]];
-    } else {
-      // For desktop, show two testimonials per slide
-      const startIndex = currentIndex * 2;
-      return testimonials.slice(startIndex, startIndex + 2).filter(Boolean);
-    }
   };
 
   // Get container height based on device type
@@ -175,6 +303,32 @@ const TestimonialsSection = () => {
     } else {
       return "350px";
     }
+  };
+
+  // Define slider settings
+  const settings = {
+    dots: false, // We'll use our own custom dots
+    infinite: true,
+    speed: 500,
+    slidesToShow: isMobile || isTablet ? 1 : 2,
+    slidesToScroll: 1,
+    autoplay: isAutoPlaying,
+    autoplaySpeed: autoplaySpeed,
+    pauseOnHover: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
+    beforeChange: (_: number, next: number) => {
+      setActiveSlide(next);
+    },
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
@@ -202,154 +356,79 @@ const TestimonialsSection = () => {
         </div>
 
         {/* Testimonials carousel */}
-        <div
-          className="relative lg:w-11/12 mx-auto"
-          onMouseEnter={pauseAutoPlay}
-          onMouseLeave={resumeAutoPlay}
-        >
-          {/* Fixed height container with background to prevent white flash */}
+        <div className="relative lg:w-11/12 mx-auto">
           <div
-            ref={carouselContainerRef}
-            className="overflow-hidden mx-auto bg-white"
+            className="slider-container"
             style={{ height: getContainerHeight() }}
           >
-            <div className="flex flex-col lg:flex-row gap-4 h-full">
-              {getCurrentTestimonials().map((testimonial) => (
-                <div
-                  key={testimonial.id}
-                  className="flex-1 bg-white border border-gray-100 rounded-xl shadow-sm p-4 flex flex-col h-full"
-                >
-                  {/* Highlight badge */}
-                  <div className="mb-4">
-                    <span className="inline-block py-1 px-3 bg-yellow-500/10 text-yellow-600 rounded-full text-xs font-medium">
-                      {testimonial.highlight}
-                    </span>
-                  </div>
-
-                  {/* Redesigned quote section with quotes at beginning and end */}
-                  <div className="relative flex-grow overflow-y-auto">
-                    <div className="flex items-start">
-                      <span className="text-3xl text-yellow-500 leading-none mr-1">
-                        ❝
+            <Slider ref={sliderRef} {...settings}>
+              {testimonials.map((testimonial) => (
+                <div key={testimonial.id}>
+                  <div
+                    className="mx-2 bg-white border border-gray-100 rounded-xl shadow-sm p-4 flex flex-col h-full"
+                    style={{ height: getContainerHeight() }}
+                  >
+                    {/* Highlight badge */}
+                    <div className="mb-4">
+                      <span className="inline-block py-1 px-3 bg-yellow-500/10 text-yellow-600 rounded-full text-xs font-medium">
+                        {testimonial.highlight}
                       </span>
                     </div>
 
-                    <p className="text-gray-700 md:text-base text-sm leading-[1.35rem] px-2">
-                      {testimonial.quote}
-                    </p>
-
-                    <div className="flex items-start justify-end">
-                      <span className="text-3xl text-yellow-500 leading-none">
-                        ❞
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Author info - positioned at bottom */}
-                  <div className="flex items-center mt-4">
-                    <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-                      <img
-                        src={testimonial.image}
-                        alt={testimonial.author}
-                        className="w-full h-full object-cover"
-                        width={40}
-                        height={40}
-                      />
-                    </div>
-                    <div className="ml-3">
-                      <div className="font-bold text-sm">
-                        {testimonial.author}
+                    {/* Redesigned quote section with quotes at beginning and end */}
+                    <div className="relative flex-grow overflow-y-auto">
+                      <div className="flex items-start">
+                        <span className="text-3xl text-yellow-500 leading-none mr-1">
+                          ❝
+                        </span>
                       </div>
-                      <div className="text-xs text-gray-500">
-                        {testimonial.role}, {testimonial.company}
+
+                      <p className="text-gray-700 md:text-base text-sm leading-[1.35rem] px-2">
+                        {testimonial.quote}
+                      </p>
+
+                      <div className="flex items-start justify-end">
+                        <span className="text-3xl text-yellow-500 leading-none">
+                          ❞
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Author info - positioned at bottom */}
+                    <div className="flex items-center mt-4">
+                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                        <img
+                          src={testimonial.image}
+                          alt={testimonial.author}
+                          className="w-full h-full object-cover"
+                          width={40}
+                          height={40}
+                        />
+                      </div>
+                      <div className="ml-3">
+                        <div className="font-bold text-sm">
+                          {testimonial.author}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {testimonial.role}, {testimonial.company}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               ))}
-            </div>
+            </Slider>
           </div>
 
-          {/* Progress bar */}
-          <div className="w-full h-1 bg-gray-100 rounded-full mt-10 overflow-hidden">
-            <motion.div
-              className="h-full bg-yellow-500 rounded-full"
-              initial={{ width: "0%" }}
-              animate={{ width: "100%" }}
-              transition={{
-                duration: 6,
-                ease: "linear",
-                repeatType: "loop",
-                repeat: !isUserInteracting ? Infinity : 0,
-                repeatDelay: 0,
-              }}
-              key={currentIndex + (!isUserInteracting).toString()}
-            />
-          </div>
+          {/* Custom Progress Bar */}
+          <ProgressBar
+            autoplaySpeed={autoplaySpeed}
+            isPlaying={isAutoPlaying}
+            slideIndex={activeSlide}
+          />
 
-          {/* Navigation buttons - positioned outside fixed height container */}
-          <div className="flex justify-between absolute top-1/2 -translate-y-1/2 left-0 right-0 z-10 px-1 sm:px-2 md:px-4 pointer-events-none">
-            <motion.button
-              onClick={handlePrevious}
-              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center focus:outline-none text-black border border-gray-100 pointer-events-auto"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="sm:w-5 sm:h-5"
-              >
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </motion.button>
-
-            <motion.button
-              onClick={handleNext}
-              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center focus:outline-none text-black border border-gray-100 pointer-events-auto"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="sm:w-5 sm:h-5"
-              >
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </motion.button>
-          </div>
-        </div>
-
-        {/* Testimonial indicators */}
-        <div className="flex justify-center mt-8 space-x-2">
-          {Array.from({ length: totalSlides }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setIsUserInteracting(true); // Temporarily pause during interaction
-                setCurrentIndex(index);
-              }}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentIndex ? "bg-yellow-500 w-8" : "bg-gray-300"
-              }`}
-              aria-label={`Go to testimonial ${index + 1}`}
-            />
-          ))}
+          {/* Custom Dots Navigation */}
+          {renderCustomDots()}
         </div>
       </div>
     </section>
