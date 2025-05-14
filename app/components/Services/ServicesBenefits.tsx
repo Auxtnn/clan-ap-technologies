@@ -91,7 +91,7 @@ const BenefitCard = ({ benefit, index, isInView }: BenefitCardProps) => {
       className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 p-6 h-full flex flex-col"
     >
       {/* Icon */}
-      <div className="mb-4 text-4xl text-yellow-500 w-12 h-12 rounded-full   bg-yellow-500/10 flex items-center justify-center ">
+      <div className="mb-4 text-4xl text-yellow-500 inline-flex p-3 rounded-full bg-yellow-500/10 items-center justify-center">
         {benefit.icon}
       </div>
 
