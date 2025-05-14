@@ -59,9 +59,11 @@ const testimonials: Testimonial[] = [
 const TestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isUserInteracting, setIsUserInteracting] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const userInteractionTimerRef = useRef<NodeJS.Timeout | null>(null);
   const carouselContainerRef = useRef<HTMLDivElement>(null);
 
   // Responsive layout detection
@@ -90,8 +92,10 @@ const TestimonialsSection = () => {
       ? testimonials.length
       : Math.ceil(testimonials.length / 2);
 
+  // Autoplay effect
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    // Only autoplay if it's enabled and user is not interacting
+    if (!isAutoPlaying || isUserInteracting) return;
 
     autoPlayRef.current = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
@@ -100,28 +104,54 @@ const TestimonialsSection = () => {
     return () => {
       if (autoPlayRef.current) {
         clearInterval(autoPlayRef.current);
+        autoPlayRef.current = null;
       }
     };
-  }, [isAutoPlaying, totalSlides]);
+  }, [isAutoPlaying, isUserInteracting, totalSlides]);
+
+  // User interaction timer effect
+  useEffect(() => {
+    // When user interaction state changes to true, set a timer to reset it
+    if (isUserInteracting) {
+      // Clear any existing timer
+      if (userInteractionTimerRef.current) {
+        clearTimeout(userInteractionTimerRef.current);
+      }
+
+      // Set a new timer to reset user interaction state after 5 seconds
+      userInteractionTimerRef.current = setTimeout(() => {
+        setIsUserInteracting(false);
+      }, 5000);
+    }
+
+    // Cleanup
+    return () => {
+      if (userInteractionTimerRef.current) {
+        clearTimeout(userInteractionTimerRef.current);
+      }
+    };
+  }, [isUserInteracting]);
 
   const handlePrevious = () => {
-    setIsAutoPlaying(false);
+    // Temporarily pause autoplay during user interaction
+    setIsUserInteracting(true);
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? totalSlides - 1 : prevIndex - 1
     );
   };
 
   const handleNext = () => {
-    setIsAutoPlaying(false);
+    // Temporarily pause autoplay during user interaction
+    setIsUserInteracting(true);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
   };
 
   const pauseAutoPlay = () => {
-    setIsAutoPlaying(false);
+    setIsUserInteracting(true);
   };
 
   const resumeAutoPlay = () => {
-    setIsAutoPlaying(true);
+    setIsUserInteracting(false);
   };
 
   // Get current testimonials to show based on device
@@ -250,10 +280,10 @@ const TestimonialsSection = () => {
                 duration: 6,
                 ease: "linear",
                 repeatType: "loop",
-                repeat: isAutoPlaying ? Infinity : 0,
+                repeat: !isUserInteracting ? Infinity : 0,
                 repeatDelay: 0,
               }}
-              key={currentIndex + isAutoPlaying.toString()}
+              key={currentIndex + (!isUserInteracting).toString()}
             />
           </div>
 
@@ -311,7 +341,7 @@ const TestimonialsSection = () => {
             <button
               key={index}
               onClick={() => {
-                setIsAutoPlaying(false);
+                setIsUserInteracting(true); // Temporarily pause during interaction
                 setCurrentIndex(index);
               }}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
