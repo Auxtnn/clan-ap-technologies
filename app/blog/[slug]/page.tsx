@@ -28,6 +28,16 @@ export async function generateMetadata({
 
   // Strip HTML tags from excerpt for meta description
   const excerpt = post.excerpt.rendered.replace(/<\/?[^>]+(>|$)/g, "").trim();
+  // Fetch featured image if available
+  let featuredImageUrl = null;
+  let featuredImageAlt = null;
+
+  if (post.featured_media) {
+    const featuredImage = await enhancedFetchFeaturedMedia(post.featured_media);
+    // Use the featured image URL and alt text if available
+    featuredImageUrl = featuredImage?.source_url || null;
+    featuredImageAlt = featuredImage?.alt_text || post.title.rendered;
+  }
 
   return {
     title: `${post.title.rendered} - Clanap Blog`,
@@ -35,10 +45,20 @@ export async function generateMetadata({
     openGraph: {
       title: post.title.rendered,
       description: excerpt.substring(0, 160),
+      images: [
+        {
+          url:
+            featuredImageUrl || "https://clanap.com/images/twitter-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: featuredImageAlt || post.title.rendered,
+        },
+      ],
       type: "article",
       publishedTime: post.date,
       modifiedTime: post.modified,
       url: `https://clanap.com/blog/${params.slug}`,
+      authors: ["Clan-AP Technologies"],
     },
   };
 }

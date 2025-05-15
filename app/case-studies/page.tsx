@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   CaseStudyHeading,
   CaseStudyHeroMain,
@@ -33,6 +34,14 @@ import {
   Scale,
   Info,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Case Studies | Clan-AP Technologies",
+  description:
+    "Discover how our QA services have helped businesses improve product quality, reduce bugs, and accelerate time-to-market.",
+  keywords:
+    "QA case studies, software testing success stories, quality assurance examples, test automation results",
+};
 
 export const CaseStudyPage = () => {
   const caseStudies = [

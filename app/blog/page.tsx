@@ -1,4 +1,4 @@
-// app/blog/page.tsx
+import type { Metadata } from "next";
 import {
   enhancedFetchPosts,
   prefetchAdjacentPages,
@@ -6,6 +6,14 @@ import {
 import { Suspense } from "react";
 import { BlogPagination } from "../components/Blog/BlogPagination";
 import { BlogHero } from "../components";
+
+export const metadata: Metadata = {
+  title: "Blog | Clan-AP Technologies",
+  description:
+    "Explore our latest insights, tips, and industry trends in software testing, QA automation, and quality assurance.",
+  keywords:
+    "QA blog, software testing blog, test automation, quality assurance tips, QA best practices",
+};
 
 interface BlogPageProps {
   searchParams: {

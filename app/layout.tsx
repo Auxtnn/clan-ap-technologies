@@ -8,23 +8,57 @@ const font = Space_Grotesk({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://clanap.com"),
-  title: "Clan-AP Technologies | Quality Assurance Experts",
+  applicationName: "Clan-AP Technologies",
+  title: {
+    template: "%s | Clan-AP Technologies",
+    default: "Clan-AP Technologies - Quality Assurance Experts",
+  },
   description:
     "Professional QA services including manual testing, automation, API testing, and performance testing for web and mobile applications.",
-  keywords:
-    "QA services, software testing, automated testing, manual testing, API testing, performance testing, mobile app testing",
+  keywords: [
+    "QA services",
+    "software testing",
+    "automated testing",
+    "manual testing",
+    "API testing",
+    "performance testing",
+    "mobile app testing",
+    "web application testing",
+    "security testing",
+    "database testing",
+    "UI/UX testing",
+    "test management",
+    "functional testing",
+    "regression testing",
+    "load testing",
+    "stress testing",
+    "usability testing",
+    "cross-browser testing",
+    "cross-device testing",
+    "test automation",
+    "test strategy",
+    "test planning",
+    "test execution",
+    "test reporting",
+  ],
   authors: [{ name: "Clan-AP Technologies" }],
   creator: "Clan-AP Technologies",
   publisher: "Clan-AP Technologies",
+  formatDetection: {
+    email: false,
+    telephone: false,
+    address: false,
+  },
+
   openGraph: {
     title: "Clan-AP Technologies | Quality Assurance Experts",
     description:
       "Professional QA services including manual testing, automation, API testing, and performance testing for web and mobile applications.",
-    url: "https://www.clanap.com",
+    url: "https://clanap.com",
     siteName: "Clan-AP Technologies",
     images: [
       {
-        url: "/images/logo.png",
+        url: "https://clanap.com/images/logo.png",
         width: 1200,
         height: 630,
         alt: "Clan-AP Technologies Logo",
@@ -38,12 +72,30 @@ export const metadata: Metadata = {
     title: "Clan-AP Technologies | Quality Assurance Experts",
     description:
       "Professional QA services including manual testing, automation, API testing, and performance testing for web and mobile applications.",
-    images: ["/images/twitter-image.jpg"],
+    images: ["https://clanap.com/images/twitter-image.jpg"],
+    creator: "@clanaptech",
+    site: "@clanaptech",
   },
-
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+      "max-snippet": -1,
+    },
   },
 };
 
