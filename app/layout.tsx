@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { ClientLayoutWrapper } from "./components/Layout/LayoutWrapper";
-import { StoreHydration } from "./providers/StoreHydration";
 
 const font = Space_Grotesk({ subsets: ["latin"] });
 
@@ -106,10 +104,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${font.className} max-w-[2520px] min-h-screen`}>
-        <StoreHydration />
-        <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
-      </body>
+      <body className={`${font.className}`}>{children}</body>
     </html>
   );
 }
