@@ -10,8 +10,7 @@ import {
 import Link from "next/link";
 import { loadSlim } from "tsparticles-slim";
 import Particles from "react-tsparticles";
-import Engine from "react-tsparticles";
-import { Container } from "tsparticles-engine";
+import { Engine, Container } from "tsparticles-engine";
 
 interface TerminalLineProps {
   index: number;
@@ -124,7 +123,6 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, [terminalLines.length]);
 
-  // Particles configuration - simplified but effective
   const particlesOptions = {
     fullScreen: { enable: false },
     background: {
@@ -167,7 +165,7 @@ const HeroSection = () => {
         width: 1,
       },
       move: {
-        direction: "none",
+        // direction: "top",
         enable: true,
         outModes: {
           default: "bounce",

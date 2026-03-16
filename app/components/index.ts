@@ -30,7 +30,7 @@ import Values from "./About/Values";
 import Testimonials from "./About/Testimonials";
 import OurTeam from "./About/Team";
 import Achievements from "./About/AboutStat";
-import BlogHero from "./Blog/BlogHero";
+import { BlogHero } from "./Blog/BlogHero";
 import CaseStudyHeroMain from "./Case-Study/CaseStudyHeroMain";
 import CaseStudyCTA from "./Case-Study/CaseStudyCTA";
 import { Solution } from "./Case-Study/SolutionItem";

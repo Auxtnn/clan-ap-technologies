@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     "QA case studies, software testing success stories, quality assurance examples, test automation results",
 };
 
-export const CaseStudyPage = () => {
+const CaseStudyPage = () => {
   const caseStudies = [
     {
       id: "cypress",
