@@ -204,12 +204,7 @@ const HeroSection = () => {
         className="absolute inset-0 z-0"
         style={{ height: "100%", width: "100%" }}
       >
-        {/* Base background - changed from pale yellow to white */}
         <div className="absolute inset-0 bg-white"></div>
-
-        {/* Neural network overlay */}
-
-        {/* Subtle particles overlay */}
         <Particles
           id="tsparticles"
           init={particlesInit}
