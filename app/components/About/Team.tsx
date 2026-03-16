@@ -79,7 +79,7 @@ const OurTeam = () => {
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         priority
                       />
-                      {/* Yellow overlay gradient that blends with the image */}
+
                       <div className="absolute inset-0 bg-gradient-to-t from-yellow-500/30 via-yellow-500/10 to-transparent"></div>
                     </div>
                   ) : (

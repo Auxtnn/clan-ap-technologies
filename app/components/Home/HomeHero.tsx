@@ -350,7 +350,7 @@ const HeroSection = () => {
                     />
 
                     <motion.button
-                      className="relative bg-white text-gray-700 border border-amber-300 px-8 py-4 rounded-lg font-medium"
+                      className="relative bg-white text-gray-700 border border-amber-300 px-8 py-4 rounded-lg font-medium cursor-pointer"
                       whileHover={{
                         borderColor: "#D97706",
                         color: "#D97706",

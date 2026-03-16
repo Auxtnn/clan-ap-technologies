@@ -3,25 +3,23 @@
 import { useEffect } from "react";
 import Link from "next/link";
 
-interface ErrorComponentProps {
+interface ErrorProps {
   error: Error;
   reset: () => void;
 }
 
-export default function BlogPostError({ error, reset }: ErrorComponentProps) {
+export default function BlogPostError({ error, reset }: ErrorProps) {
   useEffect(() => {
-    // Log the error to an error reporting service
     console.error("Blog post error:", error);
   }, [error]);
 
   return (
-    <main className="container mx-auto px-4 py-30 text-center">
+    <main className="container mx-auto px-4 py-32 text-center">
       <h1 className="text-3xl font-bold text-gray-800 mb-4">
         Failed to load blog post
       </h1>
       <p className="text-gray-600 mb-8">
-        We encountered an error while loading this blog post. Please try again
-        later.
+        We encountered an error loading this post. Please try again.
       </p>
       <div className="flex flex-col sm:flex-row justify-center gap-4">
         <button

@@ -1,9 +1,7 @@
-// components/FeaturedMedia.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { fetchFeaturedMedia } from "@/app/utils/blog";
 import { useBlogStore } from "@/app/store/blogstore";
 import { enhancedFetchFeaturedMedia } from "@/app/utils/enhanced-blog";
 
@@ -20,10 +18,15 @@ export function FeaturedMedia({
   className = "",
   priority = false,
 }: FeaturedMediaProps) {
-  const [mediaUrl, setMediaUrl] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
   const cachedMedia = useBlogStore((state) => state.getMedia(mediaId));
+  const [mediaUrl, setMediaUrl] = useState<string | null>(
+    cachedMedia !== undefined ? (cachedMedia as string | null) : null
+  );
+  const [isLoading, setIsLoading] = useState(
+    cachedMedia === undefined && !!mediaId
+  );
+  const [error, setError] = useState(false);
+  const fetchedRef = useRef(false);
 
   useEffect(() => {
     if (!mediaId) {
@@ -31,39 +34,44 @@ export function FeaturedMedia({
       return;
     }
 
-    // If media is already in cache, use it
     if (cachedMedia !== undefined) {
-      setMediaUrl(cachedMedia);
+      setMediaUrl(cachedMedia as string | null);
       setIsLoading(false);
       return;
     }
 
-    let isMounted = true;
+    if (fetchedRef.current) return;
+    fetchedRef.current = true;
+
+    let cancelled = false;
 
     enhancedFetchFeaturedMedia(mediaId)
       .then((url) => {
-        if (isMounted) {
-          setMediaUrl(url);
+        if (!cancelled) {
+          setMediaUrl(url as string | null);
           setIsLoading(false);
         }
       })
       .catch(() => {
-        if (isMounted) {
+        if (!cancelled) {
           setError(true);
           setIsLoading(false);
         }
       });
 
     return () => {
-      isMounted = false;
+      cancelled = true;
     };
   }, [mediaId, cachedMedia]);
 
   if (isLoading) {
     return (
-      <div className={`bg-gray-100 animate-pulse ${className}`}>
+      <div
+        className={`bg-gray-100 animate-pulse ${className}`}
+        style={{ aspectRatio: "16/9" }}
+      >
         <div className="w-full h-full flex items-center justify-center">
-          <div className="w-12 h-12 rounded-full bg-yellow-500 animate-pulse"></div>
+          <div className="w-12 h-12 rounded-full bg-[#FE5300]/30 animate-pulse" />
         </div>
       </div>
     );
@@ -71,8 +79,11 @@ export function FeaturedMedia({
 
   if (error || !mediaUrl) {
     return (
-      <div className={`bg-yellow-500 bg-opacity-10 ${className}`}>
-        <div className="w-full h-full flex items-center justify-center text-yellow-500 font-bold">
+      <div
+        className={`bg-[#FE5300]/10 ${className}`}
+        style={{ aspectRatio: "16/9" }}
+      >
+        <div className="w-full h-full flex items-center justify-center text-[#FE5300] font-bold">
           CLANAP
         </div>
       </div>
@@ -81,14 +92,13 @@ export function FeaturedMedia({
 
   return (
     <div
-      className={`relative w-full overflow-hidden h-full ${className}`}
-      style={{ paddingBottom: "60%" }}
+      className={`relative w-full overflow-hidden ${className}`}
+      style={{ aspectRatio: "16/9" }}
     >
       <Image
         src={mediaUrl}
         alt={title || "blog post"}
         fill
-        onLoad={() => setIsLoading(false)}
         className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         priority={priority}

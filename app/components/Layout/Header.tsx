@@ -24,7 +24,7 @@ const Header = () => {
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Case Studies", href: "/case-studies" },
-    { name: "Pricing", href: "/pricing" },
+    // { name: "Pricing", href: "/pricing" },
     { name: "Blog", href: "/blog" },
   ];
 
@@ -110,7 +110,7 @@ const Header = () => {
           >
             <Link href="/">
               <Image
-                src="/images/logo.png"
+                src="/images/logo3.png"
                 alt="ClanAP Technologies"
                 width={isSmallTablet ? 80 : 100}
                 height={isSmallTablet ? 64 : 80}

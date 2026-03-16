@@ -1,137 +1,150 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
-import { fetchSearchResults } from "@/app/utils/blog";
-import { formatPostData } from "@/app/utils/blog";
-import { BlogPagination } from "@/app/components/Blog/BlogPagination";
-import { SearchEmptyState } from "@/app/components/Blog/SearchEmptyState";
-import { ErrorBoundary } from "@/app/components/Blog/ErrorBoundary";
-import { BlogHero } from "@/app/components";
+import { searchPosts } from "@/app/utils/wordpress";
+import { BlogHero } from "@/app/components/Blog/BlogHero";
+import { BlogList } from "@/app/components/Blog/BlogList";
+import { Pagination } from "@/app/components/Blog/BlogPagination";
+import Link from "next/link";
 
 interface SearchPageProps {
-  searchParams: {
-    q?: string;
-    page?: string;
-  };
+  searchParams: Promise<{ q?: string; page?: string }>;
 }
 
-export function generateMetadata({ searchParams }: SearchPageProps): Metadata {
-  const query = searchParams?.q || "";
+export async function generateMetadata({
+  searchParams,
+}: SearchPageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const query = params.q ?? "";
+
   return {
-    title: `Search results for "${query}" - Clanap Blog`,
-    description: `Browse blog posts matching your search for "${query}"`,
-    robots: {
-      index: false,
-      follow: true,
-    },
-    openGraph: {
-      title: `Search results for "${query}" - Clanap Blog`,
-      description: `Browse blog posts matching your search for "${query}"`,
-      type: "website",
-    },
+    title: `Search: "${query}" - Clan-AP Blog`,
+    description: `Blog posts matching "${query}"`,
+    robots: { index: false, follow: true },
   };
 }
-
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const query = searchParams?.q?.trim() || "";
-  const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
-  const postsPerPage = 9;
+  const params = await searchParams;
+
+  const query = params.q?.trim() ?? "";
+  const currentPage = Math.max(1, parseInt(params.page ?? "1", 10) || 1);
 
   if (!query) {
     return (
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 lg:w-11/12 pb-16">
         <BlogHero />
         <SearchEmptyState />
       </main>
     );
   }
 
-  try {
-    // Fetch search results using WordPress REST API's search parameter
-    const { posts, totalPosts } = await fetchSearchResults(
-      query,
-      currentPage,
-      postsPerPage
-    );
-    const formattedPosts = posts.map(formatPostData);
-    const totalPages = Math.ceil(totalPosts / postsPerPage);
+  const { posts, totalPosts, totalPages } = await searchPosts(
+    query,
+    currentPage,
+    9
+  );
 
-    return (
-      <main className="container mx-auto px-4 lg:w-11/12 pt-10 pb-10">
-        <BlogHero />
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
-            Search results for "{query}"
-          </h2>
-          <p className="text-gray-600">
-            Found {totalPosts} {totalPosts === 1 ? "result" : "results"}
-          </p>
-        </div>
+  return (
+    <main className="container mx-auto px-4 lg:w-11/12 pt-10 pb-16">
+      <BlogHero />
 
-        <ErrorBoundary
-          fallback={
-            <div className="bg-red-50 border border-red-200 text-red-700 p-6 rounded-lg text-center">
-              <h2 className="text-lg font-bold mb-2">Something went wrong</h2>
-              <p>
-                We encountered an error displaying search results. Please try
-                again.
-              </p>
-            </div>
-          }
-        >
-          <Suspense
-            fallback={
-              <div className="text-center py-12">
-                <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-yellow-500 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
-                <p className="mt-4 text-gray-600">Searching...</p>
-              </div>
-            }
-          >
-            {formattedPosts.length > 0 ? (
-              <BlogPagination
-                posts={formattedPosts}
-                totalPages={totalPages}
-                initialPage={currentPage}
-              />
-            ) : (
-              <div className="text-center py-16">
-                <h3 className="text-xl font-medium text-gray-700 mb-4">
-                  No results found
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  We couldn't find any posts matching "{query}". Try using
-                  different keywords or checking for typos.
-                </p>
-                <a
-                  href="/blog"
-                  className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-medium px-6 py-3 rounded-lg transition-colors"
-                >
-                  Browse all blog posts
-                </a>
-              </div>
-            )}
-          </Suspense>
-        </ErrorBoundary>
-      </main>
-    );
-  } catch (error) {
-    console.error("Error searching blog posts:", error);
-    return (
-      <main className="container mx-auto lg:w-11/12 px-4 py-12">
-        <div className="bg-red-50 border border-red-200 text-red-700 p-6 rounded-lg text-center">
-          <h2 className="text-lg font-bold mb-2">
-            Failed to search blog posts
-          </h2>
-          <p className="mb-4">
-            Our search service is currently unavailable. Please try again later.
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          Search results for &ldquo;{query}&rdquo;
+        </h2>
+        <p className="text-gray-600">
+          Found {totalPosts} {totalPosts === 1 ? "result" : "results"}
+        </p>
+      </div>
+
+      {posts.length > 0 ? (
+        <Suspense>
+          <BlogList posts={posts} />
+          <Pagination currentPage={currentPage} totalPages={totalPages} />
+        </Suspense>
+      ) : (
+        <div className="text-center py-16">
+          <h3 className="text-xl font-medium text-gray-700 mb-4">
+            No results found
+          </h3>
+          <p className="text-gray-600 mb-6">
+            No posts match &ldquo;{query}&rdquo;. Try different keywords or
+            check for typos.
           </p>
-          <a
+          <Link
             href="/blog"
-            className="inline-block bg-red-600 hover:bg-red-700 text-white font-medium px-5 py-2 rounded-lg transition-colors"
+            className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-medium px-6 py-3 rounded-lg transition-colors"
           >
-            Return to blog
-          </a>
+            Browse all posts
+          </Link>
         </div>
-      </main>
-    );
-  }
+      )}
+    </main>
+  );
+}
+
+function SearchEmptyState() {
+  return (
+    <div className="text-center py-16">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Search Our Blog</h2>
+      <p className="text-gray-600 mb-8 max-w-lg mx-auto">
+        Enter a search term above to find posts about QA testing, software
+        development, and more.
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-12">
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+          <h3 className="font-medium text-lg mb-2">Popular Topics</h3>
+          <ul className="space-y-2 text-gray-600">
+            <li>
+              <Link
+                href="/blog/search?q=qa+testing"
+                className="text-yellow-600 hover:underline"
+              >
+                QA Testing
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/blog/search?q=automation"
+                className="text-yellow-600 hover:underline"
+              >
+                Automation
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/blog/search?q=software+development"
+                className="text-yellow-600 hover:underline"
+              >
+                Software Development
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+          <h3 className="font-medium text-lg mb-2">Recent Posts</h3>
+          <p className="text-gray-600 mb-3">
+            Discover our latest articles and insights.
+          </p>
+          <Link
+            href="/blog"
+            className="text-yellow-600 hover:underline font-medium"
+          >
+            View recent posts →
+          </Link>
+        </div>
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+          <h3 className="font-medium text-lg mb-2">Need Help?</h3>
+          <p className="text-gray-600 mb-3">
+            Contact our team for personalized assistance.
+          </p>
+          <Link
+            href="/contact"
+            className="text-yellow-600 hover:underline font-medium"
+          >
+            Contact us →
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 }

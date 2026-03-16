@@ -6,46 +6,27 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { FiSearch } from "react-icons/fi";
 
-const BlogHero = () => {
+export function BlogHero() {
   const [query, setQuery] = useState("");
   const router = useRouter();
 
-  const handleSubmit = (e: FormEvent) => {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    if (query.trim()) {
-      router.push(`/blog/search?q=${encodeURIComponent(query.trim())}`);
-    }
-  };
+    const q = query.trim();
+    if (q) router.push(`/blog/search?q=${encodeURIComponent(q)}`);
+  }
 
   return (
     <section className="pt-32 pb-16 bg-white relative overflow-hidden">
-      {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-[0.03]">
-          <div className="h-full w-full bg-grid-pattern" />
-        </div>
-
-        {/* Abstract shapes */}
         <motion.div
           className="absolute -top-20 -right-20 w-80 h-80 bg-yellow-500/5 rounded-full"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.05, 0.08, 0.05],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
+          animate={{ scale: [1, 1.1, 1], opacity: [0.05, 0.08, 0.05] }}
+          transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
         />
-
         <motion.div
           className="absolute -bottom-40 -left-40 w-96 h-96 bg-gray-100 rounded-full"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.1, 0.15, 0.1],
-          }}
+          animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.15, 0.1] }}
           transition={{
             duration: 12,
             repeat: Infinity,
@@ -55,17 +36,15 @@ const BlogHero = () => {
         />
       </div>
 
-      {/* Main content */}
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          {/* Breadcrumb */}
           <div className="mb-6">
             <nav className="flex justify-center" aria-label="Breadcrumb">
               <ol className="inline-flex items-center space-x-1 md:space-x-2">
                 <li className="inline-flex items-center">
                   <Link
                     href="/"
-                    className="text-gray-600 hover:text-yellow-500 text-sm"
+                    className="text-gray-600 hover:text-[#FE5300] text-sm"
                   >
                     Home
                   </Link>
@@ -81,7 +60,7 @@ const BlogHero = () => {
                         fillRule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                         clipRule="evenodd"
-                      ></path>
+                      />
                     </svg>
                     <span className="text-gray-500 ml-1 md:ml-2 text-sm font-medium">
                       Blog
@@ -98,7 +77,7 @@ const BlogHero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            QA Testing <span className="text-yellow-500">Insights</span>
+            QA Testing <span className="text-[#FE5300]">Insights</span>
           </motion.h1>
 
           <motion.p
@@ -123,11 +102,11 @@ const BlogHero = () => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search articles..."
-                className="w-full px-5 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none pr-12"
+                className="w-full px-5 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#FE5300] focus:border-[#FE5300] outline-none pr-14"
               />
               <button
                 type="submit"
-                className="absolute right-1 top-1 bg-yellow-500 text-white p-2 rounded-full hover:bg-yellow-600 transition-colors duration-300"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#FE5300] text-white p-2 rounded-full hover:bg-[#cc4200] transition-colors duration-300 flex items-center justify-center"
                 aria-label="Search blog"
               >
                 <FiSearch className="w-5 h-5" />
@@ -138,6 +117,4 @@ const BlogHero = () => {
       </div>
     </section>
   );
-};
-
-export default BlogHero;
+}

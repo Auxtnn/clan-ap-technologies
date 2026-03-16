@@ -1,28 +1,30 @@
-import { WordPressPost } from "@/app/types";
 import Link from "next/link";
-import { FeaturedMedia } from "./FeaturedMedia";
+import Image from "next/image";
+import { WPPost } from "@/app/utils/wordpress";
 import { RelatedPosts } from "./RelatedPosts";
 import parse from "html-react-parser";
 
 interface BlogDetailProps {
-  post: WordPressPost;
-  featuredImage?: any;
+  post: WPPost & { mediaUrl: string | null; mediaAlt: string };
+  fromPage?: string | null;
 }
 
-export function BlogDetail({ post }: BlogDetailProps) {
+export function BlogDetail({ post, fromPage }: BlogDetailProps) {
   const formattedDate = new Date(post.date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
 
+  const backHref =
+    fromPage && fromPage !== "1" ? `/blog?page=${fromPage}` : "/blog";
+
   return (
     <div className="lg:w-11/12 mx-auto py-16">
-      {/* Back to blog link */}
       <div className="mb-12">
         <Link
-          href="/blog"
-          className="inline-flex items-center text-yellow-500 hover:text-yellow-600 font-medium"
+          href={backHref}
+          className="inline-flex items-center text-[#FE5300] hover:text-[#cc4200] font-medium"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -41,141 +43,97 @@ export function BlogDetail({ post }: BlogDetailProps) {
       </div>
 
       <article>
-        {/* Title */}
         <h1 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight mb-6">
           {post.title.rendered}
         </h1>
 
-        {/* Date */}
         <div className="text-gray-500 mb-12">{formattedDate}</div>
 
-        {/* Featured Image */}
-        <div className="mb-12">
-          <FeaturedMedia
-            mediaId={post.featured_media}
-            title={post.title.rendered}
-            className="w-full rounded-lg"
-            priority={true}
-          />
-        </div>
+        {post.mediaUrl && (
+          <div
+            className="mb-12 relative w-full rounded-lg overflow-hidden"
+            style={{ aspectRatio: "16/9" }}
+          >
+            <Image
+              src={post.mediaUrl}
+              alt={post.mediaAlt || post.title.rendered}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 90vw"
+              className="object-cover object-center"
+            />
+          </div>
+        )}
 
-        {/* Enhanced WordPress Content */}
-        <EnhancedWordPressContent content={post.content.rendered} />
+        <WordPressContent content={post.content.rendered} />
       </article>
 
-      {/* Related Posts */}
       <div className="mt-20">
-        <RelatedPosts currentPostId={post.id} categoryIds={post.categories} />
+        <RelatedPosts currentPostId={post.id} />
       </div>
     </div>
   );
 }
 
-function EnhancedWordPressContent({ content }: { content: string }) {
+function WordPressContent({ content }: { content: string }) {
   const parseOptions = {
     replace: (domNode: any) => {
-      if (domNode.type === "tag") {
-        // Fix contentEditable attribute
-        if (domNode.attribs && "contenteditable" in domNode.attribs) {
-          delete domNode.attribs.contenteditable;
-        }
+      if (domNode.type !== "tag") return undefined;
 
-        // Fix fetchpriority to fetchPriority
-        if (
-          domNode.name === "img" &&
-          domNode.attribs &&
-          "fetchpriority" in domNode.attribs
-        ) {
-          const value = domNode.attribs.fetchpriority;
-          delete domNode.attribs.fetchpriority;
-          domNode.attribs.fetchPriority = value;
-        }
-
-        let className = "";
-
-        // Enhanced typography and spacing for different elements
-        switch (domNode.name) {
-          case "h1":
-            className =
-              "text-3xl font-bold text-gray-800 mt-12 mb-6 leading-tight";
-            break;
-          case "h2":
-            className =
-              "text-2xl font-bold text-gray-800 mt-12 mb-6 leading-tight";
-            break;
-          case "h3":
-            className =
-              "text-xl font-bold text-gray-800 mt-10 mb-5 leading-tight";
-            break;
-          case "h4":
-            className = "text-lg font-bold text-gray-800 mt-8 mb-4";
-            break;
-          case "p":
-            className = "text-lg text-gray-700 leading-relaxed mb-8";
-            break;
-          case "ul":
-          case "ol":
-            className = "my-8 pl-8 text-lg text-gray-700 leading-relaxed";
-            break;
-          case "li":
-            className = "mb-3";
-            break;
-          case "blockquote":
-            className =
-              "pl-6 border-l-4 border-yellow-400 italic my-10 text-gray-700 py-1";
-            break;
-          case "a":
-            className =
-              "text-yellow-600 hover:text-yellow-700 underline font-medium";
-            break;
-          case "img":
-            className = "my-10 rounded-lg shadow-md w-full h-auto";
-            break;
-          case "code":
-            className = "bg-gray-100 p-1 rounded text-sm font-mono";
-            break;
-          case "pre":
-            className =
-              "bg-gray-100 p-4 rounded-lg overflow-x-auto my-8 font-mono text-sm";
-            break;
-          case "strong":
-          case "b":
-            className = "font-bold text-gray-900";
-            break;
-          case "em":
-          case "i":
-            className = "italic";
-            break;
-          case "table":
-            className = "w-full border-collapse my-8";
-            break;
-          case "th":
-            className =
-              "border border-gray-300 px-4 py-2 bg-gray-100 font-bold text-left";
-            break;
-          case "td":
-            className = "border border-gray-300 px-4 py-2";
-            break;
-          case "hr":
-            className = "my-12 border-t border-gray-200";
-            break;
-          case "figure":
-            className = "my-10";
-            break;
-          case "figcaption":
-            className = "text-sm text-gray-500 text-center mt-2 italic";
-            break;
-        }
-
-        if (className) {
-          if (!domNode.attribs) domNode.attribs = {};
-          domNode.attribs.class =
-            (domNode.attribs.class || "") + " " + className;
-        }
+      if (domNode.attribs?.contenteditable !== undefined) {
+        delete domNode.attribs.contenteditable;
       }
+
+      if (
+        domNode.name === "img" &&
+        domNode.attribs?.fetchpriority !== undefined
+      ) {
+        domNode.attribs.fetchPriority = domNode.attribs.fetchpriority;
+        delete domNode.attribs.fetchpriority;
+      }
+
+      const classMap: Record<string, string> = {
+        h1: "text-3xl font-bold text-gray-800 mt-12 mb-6 leading-tight",
+        h2: "text-2xl font-bold text-gray-800 mt-12 mb-6 leading-tight",
+        h3: "text-xl font-bold text-gray-800 mt-10 mb-5 leading-tight",
+        h4: "text-lg font-bold text-gray-800 mt-8 mb-4",
+        p: "text-lg text-gray-700 leading-relaxed mb-8",
+        ul: "my-8 pl-8 text-lg text-gray-700 leading-relaxed list-disc",
+        ol: "my-8 pl-8 text-lg text-gray-700 leading-relaxed list-decimal",
+        li: "mb-3",
+        blockquote:
+          "pl-6 border-l-4 border-[#FE5300] italic my-10 text-gray-700 py-1",
+        a: "text-[#FE5300] hover:text-[#cc4200] underline font-medium",
+        img: "my-10 rounded-lg shadow-md w-full h-auto",
+        code: "bg-gray-100 px-1 py-0.5 rounded text-sm font-mono",
+        pre: "bg-gray-100 p-4 rounded-lg overflow-x-auto my-8 font-mono text-sm",
+        strong: "font-bold text-gray-900",
+        b: "font-bold text-gray-900",
+        em: "italic",
+        i: "italic",
+        table: "w-full border-collapse my-8",
+        th: "border border-gray-300 px-4 py-2 bg-gray-100 font-bold text-left",
+        td: "border border-gray-300 px-4 py-2",
+        hr: "my-12 border-t border-gray-200",
+        figure: "my-10",
+        figcaption: "text-sm text-gray-500 text-center mt-2 italic",
+      };
+
+      const cls = classMap[domNode.name];
+      if (cls) {
+        if (!domNode.attribs) domNode.attribs = {};
+        domNode.attribs.class = [domNode.attribs.class, cls]
+          .filter(Boolean)
+          .join(" ");
+      }
+
       return undefined;
     },
   };
 
-  return <div className="blog-content">{parse(content, parseOptions)}</div>;
+  return (
+    <div className="blog-content max-w-none">
+      {parse(content, parseOptions)}
+    </div>
+  );
 }

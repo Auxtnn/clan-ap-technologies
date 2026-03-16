@@ -137,7 +137,7 @@ const CaseStudyCTA = () => {
           >
             <Link href="/contact">
               <motion.button
-                className="bg-yellow-500 text-black px-8 py-4 rounded-full font-bold relative overflow-hidden group"
+                className="bg-yellow-500 text-black border-2 border-white px-8 py-4 rounded-full font-bold relative overflow-hidden group"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >

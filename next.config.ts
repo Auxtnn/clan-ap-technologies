@@ -1,9 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  typescript: { ignoreBuildErrors: true },
-  eslint: { ignoreDuringBuilds: true },
-
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
     remotePatterns: [
       {
@@ -11,8 +7,13 @@ const nextConfig: NextConfig = {
         hostname: "blog.clanap.com",
         pathname: "/wp-content/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "secure.gravatar.com",
+      },
     ],
+    formats: ["image/avif", "image/webp"],
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

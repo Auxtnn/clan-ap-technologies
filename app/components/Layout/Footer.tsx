@@ -157,7 +157,7 @@ const Footer = () => {
           <motion.div variants={itemVariants} className="z-10">
             <Link href="/" className="block mb-6 inline-block">
               <Image
-                src="/images/logo2.png"
+                src="/images/logo4.png"
                 alt="ClanAP Technologies"
                 width={130}
                 height={40}

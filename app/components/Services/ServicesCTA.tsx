@@ -94,7 +94,7 @@ const ServicesCTA = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="inline-block py-1 px-3 bg-yellow-500/20 text-yellow-500 rounded-full text-sm font-medium mb-4">
+            <span className="inline-block py-1 px-3  bg-yellow-500/20 text-yellow-500 rounded-full text-sm font-medium mb-4">
               Get Started Today
             </span>
           </motion.div>
@@ -132,7 +132,7 @@ const ServicesCTA = () => {
               target="_blank"
             >
               <motion.button
-                className="bg-yellow-500 text-black px-8 py-4 rounded-full font-bold relative overflow-hidden group"
+                className="bg-yellow-500 text-black border-2 border-white px-8 py-4 rounded-full font-bold relative overflow-hidden group"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >

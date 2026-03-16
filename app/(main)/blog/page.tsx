@@ -1,70 +1,45 @@
-import type { Metadata } from "next";
-import {
-  enhancedFetchPosts,
-  prefetchAdjacentPages,
-} from "@/app/utils/enhanced-blog";
 import { Suspense } from "react";
-import { BlogPagination } from "../../components/Blog/BlogPagination";
-import { BlogHero } from "../../components";
+import { Metadata } from "next";
+import { getPostsPage } from "@/app/utils/wordpress";
+import { BlogHero } from "@/app/components/Blog/BlogHero";
+import { BlogList } from "@/app/components/Blog/BlogList";
+import { Pagination } from "@/app/components/Blog/BlogPagination";
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Blog | Clan-AP Technologies",
+  title: "Blog - Clanap",
   description:
-    "Explore our latest insights, tips, and industry trends in software testing, QA automation, and quality assurance.",
-  keywords:
-    "QA blog, software testing blog, test automation, quality assurance tips, QA best practices",
+    "Expert articles, guides, and resources on software quality assurance, testing methodologies, and industry best practices.",
+  openGraph: {
+    title: "Blog - Clanap",
+    description:
+      "Expert articles on QA testing and software quality assurance.",
+    type: "website",
+  },
 };
 
 interface BlogPageProps {
-  searchParams: {
-    page?: string;
-  };
+  searchParams: Promise<{ page?: string }>;
 }
 
-export const revalidate = 60; // Revalidate page every 60 seconds
-
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const params = await searchParams;
-  const currentPage = params?.page ? parseInt(params.page) : 1;
-  const postsPerPage = 9;
+  const resolvedSearchParams = await searchParams;
+  const currentPage = Math.max(
+    1,
+    parseInt(resolvedSearchParams.page ?? "1", 10) || 1
+  );
 
-  try {
-    const { formattedPosts, totalPosts, totalPages } = await enhancedFetchPosts(
-      currentPage,
-      postsPerPage
-    );
+  const { posts, totalPages } = await getPostsPage(currentPage, 9);
 
-    // Prefetch adjacent pages for faster navigation
-    prefetchAdjacentPages(currentPage, totalPages, postsPerPage);
+  return (
+    <main className="container mx-auto px-4 lg:w-11/12 pb-16">
+      <BlogHero />
 
-    return (
-      <main className="container mx-auto lg:w-11/12 px-4 py-10">
-        <BlogHero />
-        <Suspense
-          fallback={
-            <div className="text-center py-12">Loading blog posts...</div>
-          }
-        >
-          <BlogPagination
-            posts={formattedPosts}
-            totalPages={totalPages}
-            initialPage={currentPage}
-          />
-        </Suspense>
-      </main>
-    );
-  } catch (error) {
-    console.error("Error fetching blog posts:", error);
-    return (
-      <main className="container mx-auto px-4 py-12">
-        <BlogHero />
-        <div className="bg-red-50 border border-red-200 text-red-700 p-6 rounded-lg text-center">
-          <h2 className="text-lg font-bold mb-2">Failed to load blog posts</h2>
-          <p>
-            Please try again later or contact support if the problem persists.
-          </p>
-        </div>
-      </main>
-    );
-  }
+      <Suspense>
+        <BlogList posts={posts} currentPage={currentPage} />
+        <Pagination currentPage={currentPage} totalPages={totalPages} />
+      </Suspense>
+    </main>
+  );
 }

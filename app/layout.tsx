@@ -1,8 +1,18 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Space_Grotesk, Karla } from "next/font/google";
 import "./globals.css";
 
-const font = Space_Grotesk({ subsets: ["latin"] });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-heading",
+  display: "swap",
+});
+
+const karla = Karla({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://clanap.com"),
@@ -104,7 +114,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${font.className}`}>{children}</body>
+      <body className={`${spaceGrotesk.variable} ${karla.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }
