@@ -37,7 +37,7 @@ const serviceData = {
   icon: <Bot size={24} />,
   description:
     "Accelerate your testing process with sophisticated automation that ensures comprehensive coverage and faster release cycles.",
-  heroImage: "/images/hero/automated-testing.jpg",
+  heroImage: "/images/hero/automated-testing.png",
   benefits: [
     {
       title: "Faster Testing Cycles",

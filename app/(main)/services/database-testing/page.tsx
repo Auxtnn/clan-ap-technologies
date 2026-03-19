@@ -32,7 +32,7 @@ const serviceData = {
   icon: <Database size={24} />,
   description:
     "Ensure data integrity, performance, and security with comprehensive database testing, validation, and optimization services that guarantee reliable data management for your applications.",
-  heroImage: "/images/hero/database.jpg",
+  heroImage: "/images/hero/database.png",
   benefits: [
     {
       title: "Data Integrity Assurance",

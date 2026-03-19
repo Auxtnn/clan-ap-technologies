@@ -37,7 +37,7 @@ const serviceData = {
   icon: <Smartphone size={24} />,
   description:
     "Ensure your mobile applications perform flawlessly across all devices, operating systems, and screen sizes with comprehensive testing that validates functionality, usability, and performance.",
-  heroImage: "/images/hero/mobile-testing.jpg",
+  heroImage: "/images/hero/mobile-testing.png",
   benefits: [
     {
       title: "Cross-Device Compatibility",

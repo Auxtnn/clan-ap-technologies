@@ -39,7 +39,7 @@ const serviceData = {
   icon: <Zap size={24} />,
   description:
     "Optimize your application's speed, responsiveness, and stability under various load conditions and user scenarios to ensure exceptional user experiences even during peak usage.",
-  heroImage: "/images/hero/performance-testing.jpg",
+  heroImage: "/images/hero/performance-testing.png",
   benefits: [
     {
       title: "Identify Bottlenecks",

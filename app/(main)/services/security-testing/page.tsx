@@ -36,7 +36,7 @@ const serviceData = {
   icon: <Shield size={24} />,
   description:
     "Protect your software from vulnerabilities with thorough security testing methodologies and compliance verification to ensure your application and user data remain safe from threats.",
-  heroImage: "/images/hero/security-testing.jpg",
+  heroImage: "/images/hero/security-testing.png",
   benefits: [
     {
       title: "Vulnerability Detection",
