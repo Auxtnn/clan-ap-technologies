@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     siteName: "Clan-AP Technologies",
     images: [
       {
-        url: "https://clanap.com/images/logo.png",
+        url: "https://clanap.com/images/logo3.png",
         width: 1200,
         height: 630,
         alt: "Clan-AP Technologies Logo",
