@@ -40,7 +40,10 @@ const ContactForm = () => {
 
   const validateEmail = (value: string): string => {
     if (!value) return "";
-    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)
+    // Rejects consecutive dots anywhere, and ensures TLD is letters-only (2–63 chars)
+    const hasConsecutiveDots = /\.{2,}/.test(value);
+    const validFormat = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,63}$/.test(value);
+    return !hasConsecutiveDots && validFormat
       ? ""
       : "Please enter a valid email address (e.g. name@example.com).";
   };
@@ -319,7 +322,7 @@ const ContactForm = () => {
                   <option value="ui-ux-testing">UI/UX Testing</option>
                   <option value="other">Other</option>
                 </select>
-                {/* Custom chevron — centered in the right padding zone */}
+                {/* Custom chevron */}
                 <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -338,7 +341,6 @@ const ContactForm = () => {
               </div>
             </div>
 
-            {/* FIX 4: Extra input slides in when "Other" is selected */}
             {formState.service === "other" && (
               <motion.div
                 className="md:col-span-2"
