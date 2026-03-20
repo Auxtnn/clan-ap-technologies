@@ -67,6 +67,7 @@ const ServiceApproach = ({ approach }: ServiceApproachProps) => {
                 step={step}
                 index={index}
                 isInView={isInView}
+                total={approach.length}
               />
             ))}
           </div>
@@ -80,9 +81,10 @@ interface ApproachStepProps {
   step: ApproachStep;
   index: number;
   isInView: boolean;
+  total: number;
 }
 
-const ApproachStep = ({ step, index, isInView }: ApproachStepProps) => {
+const ApproachStep = ({ step, index, isInView, total }: ApproachStepProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -100,7 +102,7 @@ const ApproachStep = ({ step, index, isInView }: ApproachStepProps) => {
 
       {/* Step number */}
       <div className="hidden md:flex md:items-center md:justify-center md:mx-auto md:mb-6">
-        <div className="w-16 h-16 rounded-full text-yellow-500  bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-3xl">
+        <div className="w-16 h-16 rounded-full text-yellow-500 bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-3xl">
           {step.icon}
         </div>
 
@@ -115,8 +117,8 @@ const ApproachStep = ({ step, index, isInView }: ApproachStepProps) => {
         <p className="text-gray-600">{step.description}</p>
       </div>
 
-      {/* Connector line (only visible on larger screens) */}
-      {index < 4 && (
+      {/* Connector line — now renders on all items including the last */}
+      {index < total && (
         <div className="hidden md:block absolute top-8 -right-4 w-8 h-0.5 bg-gray-100 lg:-right-6 lg:w-12">
           <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-yellow-500 rounded-full"></div>
         </div>

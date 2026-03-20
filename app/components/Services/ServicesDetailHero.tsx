@@ -92,7 +92,7 @@ const ServiceDetailHero = ({
                       </svg>
                       <Link
                         href="/services"
-                        className="text-gray-600 border-2 border-yellow-500 hover:text-yellow-500 text-sm ml-1 md:ml-2"
+                        className="text-gray-600  hover:text-yellow-500 text-sm ml-1 md:ml-2"
                       >
                         Services
                       </Link>
