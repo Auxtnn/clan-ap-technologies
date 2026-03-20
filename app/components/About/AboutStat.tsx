@@ -121,7 +121,7 @@ const Achievements = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.3, delay: 0.1 }}
           >
-            Clan-AP Technologies – Key Achievements
+            CLAN-AP TECHNOLOGIES PRIVATE LIMITED – Key Achievements
           </motion.h2>
 
           <motion.p

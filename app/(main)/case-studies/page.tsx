@@ -49,7 +49,7 @@ const CaseStudyPage = () => {
       id: "cypress",
       title: "Implementing Cypress for Web Application QA",
       subtitle:
-        "How Clan-AP Technologies enhanced testing efficiency and software reliability for an e-commerce company using Cypress",
+        "How CLAN-AP TECHNOLOGIES PRIVATE LIMITED enhanced testing efficiency and software reliability for an e-commerce company using Cypress",
       category: "E-Commerce",
 
       challenges: [
@@ -157,7 +157,7 @@ const CaseStudyPage = () => {
       id: "healthcare",
       title: "Streamlining QA Processes for a Healthcare Software Provider",
       subtitle:
-        "How Clan-AP Technologies implemented comprehensive testing strategies to enhance software reliability and improve customer satisfaction",
+        "How CLAN-AP TECHNOLOGIES PRIVATE LIMITED implemented comprehensive testing strategies to enhance software reliability and improve customer satisfaction",
       category: "Healthcare Software",
 
       challenges: [
@@ -227,7 +227,7 @@ const CaseStudyPage = () => {
       id: "resttech",
       title: "Establishing Full QA Processes to Enhance Software Reliability",
       subtitle:
-        "How Clan-AP Technologies implemented comprehensive QA processes for a RestTech firm to improve software quality and user satisfaction",
+        "How CLAN-AP TECHNOLOGIES PRIVATE LIMITED implemented comprehensive QA processes for a RestTech firm to improve software quality and user satisfaction",
       category: "Restaurant Technology",
       clientName: "DineOS",
       clientLogo: "/logos/dineos-logo.svg",
@@ -332,7 +332,7 @@ const CaseStudyPage = () => {
       id: "ll-project",
       title: "Establishing Robust QA Processes for a Restaurant POS System",
       subtitle:
-        "How Clan-AP Technologies implemented comprehensive testing strategies to improve software reliability and enhance user experience for the Loving Loyalty platform",
+        "How CLAN-AP TECHNOLOGIES PRIVATE LIMITED implemented comprehensive testing strategies to improve software reliability and enhance user experience for the Loving Loyalty platform",
       category: "POS System",
 
       challenges: [
@@ -475,7 +475,7 @@ const CaseStudyPage = () => {
       title:
         "Enhancing Data Reliability and Platform Security for a Freight Logistics Platform",
       subtitle:
-        "How Clan-AP Technologies optimized backend performance and fortified application security to support reliable courier operations and safeguard sensitive logistics data.",
+        "How CLAN-AP TECHNOLOGIES PRIVATE LIMITED optimized backend performance and fortified application security to support reliable courier operations and safeguard sensitive logistics data.",
       category: "Freight & Courier Software",
 
       challenges: [
@@ -487,7 +487,7 @@ const CaseStudyPage = () => {
       background:
         "A leading freight and courier service platform handling thousands of deliveries daily was encountering backend challenges. Data inconsistencies in shipment status, route updates, and billing records were creating operational inefficiencies. Moreover, the absence of structured security testing left the platform vulnerable to breaches and data leaks.",
       backgroundDetails:
-        "Clan-AP Technologies was engaged to conduct end-to-end database validation and implement security testing strategies to ensure fast, accurate, and secure delivery management.",
+        "CLAN-AP TECHNOLOGIES PRIVATE LIMITED was engaged to conduct end-to-end database validation and implement security testing strategies to ensure fast, accurate, and secure delivery management.",
       solutions: [
         {
           icon: "database",
@@ -540,7 +540,7 @@ const CaseStudyPage = () => {
 
       testimonial: {
         quote:
-          "Partnering with Clan-AP Technologies helped us eliminate backend delays and security risks. Their structured approach enabled our operations team to confidently manage daily deliveries at scale with accurate and secure data handling.",
+          "Partnering with CLAN-AP TECHNOLOGIES PRIVATE LIMITED helped us eliminate backend delays and security risks. Their structured approach enabled our operations team to confidently manage daily deliveries at scale with accurate and secure data handling.",
       },
     },
   ];

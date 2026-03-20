@@ -46,7 +46,8 @@ const Map = () => {
         <div className="bg-white rounded-lg shadow-lg p-6 -mt-20 relative z-10 max-w-lg mx-auto border border-gray-100">
           <h3 className="text-xl font-bold mb-2">Our Office</h3>
           <p className="text-gray-700 mb-4">
-            Clan-AP Technologies office, Khanpur - 140301, Punjab, India
+            CLAN-AP TECHNOLOGIES PRIVATE LIMITED office, Khanpur - 140301,
+            Punjab, India
           </p>
           <div className="flex items-center text-gray-600">
             <svg

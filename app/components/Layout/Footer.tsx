@@ -220,7 +220,8 @@ const Footer = () => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              &copy; {currentYear} Clan-AP Technologies. All rights reserved.
+              &copy; {currentYear} CLAN-AP TECHNOLOGIES PRIVATE LIMITED. All
+              rights reserved.
             </div>
 
             <div className="flex space-x-6">

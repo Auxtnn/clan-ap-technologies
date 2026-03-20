@@ -146,11 +146,11 @@ const Values = () => {
             "
           </div>
           <blockquote className="relative z-10 text-lg text-gray-600 italic text-center">
-            At Clan-AP Technologies, our values are not just guiding principles
-            — they are embedded in every test we execute, every issue we
-            resolve, and every solution we deliver. They form the cornerstone of
-            the trust we cultivate with our clients and the integrity we uphold
-            within our team.
+            At CLAN-AP TECHNOLOGIES PRIVATE LIMITED, our values are not just
+            guiding principles — they are embedded in every test we execute,
+            every issue we resolve, and every solution we deliver. They form the
+            cornerstone of the trust we cultivate with our clients and the
+            integrity we uphold within our team.
           </blockquote>
           <div className="text-5xl text-yellow-500 absolute bottom-0 right-6">
             "

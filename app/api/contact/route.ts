@@ -14,13 +14,13 @@ export async function POST(request: any) {
       await transporter.sendMail({
         ...mailOptions,
         subject: `New Contact Form Submission - ${
-          body.subject || "Clan-AP Technologies"
+          body.subject || "Clan-AP Technologies Private Limited"
         }`,
         html: `
       <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; line-height: 1.6;">
   
-        <div style="background-color: #FEF3C7; border-left: 4px solid #F59E0B; padding: 15px; margin-bottom: 20px;">
-          <h2 style="color: #78350F; margin: 0 0 15px 0;">New Contact Form Submission</h2>
+        <div style="background-color: #fff0e8; border-left: 4px solid #fe5300; padding: 15px; margin-bottom: 20px;">
+          <h2 style="color: #7a2800; margin: 0 0 15px 0;">New Contact Form Submission</h2>
           <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
         </div>
   
@@ -36,76 +36,77 @@ export async function POST(request: any) {
               : ""
           }
           <p><strong>Message:</strong></p>
-          <div style="background-color: #F9FAFB; padding: 15px; border-left: 3px solid #F59E0B; border-radius: 4px;">
+          <div style="background-color: #F9FAFB; padding: 15px; border-left: 3px solid #fe5300; border-radius: 4px;">
             ${body.message.replace(/\n/g, "<br>")}
           </div>
         </div>
   
         <div style="font-size: 12px; color: #6B7280; text-align: center; margin-top: 30px;">
-          <p>This message was sent from the Clan-AP Technologies contact form.</p>
+          <p>This message was sent from the Clan-AP Technologies Private Limited contact form.</p>
         </div>
       </div>
     `,
       });
 
-      // Send confirmation email to the user with enhanced design using Clan-AP Technologies branding
+      // Send confirmation email to the user
       await transporter.sendMail({
         from: mailOptions.from,
         to: body.email,
-        subject: "Thanks for reaching out to Clan-AP Technologies!",
+        subject:
+          "Thanks for reaching out to Clan-AP Technologies Private Limited!",
         html: `
           <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; line-height: 1.6;">
-            <!-- Clan-AP Technologies Brand Header -->
-            <div style="text-align: center; margin-bottom: 30px; padding: 30px 20px; background: linear-gradient(to bottom, #F59E0B, #D97706); border-radius: 8px; color: white;">
+            <!-- Brand Header -->
+            <div style="text-align: center; margin-bottom: 30px; padding: 30px 20px; background: linear-gradient(to bottom, #fe5300, #aa3600); border-radius: 8px; color: white;">
             
               <div style="margin-bottom: 15px; font-size: 24px; font-weight:bold; color: white;">
-               Clan-AP Technologies
+               CLAN-AP TECHNOLOGIES PRIVATE LIMITED
               </div>
-              <p style="color: #FEF3C7; margin-top: 15px;">Quality Assurance Experts Dedicated to Exceptional Software Testing</p>
+              <p style="color: #ffe0d4; margin-top: 15px;">Quality Assurance Experts Dedicated to Exceptional Software Testing</p>
             </div>
       
             <!-- Content -->
-            <div style="background-color: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(217,119,6,0.12); padding: 30px; margin-bottom: 16px; border-top: 5px solid #F59E0B;">
-              <h2 style="color: #92400E; margin: 0 0 20px 0; text-align: center;">We've received your message!</h2>
+            <div style="background-color: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(254,83,0,0.12); padding: 30px; margin-bottom: 16px; border-top: 5px solid #fe5300;">
+              <h2 style="color: #7a2800; margin: 0 0 20px 0; text-align: center;">We've received your message!</h2>
       
               <p style="color: #374151;">Hi ${body.name},</p>
-              <p style="color: #374151;">Thank you for contacting Clan-AP Technologies. We appreciate your interest in our QA services. Our team has received your inquiry regarding ${
+              <p style="color: #374151;">Thank you for contacting Clan-AP Technologies Private Limited. We appreciate your interest in our QA services. Our team has received your inquiry regarding ${
                 body.service
               } and will get back to you within 24-48 hours.</p>
       
-              <div style="background-color: rgba(251,191,36,0.1); border-left: 4px solid #F59E0B; padding: 15px; margin: 20px 0; border-radius: 4px;">
+              <div style="background-color: rgba(254,83,0,0.08); border-left: 4px solid #fe5300; padding: 15px; margin: 20px 0; border-radius: 4px;">
                 <p style="margin: 0;">For urgent matters, please contact us directly at:</p>
-                <p style="margin-top: 5px; color: #92400E; font-weight: bold;">
-                  <a href="tel:+917814320230" style="color: #92400E; text-decoration: none;">+91 78143 20230</a>
+                <p style="margin-top: 5px; color: #7a2800; font-weight: bold;">
+                  <a href="tel:+917814320230" style="color: #7a2800; text-decoration: none;">+91 78143 20230</a>
                 </p>
               </div>
       
               <p style="color: #374151;">Best regards,</p>
-              <p style="color: #92400E; font-weight: bold;">The Clan-AP Technologies Team</p>
+              <p style="color: #7a2800; font-weight: bold;">The Clan-AP Technologies Private Limited Team</p>
             </div>
       
             <!-- Mission Box -->
-            <div style="background-color: rgba(251,191,36,0.05); border: 1px solid rgba(251,191,36,0.2); border-radius: 8px; padding: 20px; text-align: center;">
-              <p style="color: #92400E; font-style: italic; margin: 0;">
-                "At Clan-AP Technologies, we deliver excellence in quality assurance through innovative testing approaches that ensure your software performs flawlessly."
+            <div style="background-color: rgba(254,83,0,0.05); border: 1px solid rgba(254,83,0,0.2); border-radius: 8px; padding: 20px; text-align: center;">
+              <p style="color: #7a2800; font-style: italic; margin: 0;">
+                "At Clan-AP Technologies Private Limited, we deliver excellence in quality assurance through innovative testing approaches that ensure your software performs flawlessly."
               </p>
             </div>
       
             <!-- Footer -->
             <div style="border-top: 1px solid #E5E7EB; padding-top: 20px; text-align: center; margin-top: 30px;">
-            <div style="margin-bottom: 15px;">
-            <a href="https://www.facebook.com/clanAPtechnologies" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/174/174848.png" alt="Facebook" style="width: 20px; height: 20px;"></a>
-            <a href="https://twitter.com/ClanapTech" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/5969/5969020.png" alt="X" style="width: 20px; height: 20px;"></a>
-            <a href="https://instagram.com/clanap_technologies" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" style="width: 20px; height: 20px;"></a>
-            <a href="https://www.linkedin.com/company/81815969/admin/dashboard" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" style="width: 20px; height: 20px;"></a>
-          </div>
-            <div style="margin-bottom: 15px;">
-                <a href="https://www.clanap.com" style="color: #92400E; text-decoration: none; font-size: 14px; font-weight: bold;">www.clanap.com</a>
+              <div style="margin-bottom: 15px;">
+                <a href="https://www.facebook.com/clanAPtechnologies" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/174/174848.png" alt="Facebook" style="width: 20px; height: 20px;"></a>
+                <a href="https://twitter.com/ClanapTech" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/5969/5969020.png" alt="X" style="width: 20px; height: 20px;"></a>
+                <a href="https://instagram.com/clanap_technologies" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" style="width: 20px; height: 20px;"></a>
+                <a href="https://www.linkedin.com/company/81815969/admin/dashboard" style="display: inline-block; margin: 0 5px; color: #1075BB;"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" style="width: 20px; height: 20px;"></a>
               </div>
               <div style="margin-bottom: 15px;">
-                <a href="mailto:contact@clanap.com" style="color: #92400E; text-decoration: none; font-size: 14px;">contact@clanap.com</a>
+                <a href="https://www.clanap.com" style="color: #7a2800; text-decoration: none; font-size: 14px; font-weight: bold;">www.clanap.com</a>
               </div>
-              <p style="color: #6B7280; font-size: 12px;">&copy; ${new Date().getFullYear()} Clan-AP Technologies. All Rights Reserved.</p>
+              <div style="margin-bottom: 15px;">
+                <a href="mailto:contact@clanap.com" style="color: #7a2800; text-decoration: none; font-size: 14px;">contact@clanap.com</a>
+              </div>
+              <p style="color: #6B7280; font-size: 12px;">&copy; ${new Date().getFullYear()} Clan-AP Technologies Private Limited. All Rights Reserved.</p>
             </div>
           </div>
         `,

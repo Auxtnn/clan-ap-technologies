@@ -53,10 +53,10 @@ const OurStory = () => {
 
             <div className="space-y-4">
               <p className="text-gray-600">
-                ClanAP Technologies began in 2020 when our founder Manpreet
-                Bains recognized a critical gap in the software development
-                industry: comprehensive quality assurance that could keep pace
-                with modern development practices.
+                CLAN-AP TECHNOLOGIES PRIVATE LIMITED began in 2020 when our
+                founder Manpreet Bains recognized a critical gap in the software
+                development industry: comprehensive quality assurance that could
+                keep pace with modern development practices.
               </p>
 
               <p className="text-gray-600">
