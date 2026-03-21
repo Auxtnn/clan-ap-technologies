@@ -108,7 +108,7 @@ const AboutHero = () => {
           >
             <Link
               href="/contact"
-              className="bg-black text-white px-6 py-3 rounded-full font-bold relative overflow-hidden group"
+              className="bg-black hover:bg-transparent transition-colors hover:border-2 border-black border-2 hover:text-black text-white px-6 py-3 rounded-full font-bold relative overflow-hidden group"
             >
               <span className="relative z-10">Get in Touch</span>
               <motion.span

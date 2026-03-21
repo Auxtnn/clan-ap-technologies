@@ -114,14 +114,14 @@ const ServiceHero = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
             <Link
               href="https://calendly.com/manpreetbains_clan-ap_technologies/discovery-call"
               target="_blank"
             >
               <motion.button
-                className="bg-black text-white px-8 py-4 rounded-full font-bold relative overflow-hidden group"
+                className="bg-black hover:bg-transparent transition-colors hover:border-2 border-black border-2 hover:text-black text-white px-8 py-4 rounded-full font-bold relative overflow-hidden"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

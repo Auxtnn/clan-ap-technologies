@@ -106,7 +106,7 @@ const CaseStudyCTA = () => {
             className="mb-2"
           >
             <span className="inline-block py-1 px-3 bg-yellow-500/20 text-yellow-500 rounded-full text-sm font-medium">
-              Ready to Elevate Your Software Quality?
+              Partner With QA Experts
             </span>
           </motion.div>
 
@@ -137,7 +137,7 @@ const CaseStudyCTA = () => {
           >
             <Link href="/contact">
               <motion.button
-                className="bg-yellow-500 text-black border-2 border-white px-8 py-4 rounded-full font-bold relative overflow-hidden group"
+                className="bg-yellow-500 hover:bg-transparent hover:text-white text-black border-2 border-white px-8 py-4 rounded-full font-bold relative overflow-hidden group"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >

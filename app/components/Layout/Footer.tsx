@@ -175,7 +175,7 @@ const Footer = () => {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-gray-400 hover:text-[#FFD966] transition-colors duration-300"
+                  className="text-gray-400 hover:text-yellow-500 transition-colors duration-300"
                   aria-label={link.name}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -199,7 +199,7 @@ const Footer = () => {
                   <li key={link.name} className="relative">
                     <Link
                       href={link.href}
-                      className="text-gray-400 hover:text-[#FFD966] transition-colors duration-300 inline-block relative z-10 w-auto"
+                      className="text-gray-400 hover:text-yellow-500 transition-colors duration-300 inline-block relative z-10 w-auto"
                     >
                       {link.name}
                     </Link>
@@ -227,13 +227,13 @@ const Footer = () => {
             <div className="flex space-x-6">
               <Link
                 href="/privacy-policy"
-                className="hover:text-[#FFD966] transition-colors duration-300 inline-block"
+                className="hover:text-yellow-500 transition-colors duration-300 inline-block"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="/terms"
-                className="hover:text-[#FFD966] transition-colors duration-300 inline-block"
+                className="hover:text-yellow-500 transition-colors duration-300 inline-block"
               >
                 Terms of Service
               </Link>

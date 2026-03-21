@@ -137,7 +137,7 @@ const ServiceDetailHero = ({
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact">
                 <motion.button
-                  className=" bg-yellow-500 text-white px-8 py-4 rounded-full font-bold relative overflow-hidden group"
+                  className=" bg-yellow-500 hover:bg-transparent transition-colors hover:border-2 border-yellow-500 border-2 hover:text-black text-white px-8 py-4 rounded-full font-bold relative overflow-hidden group"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

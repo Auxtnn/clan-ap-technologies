@@ -6,18 +6,24 @@ import { motion } from "framer-motion";
 export default function TermsOfService() {
   return (
     <div className="bg-gray-50 min-h-screen">
+      {/* Print styles — hides site header/footer and background decorations */}
+      <style>{`
+        @media print {
+          header, footer, nav { display: none !important; }
+          .bg-gray-50 { background: white !important; }
+        }
+      `}</style>
+
       {/* Hero Section */}
       <section className="pt-32 pb-2 bg-white relative overflow-hidden">
         {/* Background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Grid pattern */}
           <div className="absolute inset-0 opacity-[0.03]">
             <div className="h-full w-full bg-grid-pattern" />
           </div>
 
-          {/* Abstract shapes */}
           <motion.div
-            className="absolute -top-20 -right-20 w-80 h-80 bg-yellow-500/5 rounded-full"
+            className="absolute -top-20 -right-20 w-80 h-80 bg-amber-500/5 rounded-full"
             animate={{
               scale: [1, 1.1, 1],
               opacity: [0.05, 0.08, 0.05],
@@ -79,8 +85,8 @@ export default function TermsOfService() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              Clan-AP Technologies{" "}
-              <p className="text-yellow-500">Terms of Service</p>
+              Clan-AP Technologies Private Limited{" "}
+              <p className="text-amber-500">Terms of Service</p>
             </motion.div>
 
             <motion.div
@@ -90,8 +96,10 @@ export default function TermsOfService() {
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               <span>Effective Date: August 2020</span>
-
-              <span>Company: Clan-AP Technologies (Registered in India)</span>
+              <span>
+                Company: Clan-AP Technologies Private Limited (Registered in
+                India)
+              </span>
             </motion.div>
           </div>
         </div>
@@ -99,21 +107,21 @@ export default function TermsOfService() {
 
       {/* Main Content */}
       <div className="container mx-auto lg:w-11/12 px-4 py-12">
-        <div className=" mx-auto">
+        <div className="mx-auto">
           <div className="bg-white shadow-sm rounded-xl p-6 md:p-10 mb-8">
             <p className="text-gray-700 mb-6">
-              Welcome to Clan-AP Technologies ("we", "our", or "us"). These
-              Terms of Service ("Terms") govern your access to and use of our
-              website and quality assurance (QA) services provided via
-              [www.clanap.com] (the "Site"). By using our services, you agree to
-              be bound by these Terms and all applicable laws.
+              Welcome to Clan-AP Technologies Private Limited ("we", "our", or
+              "us"). These Terms of Service ("Terms") govern your access to and
+              use of our website and quality assurance (QA) services provided
+              via [www.clanap.com] (the "Site"). By using our services, you
+              agree to be bound by these Terms and all applicable laws.
             </p>
 
             {/* Content */}
             <div>
               <section id="section-1" className="mb-8 scroll-mt-20">
                 <h2 className="text-xl font-bold mb-4 text-gray-900 flex items-center">
-                  <span className="w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-700 flex items-center justify-center mr-3 text-sm">
+                  <span className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-700 flex items-center justify-center mr-3 text-sm">
                     1
                   </span>
                   Use of Services
@@ -129,13 +137,14 @@ export default function TermsOfService() {
 
               <section id="section-2" className="mb-8 scroll-mt-20">
                 <h2 className="text-xl font-bold mb-4 text-gray-900 flex items-center">
-                  <span className="w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-700 flex items-center justify-center mr-3 text-sm">
+                  <span className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-700 flex items-center justify-center mr-3 text-sm">
                     2
                   </span>
                   Scope of Services
                 </h2>
                 <p className="text-gray-700 mb-4">
-                  Clan-AP Technologies offers a range of QA services including:
+                  Clan-AP Technologies Private Limited offers a range of QA
+                  services including:
                 </p>
                 <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-2">
                   <li>Manual & Automated Testing</li>
@@ -152,7 +161,7 @@ export default function TermsOfService() {
 
               <section id="section-3" className="mb-8 scroll-mt-20">
                 <h2 className="text-xl font-bold mb-4 text-gray-900 flex items-center">
-                  <span className="w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-700 flex items-center justify-center mr-3 text-sm">
+                  <span className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-700 flex items-center justify-center mr-3 text-sm">
                     3
                   </span>
                   Confidentiality & Data Security
@@ -167,7 +176,7 @@ export default function TermsOfService() {
 
               <section id="section-4" className="mb-8 scroll-mt-20">
                 <h2 className="text-xl font-bold mb-4 text-gray-900 flex items-center">
-                  <span className="w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-700 flex items-center justify-center mr-3 text-sm">
+                  <span className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-700 flex items-center justify-center mr-3 text-sm">
                     4
                   </span>
                   Client Responsibilities
@@ -182,7 +191,7 @@ export default function TermsOfService() {
 
               <section id="section-5" className="mb-8 scroll-mt-20">
                 <h2 className="text-xl font-bold mb-4 text-gray-900 flex items-center">
-                  <span className="w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-700 flex items-center justify-center mr-3 text-sm">
+                  <span className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-700 flex items-center justify-center mr-3 text-sm">
                     5
                   </span>
                   Payment Terms
@@ -202,37 +211,38 @@ export default function TermsOfService() {
 
               <section id="section-6" className="mb-8 scroll-mt-20">
                 <h2 className="text-xl font-bold mb-4 text-gray-900 flex items-center">
-                  <span className="w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-700 flex items-center justify-center mr-3 text-sm">
+                  <span className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-700 flex items-center justify-center mr-3 text-sm">
                     6
                   </span>
                   Intellectual Property
                 </h2>
                 <p className="text-gray-700">
                   All testing outputs, reports, and documentation created by
-                  Clan-AP Technologies during the engagement shall remain the
-                  intellectual property of the client upon full payment. We
-                  retain no ownership of client data, code, or content.
+                  Clan-AP Technologies Private Limited during the engagement
+                  shall remain the intellectual property of the client upon full
+                  payment. We retain no ownership of client data, code, or
+                  content.
                 </p>
               </section>
 
               <section id="section-7" className="mb-8 scroll-mt-20">
                 <h2 className="text-xl font-bold mb-4 text-gray-900 flex items-center">
-                  <span className="w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-700 flex items-center justify-center mr-3 text-sm">
+                  <span className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-700 flex items-center justify-center mr-3 text-sm">
                     7
                   </span>
                   Limitation of Liability
                 </h2>
                 <p className="text-gray-700">
-                  Clan-AP Technologies will not be liable for any indirect,
-                  incidental, or consequential losses. Our total liability is
-                  limited to the amount paid for the services rendered during
-                  the engagement period.
+                  Clan-AP Technologies Private Limited will not be liable for
+                  any indirect, incidental, or consequential losses. Our total
+                  liability is limited to the amount paid for the services
+                  rendered during the engagement period.
                 </p>
               </section>
 
               <section id="section-8" className="mb-8 scroll-mt-20">
                 <h2 className="text-xl font-bold mb-4 text-gray-900 flex items-center">
-                  <span className="w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-700 flex items-center justify-center mr-3 text-sm">
+                  <span className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-700 flex items-center justify-center mr-3 text-sm">
                     8
                   </span>
                   Termination
@@ -247,7 +257,7 @@ export default function TermsOfService() {
 
               <section id="section-9" className="mb-8 scroll-mt-20">
                 <h2 className="text-xl font-bold mb-4 text-gray-900 flex items-center">
-                  <span className="w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-700 flex items-center justify-center mr-3 text-sm">
+                  <span className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-700 flex items-center justify-center mr-3 text-sm">
                     9
                   </span>
                   Governing Law & Jurisdiction
@@ -263,7 +273,7 @@ export default function TermsOfService() {
 
               <section id="section-10" className="mb-8 scroll-mt-20">
                 <h2 className="text-xl font-bold mb-4 text-gray-900 flex items-center">
-                  <span className="w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-700 flex items-center justify-center mr-3 text-sm">
+                  <span className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-700 flex items-center justify-center mr-3 text-sm">
                     10
                   </span>
                   Modifications to Terms
@@ -277,7 +287,7 @@ export default function TermsOfService() {
 
               <section id="section-11" className="mb-8 scroll-mt-20">
                 <h2 className="text-xl font-bold mb-4 text-gray-900 flex items-center">
-                  <span className="w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-700 flex items-center justify-center mr-3 text-sm">
+                  <span className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-700 flex items-center justify-center mr-3 text-sm">
                     11
                   </span>
                   Contact Information
@@ -287,13 +297,15 @@ export default function TermsOfService() {
                   contact:
                 </p>
                 <div className="bg-gray-50 p-5 rounded-lg">
-                  <div className="mb-2">Clan-AP Technologies</div>
+                  <div className="mb-2 font-medium">
+                    Clan-AP Technologies Private Limited
+                  </div>
                   <div className="flex items-start mb-3">
                     <span className="text-xl mr-3">📍</span>
                     <div>
                       <p className="text-gray-700">
-                        Clan-AP Technologies office, Khanpur – 140301, Punjab,
-                        India
+                        Clan-AP Technologies Private Limited office, Khanpur –
+                        140301, Punjab, India
                       </p>
                     </div>
                   </div>
@@ -302,7 +314,7 @@ export default function TermsOfService() {
                     <div>
                       <a
                         href="mailto:contact@clanap.com"
-                        className="text-yellow-600 hover:text-yellow-700"
+                        className="text-amber-600 hover:text-amber-700"
                       >
                         contact@clanap.com
                       </a>
@@ -313,7 +325,7 @@ export default function TermsOfService() {
                     <div>
                       <a
                         href="tel:+917814320230"
-                        className="text-yellow-600 hover:text-yellow-700"
+                        className="text-amber-600 hover:text-amber-700"
                       >
                         +91 78143 20230
                       </a>
@@ -324,7 +336,7 @@ export default function TermsOfService() {
                     <div>
                       <a
                         href="https://www.clanap.com"
-                        className="text-yellow-600 hover:text-yellow-700"
+                        className="text-amber-600 hover:text-amber-700"
                       >
                         www.clanap.com
                       </a>
@@ -341,7 +353,7 @@ export default function TermsOfService() {
           <p className="text-sm text-gray-500">Last updated: April 2025</p>
           <button
             onClick={() => window.print()}
-            className="flex items-center text-sm text-gray-600 hover:text-yellow-600"
+            className="flex items-center text-sm text-gray-600 hover:text-amber-600"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
