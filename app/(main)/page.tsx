@@ -8,6 +8,7 @@ import {
   WhyChooseUs,
   PartnerLogos,
 } from "../components";
+import IntelligentQA from "../components/Home/AddContent";
 
 export const metadata: Metadata = {
   title: "ClanAP Technologies - Excellence in QA Testing",
@@ -21,6 +22,7 @@ export default function Home() {
       <HeroSection />
       <ServicesSection />
       <WhyChooseUs />
+      <IntelligentQA />
       <StatsSection />
       <TestimonialsSection />
 
