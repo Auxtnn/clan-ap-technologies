@@ -32,7 +32,7 @@ h6 {
   --color-amber-200: #ffc4a8;
   --color-amber-300: #ff9e72;
   --color-amber-400: #fe7038;
-  --color-amber-500: #fe5300;
+  --color-amber-500: #f05a0a;
   --color-amber-600: #d44400;
   --color-amber-700: #aa3600;
   --color-amber-800: #802900;
@@ -44,14 +44,14 @@ h6 {
   --color-yellow-200: #ffc4a8;
   --color-yellow-300: #ff9e72;
   --color-yellow-400: #fe7038;
-  --color-yellow-500: #fe5300;
+  --color-yellow-500: #f05a0a;
   --color-yellow-600: #d44400;
   --color-yellow-700: #aa3600;
   --color-yellow-800: #802900;
   --color-yellow-900: #561c00;
   --color-yellow-950: #2d0e00;
 
-  --color-brand: #fe5300;
+  --color-brand: #f05a0a;
   --color-brand-light: #fffaf8;
   --color-brand-dark: #140702;
 
