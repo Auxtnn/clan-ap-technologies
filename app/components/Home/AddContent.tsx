@@ -46,13 +46,19 @@ const IntelligentQA = () => {
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
         <motion.div
           className="absolute -top-24 -right-24 w-96 h-96 rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(254,83,0,0.12) 0%, transparent 70%)" }}
+          style={{
+            background:
+              "radial-gradient(circle, rgba(254,83,0,0.12) 0%, transparent 70%)",
+          }}
           animate={{ scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] }}
           transition={{ repeat: Infinity, duration: 9, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute -bottom-32 -left-20 w-80 h-80 rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(254,83,0,0.08) 0%, transparent 70%)" }}
+          style={{
+            background:
+              "radial-gradient(circle, rgba(254,83,0,0.08) 0%, transparent 70%)",
+          }}
           animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.9, 0.4] }}
           transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
         />
@@ -62,8 +68,18 @@ const IntelligentQA = () => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <pattern id="iq-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
+            <pattern
+              id="iq-grid"
+              width="40"
+              height="40"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 40 0 L 0 0 0 40"
+                fill="none"
+                stroke="white"
+                strokeWidth="0.5"
+              />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#iq-grid)" />
@@ -73,13 +89,23 @@ const IntelligentQA = () => {
           className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-yellow-500/30 to-transparent"
           style={{ left: "8%" }}
           animate={{ opacity: [0, 0.6, 0] }}
-          transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
+          transition={{
+            repeat: Infinity,
+            duration: 5,
+            ease: "easeInOut",
+            delay: 1,
+          }}
         />
         <motion.div
           className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-yellow-500/20 to-transparent"
           style={{ left: "92%" }}
           animate={{ opacity: [0, 0.5, 0] }}
-          transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 3 }}
+          transition={{
+            repeat: Infinity,
+            duration: 6,
+            ease: "easeInOut",
+            delay: 3,
+          }}
         />
       </div>
 
@@ -90,7 +116,7 @@ const IntelligentQA = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
               transition={{ duration: 0.5 }}
-              className="mb-4"
+              className="mb-4 md:text-left text-center"
             >
               <span className="inline-flex items-center gap-2 py-1 px-3 bg-yellow-500/15 text-yellow-500 rounded-full text-sm font-medium border border-yellow-500/20">
                 <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 inline-block" />
@@ -99,7 +125,7 @@ const IntelligentQA = () => {
             </motion.div>
 
             <motion.h2
-              className="text-3xl md:text-5xl font-bold text-white leading-tight"
+              className="text-3xl md:text-left text-center md:text-5xl font-bold text-white leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -110,13 +136,13 @@ const IntelligentQA = () => {
           </div>
 
           <motion.p
-            className="text-gray-400 text-base leading-relaxed max-w-lg lg:text-right"
+            className="text-gray-400 md:text-right text-center text-base leading-relaxed max-w-lg lg:text-right"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             We've modernized our processes with advanced intelligence
-            capabilities — enabling faster turnarounds, sharper insights, and
+            capabilities, enabling faster turnarounds, sharper insights, and
             consistently high-quality outcomes for every client.
           </motion.p>
         </div>
@@ -154,9 +180,7 @@ const FeatureCard = ({ feature, isInView }: FeatureCardProps) => {
       }}
       className="group relative rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] hover:border-yellow-500/30 transition-all duration-300 overflow-hidden p-7"
     >
-      <motion.div
-        className="absolute top-0 left-0 right-0 h-px bg-yellow-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
-      />
+      <motion.div className="absolute top-0 left-0 right-0 h-px bg-yellow-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
 
       <div className="absolute top-5 right-6 text-6xl font-black text-white/[0.04] group-hover:text-yellow-500/10 transition-colors duration-300 leading-none select-none">
         {feature.number}
@@ -179,9 +203,7 @@ const FeatureCard = ({ feature, isInView }: FeatureCardProps) => {
         </p>
       </div>
 
-      <motion.div
-        className="absolute bottom-0 right-0 w-24 h-24 rounded-tl-full bg-yellow-500/[0.04] group-hover:bg-yellow-500/[0.08] transition-colors duration-300"
-      />
+      <motion.div className="absolute bottom-0 right-0 w-24 h-24 rounded-tl-full bg-yellow-500/[0.04] group-hover:bg-yellow-500/[0.08] transition-colors duration-300" />
     </motion.div>
   );
 };
