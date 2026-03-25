@@ -163,7 +163,7 @@ const ContactForm = () => {
   return (
     <div
       id="contact-form"
-      className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 md:p-8"
+      className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 md:p-8 scroll-mt-28"
     >
       <h2 className="text-2xl font-bold mb-6">Request a Consultation</h2>
 

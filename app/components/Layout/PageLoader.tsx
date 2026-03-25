@@ -22,11 +22,10 @@ export const PageLoader = () => {
       const delay = Math.random() * 1.5;
       const duration = 2 + Math.random() * 2;
 
-      // Updated to use brand color #fe5300 instead of old yellow #F59E0B
       let color;
-      if (i % 3 === 0) color = "#fe5300";
+      if (i % 3 === 0) color = "#ed8c01";
       else if (i % 3 === 1) color = "#000000";
-      else color = "#fe530080"; // Semi-transparent brand orange
+      else color = "#ed8c0180";
 
       return { size, angle, distance, delay, duration, color };
     });
@@ -45,9 +44,9 @@ export const PageLoader = () => {
             transition: { duration: 0.5, ease: "easeInOut" },
           }}
         >
-          {/* Background pattern — updated stroke color */}
+          {/* Background pattern */}
           <div className="absolute inset-0 overflow-hidden opacity-5">
-            <div className="absolute h-full w-full bg-[linear-gradient(to_right,#fe5300_1px,transparent_1px),linear-gradient(to_bottom,#fe5300_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+            <div className="absolute h-full w-full bg-[linear-gradient(to_right,#ed8c01_1px,transparent_1px),linear-gradient(to_bottom,#ed8c01_1px,transparent_1px)] bg-[size:40px_40px]"></div>
           </div>
 
           {/* Enhanced background elements */}
@@ -60,14 +59,14 @@ export const PageLoader = () => {
             {/* Radial gradient background */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#1a1a1a_0%,#000000_70%)]"></div>
 
-            {/* Animated circuit-like lines — updated stroke to brand color */}
+            {/* Animated circuit-like lines */}
             <svg
               className="absolute inset-0 w-full h-full opacity-10"
               viewBox="0 0 100 100"
             >
               <motion.path
                 d="M10,50 Q30,30 50,50 T90,50"
-                stroke="#fe5300"
+                stroke="#ed8c01"
                 strokeWidth="0.2"
                 fill="none"
                 initial={{ pathLength: 0, opacity: 0 }}
@@ -84,7 +83,7 @@ export const PageLoader = () => {
               />
               <motion.path
                 d="M10,60 Q40,80 70,40 T90,60"
-                stroke="#fe5300"
+                stroke="#ed8c01"
                 strokeWidth="0.2"
                 fill="none"
                 initial={{ pathLength: 0, opacity: 0 }}
@@ -102,7 +101,7 @@ export const PageLoader = () => {
               />
               <motion.path
                 d="M10,40 Q50,10 80,40 T90,40"
-                stroke="#fe5300"
+                stroke="#ed8c01"
                 strokeWidth="0.2"
                 fill="none"
                 initial={{ pathLength: 0, opacity: 0 }}
@@ -121,9 +120,9 @@ export const PageLoader = () => {
             </svg>
           </motion.div>
 
-          {/* Animated floating elements — updated to amber/orange classes */}
+          {/* Animated floating elements */}
           <motion.div
-            className="absolute top-1/4 right-1/4 w-10 h-10 rounded bg-amber-500/10"
+            className="absolute top-1/4 right-1/4 w-10 h-10 rounded bg-[#ed8c01]/10"
             animate={{
               y: [0, -20, 0],
               rotate: [0, 45, 0],
@@ -132,7 +131,7 @@ export const PageLoader = () => {
           />
 
           <motion.div
-            className="absolute bottom-1/4 left-1/3 w-16 h-16 rounded-full bg-amber-500/10"
+            className="absolute bottom-1/4 left-1/3 w-16 h-16 rounded-full bg-[#ed8c01]/10"
             animate={{
               y: [0, 30, 0],
               x: [0, -20, 0],
@@ -141,7 +140,7 @@ export const PageLoader = () => {
           />
 
           <motion.div
-            className="absolute top-1/3 left-1/4 w-12 h-12 rounded-lg border border-amber-500/30"
+            className="absolute top-1/3 left-1/4 w-12 h-12 rounded-lg border border-[#ed8c01]/30"
             animate={{
               y: [0, 15, 0],
               x: [0, 15, 0],
@@ -151,7 +150,7 @@ export const PageLoader = () => {
           />
 
           <motion.div
-            className="absolute bottom-1/3 right-1/4 w-14 h-14 rounded-full border border-amber-500/30"
+            className="absolute bottom-1/3 right-1/4 w-14 h-14 rounded-full border border-[#ed8c01]/30"
             animate={{
               scale: [1, 1.1, 1],
               transition: { duration: 3, repeat: Infinity, ease: "easeInOut" },
@@ -160,7 +159,7 @@ export const PageLoader = () => {
 
           {/* Code fragments floating in background */}
           <motion.div
-            className="absolute top-1/5 left-1/5 text-xs font-mono text-amber-500/20"
+            className="absolute top-1/5 left-1/5 text-xs font-mono text-[#ed8c01]/20"
             animate={{
               y: [0, -10, 0],
               opacity: [0.2, 0.3, 0.2],
@@ -171,7 +170,7 @@ export const PageLoader = () => {
           </motion.div>
 
           <motion.div
-            className="absolute bottom-1/5 right-1/5 text-xs font-mono text-amber-500/20"
+            className="absolute bottom-1/5 right-1/5 text-xs font-mono text-[#ed8c01]/20"
             animate={{
               y: [0, 10, 0],
               opacity: [0.2, 0.3, 0.2],
@@ -184,7 +183,7 @@ export const PageLoader = () => {
           {/* Main centered animation container */}
           <div className="flex flex-col items-center justify-center">
             <div className="relative w-80 h-80 flex items-center justify-center">
-              {/* Outer slow-rotating hexagon — updated stroke */}
+              {/* Outer slow-rotating hexagon */}
               <motion.div
                 className="absolute w-64 h-64"
                 initial={{ opacity: 0, rotate: 0 }}
@@ -202,7 +201,7 @@ export const PageLoader = () => {
                   <polygon
                     points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
                     fill="none"
-                    stroke="#fe5300"
+                    stroke="#ed8c01"
                     strokeWidth="0.5"
                   />
                 </svg>
@@ -210,7 +209,7 @@ export const PageLoader = () => {
 
               {/* Pulsing outer ring */}
               <motion.div
-                className="absolute w-64 h-64 rounded-full border-2 border-amber-500/30"
+                className="absolute w-64 h-64 rounded-full border-2 border-[#ed8c01]/30"
                 animate={{
                   scale: [1, 1.1, 1],
                   opacity: [0.3, 0.6, 0.3],
@@ -224,7 +223,7 @@ export const PageLoader = () => {
 
               {/* Rotating ring with dots */}
               <motion.div
-                className="absolute w-56 h-56 rounded-full border border-amber-500/40"
+                className="absolute w-56 h-56 rounded-full border border-[#ed8c01]/40"
                 animate={{
                   rotate: 360,
                   transition: {
@@ -234,15 +233,15 @@ export const PageLoader = () => {
                   },
                 }}
               >
-                <motion.div className="absolute top-0 left-1/2 w-3 h-3 -ml-1.5 rounded-full bg-amber-500" />
-                <motion.div className="absolute bottom-0 left-1/2 w-3 h-3 -ml-1.5 rounded-full bg-amber-500" />
-                <motion.div className="absolute left-0 top-1/2 w-3 h-3 -mt-1.5 rounded-full bg-amber-500" />
-                <motion.div className="absolute right-0 top-1/2 w-3 h-3 -mt-1.5 rounded-full bg-amber-500" />
+                <motion.div className="absolute top-0 left-1/2 w-3 h-3 -ml-1.5 rounded-full bg-[#ed8c01]" />
+                <motion.div className="absolute bottom-0 left-1/2 w-3 h-3 -ml-1.5 rounded-full bg-[#ed8c01]" />
+                <motion.div className="absolute left-0 top-1/2 w-3 h-3 -mt-1.5 rounded-full bg-[#ed8c01]" />
+                <motion.div className="absolute right-0 top-1/2 w-3 h-3 -mt-1.5 rounded-full bg-[#ed8c01]" />
               </motion.div>
 
               {/* Counter-rotating ring with dots */}
               <motion.div
-                className="absolute w-48 h-48 rounded-full border border-amber-500/40"
+                className="absolute w-48 h-48 rounded-full border border-[#ed8c01]/40"
                 animate={{
                   rotate: -360,
                   transition: {
@@ -252,17 +251,17 @@ export const PageLoader = () => {
                   },
                 }}
               >
-                <motion.div className="absolute top-0 left-1/2 w-2 h-2 -ml-1 rounded-full bg-amber-500" />
-                <motion.div className="absolute bottom-0 left-1/2 w-2 h-2 -ml-1 rounded-full bg-amber-500" />
-                <motion.div className="absolute left-0 top-1/2 w-2 h-2 -mt-1 rounded-full bg-amber-500" />
-                <motion.div className="absolute right-0 top-1/2 w-2 h-2 -mt-1 rounded-full bg-amber-500" />
+                <motion.div className="absolute top-0 left-1/2 w-2 h-2 -ml-1 rounded-full bg-[#ed8c01]" />
+                <motion.div className="absolute bottom-0 left-1/2 w-2 h-2 -ml-1 rounded-full bg-[#ed8c01]" />
+                <motion.div className="absolute left-0 top-1/2 w-2 h-2 -mt-1 rounded-full bg-[#ed8c01]" />
+                <motion.div className="absolute right-0 top-1/2 w-2 h-2 -mt-1 rounded-full bg-[#ed8c01]" />
               </motion.div>
 
               {/* Center elements */}
               <div className="relative">
-                {/* Center circle — updated shadow to brand color */}
+                {/* Center circle */}
                 <motion.div
-                  className="w-28 h-28 rounded-full bg-gradient-to-br from-amber-500/90 to-amber-500/70 flex items-center justify-center shadow-[0_0_25px_rgba(254,83,0,0.5)]"
+                  className="w-28 h-28 rounded-full bg-gradient-to-br from-[#ed8c01]/90 to-[#ed8c01]/70 flex items-center justify-center shadow-[0_0_25px_rgba(237,140,1,0.5)]"
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{
                     scale: 1,
@@ -282,7 +281,7 @@ export const PageLoader = () => {
                   </motion.div>
                 </motion.div>
 
-                {/* Inner hexagon — updated stroke */}
+                {/* Inner hexagon */}
                 <motion.div
                   className="absolute top-1/2 left-1/2 w-36 h-36 -translate-x-1/2 -translate-y-1/2"
                   initial={{ scale: 0, opacity: 0, rotate: 0 }}
@@ -297,7 +296,7 @@ export const PageLoader = () => {
                     <polygon
                       points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25"
                       fill="none"
-                      stroke="#fe5300"
+                      stroke="#ed8c01"
                       strokeWidth="1.5"
                     />
                   </svg>
@@ -344,10 +343,10 @@ export const PageLoader = () => {
                 }}
               >
                 <h2 className="text-4xl font-bold tracking-wide">
-                  <span className="text-amber-500">CLAN-AP</span>
+                  <span className="text-[#ed8c01]">CLAN-AP</span>
                   <span className="text-white"> TECHNOLOGIES</span>
                 </h2>
-                <h3 className="text-xl font-medium text-amber-500/80 mt-1 tracking-widest">
+                <h3 className="text-xl font-medium text-[#ed8c01]/80 mt-1 tracking-widest">
                   QUALITY ASSURANCE EXPERTS
                 </h3>
               </motion.div>
@@ -364,7 +363,7 @@ export const PageLoader = () => {
               }}
             >
               <motion.div
-                className="w-3 h-3 bg-amber-500 rounded-full shadow-[0_0_10px_rgba(254,83,0,0.7)]"
+                className="w-3 h-3 bg-[#ed8c01] rounded-full shadow-[0_0_10px_rgba(237,140,1,0.7)]"
                 animate={{
                   scale: [1, 1.3, 1],
                   transition: {
@@ -387,7 +386,7 @@ export const PageLoader = () => {
                 }}
               />
               <motion.div
-                className="w-3 h-3 bg-amber-500 rounded-full shadow-[0_0_10px_rgba(254,83,0,0.7)]"
+                className="w-3 h-3 bg-[#ed8c01] rounded-full shadow-[0_0_10px_rgba(237,140,1,0.7)]"
                 animate={{
                   scale: [1, 1.3, 1],
                   transition: {
@@ -403,7 +402,7 @@ export const PageLoader = () => {
             {/* Progress bar */}
             <div className="mt-8 w-80 h-1.5 bg-gray-800 rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-gradient-to-r from-amber-600 to-amber-500"
+                className="h-full bg-gradient-to-r from-[#c97201] to-[#ed8c01]"
                 initial={{ width: 0 }}
                 animate={{
                   width: "100%",
@@ -414,7 +413,7 @@ export const PageLoader = () => {
 
             {/* Loading text */}
             <motion.p
-              className="mt-4 text-amber-500 font-medium tracking-[0.3em]"
+              className="mt-4 text-[#ed8c01] font-medium tracking-[0.3em]"
               initial={{ opacity: 0 }}
               animate={{
                 opacity: 1,
