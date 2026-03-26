@@ -27,7 +27,7 @@ import {
   Bot,
 } from "lucide-react";
 export const metadata: Metadata = {
-  title: "Manual Testing Services - ClanAP Technologies",
+  title: "Manual Testing Services - Clan-AP Technologies Private Limited",
   description:
     "Leverage human intuition and exploratory testing to identify issues that automated tests might miss and validate the complete user experience of your application.",
 };

@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "UI/UX Testing Services - ClanAP Technologies",
+  title: "UI/UX Testing Services - Clan-AP Technologies Private Limited",
   description:
     "Validate user interface design, accessibility, and overall user experience to ensure intuitive and engaging applications for all users.",
 };

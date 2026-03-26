@@ -26,7 +26,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Mobile Testing Services - ClanAP Technologies",
+  title: "Mobile Testing Services - Clan-AP Technologies Private Limited",
   description:
     "Ensure your mobile applications perform flawlessly across all devices, operating systems, and screen sizes with our comprehensive mobile testing services.",
 };

@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Database Testing Services - ClanAP Technologies",
+  title: "Database Testing Services - Clan-AP Technologies Private Limited",
   description:
     "Ensure data integrity, performance, and security with comprehensive database testing, validation, and optimization services.",
 };

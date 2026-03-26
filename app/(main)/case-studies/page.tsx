@@ -36,7 +36,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Case Studies | Clan-AP Technologies",
+  title: "Case Studies | Clan-AP Technologies Private Limited",
   description:
     "Discover how our QA services have helped businesses improve product quality, reduce bugs, and accelerate time-to-market.",
   keywords:

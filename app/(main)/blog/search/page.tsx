@@ -17,7 +17,7 @@ export async function generateMetadata({
   const query = params.q ?? "";
 
   return {
-    title: `Search: "${query}" - Clan-AP Blog`,
+    title: `Search: "${query}" - Clan-AP Technologies Private Limited Blog`,
     description: `Blog posts matching "${query}"`,
     robots: { index: false, follow: true },
   };

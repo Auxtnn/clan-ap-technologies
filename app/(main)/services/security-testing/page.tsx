@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Security Testing Services - ClanAP Technologies",
+  title: "Security Testing Services - Clan-AP Technologies Private Limited",
   description:
     "Protect your software from vulnerabilities with thorough security testing methodologies and compliance verification to ensure user data remains safe.",
 };

@@ -26,7 +26,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Automated Testing Services - ClanAP Technologies",
+  title: "Automated Testing Services - Clan-AP Technologies Private Limited",
   description:
     "Our automated testing services help you accelerate testing cycles, improve coverage, and deliver high-quality software faster.",
 };

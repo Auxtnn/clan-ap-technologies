@@ -8,11 +8,11 @@ import { Pagination } from "@/app/components/Blog/BlogPagination";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Blog - Clanap",
+  title: "Blog - Clan-AP Technologies Private Limited",
   description:
     "Expert articles, guides, and resources on software quality assurance, testing methodologies, and industry best practices.",
   openGraph: {
-    title: "Blog - Clanap",
+    title: "Blog - Clan-AP Technologies Private Limited",
     description:
       "Expert articles on QA testing and software quality assurance.",
     type: "website",

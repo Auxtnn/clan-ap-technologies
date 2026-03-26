@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "API Testing Services - ClanAP Technologies",
+  title: "API Testing Services - Clan-AP Technologies Private Limited",
   description:
     "Validate the functionality, reliability, and security of your APIs with comprehensive endpoint testing and integration verification.",
 };

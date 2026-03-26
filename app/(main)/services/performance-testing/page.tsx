@@ -29,7 +29,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Performance Testing Services - ClanAP Technologies",
+  title: "Performance Testing Services - Clan-AP Technologies Private Limited",
   description:
     "Optimize your application's speed, responsiveness, and stability under various load conditions and user scenarios to ensure exceptional user experiences.",
 };

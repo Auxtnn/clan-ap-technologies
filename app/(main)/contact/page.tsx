@@ -8,7 +8,7 @@ import {
 } from "../../components";
 
 export const metadata: Metadata = {
-  title: "Contact Us - ClanAP Technologies",
+  title: "Contact Us - Clan-AP Technologies Private Limited",
   description:
     "Get in touch with our QA testing experts. We're here to help you ensure exceptional software quality.",
 };

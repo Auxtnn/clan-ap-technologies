@@ -11,9 +11,9 @@ import {
 import IntelligentQA from "../components/Home/AddContent";
 
 export const metadata: Metadata = {
-  title: "ClanAP Technologies - Excellence in QA Testing",
+  title: "Clan-AP Technologies Private Limited - Excellence in QA Testing",
   description:
-    "ClanAP Technologies perfects the entire software development lifecycle with top-tier QA practices throughout, from inception to completion.",
+    "Clan-AP Technologies Private Limited perfects the entire software development lifecycle with top-tier QA practices throughout, from inception to completion.",
 };
 
 export default function Home() {
