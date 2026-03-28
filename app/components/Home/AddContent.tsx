@@ -2,6 +2,8 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const features = [
   {
@@ -125,7 +127,7 @@ const IntelligentQA = () => {
             </motion.div>
 
             <motion.h2
-              className="text-3xl md:text-left text-center md:text-5xl font-bold text-white leading-tight"
+              className="text-3xl md:text-left text-center md:text-4xl font-bold text-white leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -152,6 +154,23 @@ const IntelligentQA = () => {
             <FeatureCard key={index} feature={feature} isInView={isInView} />
           ))}
         </div>
+
+        <motion.div
+          className="flex justify-center mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.55 }}
+        >
+          <Link href="/ai-in-qa" className="flex">
+            <motion.button
+              className="inline-flex items-center justify-center gap-2 border-2 border-yellow-500 text-yellow-500 bg-transparent px-8 py-4 rounded-full font-bold hover:bg-yellow-500 hover:text-black transition-colors duration-200"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Explore Our AI in QA <ArrowRight className="w-4 h-4" />
+            </motion.button>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
