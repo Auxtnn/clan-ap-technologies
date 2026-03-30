@@ -82,9 +82,9 @@ const AIHeroStats = () => {
                 <CountUp value={s.value} inView={inView} />
                 <span className="text-yellow-500">{s.suffix}</span>
               </div>
-              <div className="text-white font-bold text-sm mb-3">{s.label}</div>
+              <div className="text-white font-bold text-base mb-3">{s.label}</div>
               <div className="w-8 h-px bg-yellow-500/40 mb-3 group-hover:w-16 transition-all duration-300" />
-              <p className="text-gray-500 text-xs leading-relaxed">{s.desc}</p>
+              <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
             </motion.div>
           ))}
         </div>
