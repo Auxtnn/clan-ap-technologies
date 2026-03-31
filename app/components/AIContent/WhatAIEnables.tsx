@@ -15,19 +15,19 @@ const enableCards = [
   {
     icon: Bot,
     title: "AI-Generated Test Cases",
-    desc: "We apply AI to intelligently analyse domains, user stories, and API specifications to automatically generate comprehensive test suites — covering happy paths, edge cases, and regression scenarios.",
+    desc: "We apply AI to intelligently analyse domains, user stories, and API specifications to automatically generate comprehensive test suites covering happy paths, edge cases, and regression scenarios.",
     tags: ["Unit Testing", "Behaviour Testing", "Edge Case Analysis"],
   },
   {
     icon: RefreshCw,
     title: "Self-Healing Test Automation",
-    desc: "Our platform intelligently identifies and repairs broken element locators when the application UI changes — drastically reducing maintenance overhead and keeping your test suite green every sprint.",
+    desc: "Our platform intelligently identifies and repairs broken element locators when the application UI changes, drastically reducing maintenance overhead and keeping your test suite green every sprint.",
     tags: ["SmartLocators", "Playwright"],
   },
   {
     icon: AlertTriangle,
     title: "Predictive Defect Detection",
-    desc: "Machine learning models trained on historical project data perform multi-variable root-cause analysis to highlight the areas most at risk of regressions — and focus prioritized reviewing.",
+    desc: "Machine learning models trained on historical project data perform multi-variable root-cause analysis to highlight the areas most at risk of regressions and focus prioritized reviewing.",
     tags: ["Risk Scoring", "Static Analysis", "Defect Insights"],
   },
   {
@@ -39,13 +39,13 @@ const enableCards = [
   {
     icon: BarChart2,
     title: "Intelligent Test Analytics",
-    desc: "AI processes test results, log files, and failure patterns to surface actionable intelligence — drastically reducing time spent on root-cause analysis and recommending prioritization for best cycle automation.",
+    desc: "AI processes test results, log files, and failure patterns to surface actionable intelligence drastically reducing time spent on root-cause analysis and recommending prioritization for best cycle automation.",
     tags: ["Log Analysis", "Cycle Guard", "Automated Intelligence"],
   },
   {
     icon: MessageSquare,
     title: "Conversational QA Assistants",
-    desc: "AI assistants available as chat interfaces that help your entire team ask questions, generate reports, get suggestions for testing edge cases, and stay compliant — all while shifting QA productivity significantly higher.",
+    desc: "AI assistants available as chat interfaces that help your entire team ask questions, generate reports, get suggestions for testing edge cases, and stay compliant, all while shifting QA productivity significantly higher.",
     tags: ["QA Mentor", "Slack Connect", "Automation"],
   },
 ];

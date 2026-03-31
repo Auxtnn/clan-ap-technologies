@@ -48,15 +48,15 @@ const capabilities = [
 const bulletPoints = [
   {
     title: "Intelligent Test Usages",
-    desc: "AI analyzes your codebase, APIs, and user journeys to automatically generate comprehensive test suites — eliminating the guesswork and reducing manual authoring time dramatically.",
+    desc: "AI analyzes your codebase, APIs, and user journeys to automatically generate comprehensive test suites, eliminating the guesswork and reducing manual authoring time dramatically.",
   },
   {
     title: "Smart Data Synthesis",
-    desc: "Simply describe the data format from real scenarios and we simulate it — meaning faster test setup with maximum coverage.",
+    desc: "Simply describe the data format from real scenarios and we simulate it, meaning faster test setup with maximum coverage.",
   },
   {
     title: "Predictive Defect Analytics",
-    desc: "Our AI engine predicts where defects are most likely to occur by analyzing past bugs, code complexity, and change frequency — so you focus energy where it matters most.",
+    desc: "Our AI engine predicts where defects are most likely to occur by analyzing past bugs, code complexity, and change frequency so you focus energy where it matters most.",
   },
   {
     title: "Continuous Quality Intelligence",

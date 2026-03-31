@@ -42,7 +42,7 @@ const AIHero = () => {
           transition={{ duration: 0.7, delay: 0.2 }}
         >
           At Clan-AP Technologies, we integrate cutting-edge Artificial
-          Intelligence into every stage of the Quality Assurance lifecycle —
+          Intelligence into every stage of the Quality Assurance lifecycle
           accelerating delivery, reducing defects, and transforming how we serve
           our clients.
         </motion.p>

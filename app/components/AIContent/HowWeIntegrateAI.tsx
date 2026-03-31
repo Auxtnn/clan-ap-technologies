@@ -24,7 +24,7 @@ const processSteps = [
   {
     number: "03",
     title: "AI-Powered Automation & Self-Healing Execution",
-    desc: "Automated tests run on every build with AI-assisted healing and test intelligence that continuously monitors for flakiness, drift, and coverage issues — while visual regression results are handled by trained machine learning models.",
+    desc: "Automated tests run on every build with AI-assisted healing and test intelligence that continuously monitors for flakiness, drift, and coverage issues, while visual regression results are handled by trained machine learning models.",
     tags: [
       "SmartTest Playwright",
       "SelfHeal Service",
