@@ -44,7 +44,7 @@ export function BlogHero() {
                 <li className="inline-flex items-center">
                   <Link
                     href="/"
-                    className="text-gray-600 hover:text-[#FE5300] text-sm"
+                    className="text-gray-600 hover:text-yellow-500 text-sm"
                   >
                     Home
                   </Link>
@@ -77,7 +77,7 @@ export function BlogHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            QA Testing <span className="text-[#FE5300]">Insights</span>
+            QA Testing <span className="text-yellow-500">Insights</span>
           </motion.h1>
 
           <motion.p
@@ -106,7 +106,7 @@ export function BlogHero() {
               />
               <button
                 type="submit"
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#FE5300] text-white p-2 rounded-full hover:bg-[#cc4200] transition-colors duration-300 flex items-center justify-center"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-yellow-500 text-white p-2 rounded-full hover:bg-[#cc4200] transition-colors duration-300 flex items-center justify-center"
                 aria-label="Search blog"
               >
                 <FiSearch className="w-5 h-5" />
