@@ -113,9 +113,9 @@ const Header = () => {
               <Image
                 src="/images/logo3.png"
                 alt="ClanAP Technologies"
-                width={isSmallTablet ? 80 : 100}
-                height={isSmallTablet ? 64 : 80}
-                className="h-6 md:h-7 lg:h-8 w-auto transition-transform"
+                width={isSmallTablet ? 80 : 140}
+                height={isSmallTablet ? 64 : 100}
+                className="h-8 md:h-8 lg:h-10 w-auto transition-transform"
                 priority
                 loading="eager"
               />

@@ -1,5 +1,8 @@
-import React from "react";
+"use client";
+
+import { motion } from "framer-motion";
 import { CheckCircle, Star } from "lucide-react";
+import Link from "next/link";
 
 interface Package {
   id: string;
@@ -15,57 +18,97 @@ interface Package {
 
 export const PackageCard = ({
   pkg,
-  category,
+  index,
+  inView,
 }: {
   pkg: Package;
-  category: string;
+  index: number;
+  inView: boolean;
 }) => {
   return (
-    <div
-      className={`relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${
-        pkg.popular ? "ring-4 ring-yellow-500 ring-opacity-50" : ""
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{
+        duration: 0.55,
+        delay: 0.1 + index * 0.1,
+        type: "spring",
+        stiffness: 90,
+      }}
+      className={`group relative bg-white rounded-2xl border shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden ${
+        pkg.popular
+          ? "border-yellow-500/60 shadow-yellow-500/10"
+          : "border-gray-100 hover:border-yellow-500/30"
       }`}
     >
+      <div className="absolute top-0 left-0 right-0 h-px bg-yellow-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+
       {pkg.popular && (
-        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-          <span className="bg-yellow-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg flex items-center">
-            <Star className="w-4 h-4 mr-1" />
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-yellow-500" />
+      )}
+
+      {pkg.popular && (
+        <div className="absolute top-4 right-4">
+          <span className="inline-flex items-center gap-1 bg-yellow-500 text-black px-3 py-1 rounded-full text-xs font-bold">
+            <Star className="w-3 h-3" />
             Most Popular
           </span>
         </div>
       )}
 
-      <div className="p-8">
-        <div className="text-center mb-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">{pkg.name}</h3>
-          <div className="text-3xl font-bold text-yellow-500 mb-2">
-            {pkg.price}
-          </div>
-          <div className="text-gray-600 mb-1">{pkg.duration}</div>
-          <div className="text-sm text-gray-500">{pkg.idealFor}</div>
+      <motion.div
+        className="absolute -right-4 -top-4 w-16 h-16 rounded-full bg-yellow-500/10"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.3, 0.1] }}
+        transition={{
+          repeat: Infinity,
+          duration: 4,
+          ease: "easeInOut",
+          delay: index * 0.3,
+        }}
+      />
+
+      <div className="p-7">
+        <div className="mb-6">
+          <h3 className="text-xl font-bold text-black mb-1 group-hover:text-yellow-500 transition-colors duration-300">
+            {pkg.name}
+          </h3>
+          <p className="text-gray-500 text-sm">{pkg.idealFor}</p>
         </div>
 
-        <div className="space-y-4 mb-8">
-          <h4 className="font-semibold text-gray-900">What's Included:</h4>
-          <ul className="space-y-3">
-            {pkg.features.map((feature, index) => (
-              <li key={index} className="flex items-start">
-                <CheckCircle className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700 text-sm">{feature}</span>
+        <div className="mb-6">
+          <div className="text-4xl font-black text-black mb-1">{pkg.price}</div>
+          <div className="text-gray-500 text-sm">{pkg.duration}</div>
+        </div>
+
+        <div className="w-full h-px bg-gray-100 mb-6" />
+
+        <div className="space-y-3 mb-6">
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            What&apos;s Included
+          </p>
+          <ul className="space-y-2.5">
+            {pkg.features.map((feature, i) => (
+              <li key={i} className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
+                <span className="text-gray-600 text-sm leading-relaxed">
+                  {feature}
+                </span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="mb-8">
-          <h4 className="font-semibold text-gray-900 mb-3">Perfect For:</h4>
-          <ul className="space-y-2">
-            {pkg.perfectFor.map((item, index) => (
+        <div className="space-y-3 mb-6">
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            Perfect For
+          </p>
+          <ul className="space-y-1.5">
+            {pkg.perfectFor.map((item, i) => (
               <li
-                key={index}
-                className="text-gray-600 text-sm flex items-center"
+                key={i}
+                className="flex items-center gap-2 text-gray-600 text-sm"
               >
-                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
+                <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full flex-shrink-0" />
                 {item}
               </li>
             ))}
@@ -73,13 +116,15 @@ export const PackageCard = ({
         </div>
 
         {pkg.technologies && (
-          <div className="mb-8">
-            <h4 className="font-semibold text-gray-900 mb-3">Technologies:</h4>
+          <div className="space-y-3 mb-6">
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Technologies
+            </p>
             <div className="flex flex-wrap gap-2">
-              {pkg.technologies.map((tech, index) => (
+              {pkg.technologies.map((tech, i) => (
                 <span
-                  key={index}
-                  className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs"
+                  key={i}
+                  className="px-2.5 py-0.5 bg-yellow-500/10 rounded-full text-yellow-600 text-xs font-medium"
                 >
                   {tech}
                 </span>
@@ -88,16 +133,26 @@ export const PackageCard = ({
           </div>
         )}
 
-        <button
-          className={`w-full py-4 rounded-xl font-semibold transition-all duration-300 ${
-            pkg.popular
-              ? "bg-yellow-500 text-white hover:bg-yellow-600 shadow-lg hover:shadow-xl"
-              : "bg-gray-100 text-gray-900 hover:bg-gray-200"
-          }`}
+        <Link
+          href="https://calendly.com/manpreetbains_clan-ap_technologies/discovery-call"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          Get Started
-        </button>
+          <motion.button
+            className={`w-full py-3.5 rounded-full font-bold text-sm transition-all duration-300 ${
+              pkg.popular
+                ? "bg-yellow-500 text-black hover:bg-black hover:text-white"
+                : "border-2 border-black bg-transparent text-black hover:bg-black hover:text-white"
+            }`}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Get Started
+          </motion.button>
+        </Link>
       </div>
-    </div>
+
+      <div className="absolute bottom-0 left-[10%] right-[10%] h-0.5 bg-yellow-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+    </motion.div>
   );
 };
