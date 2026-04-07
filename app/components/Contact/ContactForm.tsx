@@ -40,9 +40,10 @@ const ContactForm = () => {
 
   const validateEmail = (value: string): string => {
     if (!value) return "";
-    // Rejects consecutive dots anywhere, and ensures TLD is letters-only (2–63 chars)
     const hasConsecutiveDots = /\.{2,}/.test(value);
-    const validFormat = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,63}$/.test(value);
+    const validFormat = /^[a-zA-Z0-9._%+\-]+@[^\s@]+\.[a-zA-Z]{2,63}$/.test(
+      value
+    );
     return !hasConsecutiveDots && validFormat
       ? ""
       : "Please enter a valid email address (e.g. name@example.com).";

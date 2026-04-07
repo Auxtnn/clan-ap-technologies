@@ -51,7 +51,7 @@ const OurTeam = () => {
           {teamMembers.map((member, index) => (
             <motion.div
               key={index}
-              className="relative cursor-pointer flex flex-col h-full"
+              className="relative flex flex-col h-full"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{
@@ -197,7 +197,7 @@ const teamMembers: TeamMember[] = [
 
 // Team stats
 const teamStats = [
-  { value: "10+", label: "Team Members" },
+  { value: "15+", label: "Team Members" },
   { value: "1", label: "Global Office" },
   { value: "3+", label: "Languages Spoken" },
 ];

@@ -117,7 +117,6 @@ const ApproachStep = ({ step, index, isInView, total }: ApproachStepProps) => {
         <p className="text-gray-600">{step.description}</p>
       </div>
 
-      {/* Connector line — now renders on all items including the last */}
       {index < total && (
         <div className="hidden md:block absolute top-8 -right-4 w-8 h-0.5 bg-gray-100 lg:-right-6 lg:w-12">
           <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-yellow-500 rounded-full"></div>

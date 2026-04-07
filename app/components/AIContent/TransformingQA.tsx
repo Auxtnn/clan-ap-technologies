@@ -80,7 +80,8 @@ const TransformingQA = () => {
               className="text-3xl md:text-left text-center md:text-4xl font-black text-black mb-6 leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              style={{ willChange: "opacity, transform" }}
             >
               Transforming QA with the
               <br />
@@ -93,7 +94,8 @@ const TransformingQA = () => {
               className="text-gray-600 text-sm leading-relaxed mb-8"
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+              style={{ willChange: "opacity, transform" }}
             >
               Traditional Quality Assurance is manual, time-consuming, and
               reactive. At ClanAP Technologies, we&apos;ve embraced AI as a core
@@ -113,7 +115,12 @@ const TransformingQA = () => {
                   className="flex gap-3"
                   initial={{ opacity: 0, x: -16 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.2 + i * 0.1,
+                    ease: "easeOut",
+                  }}
+                  style={{ willChange: "opacity, transform" }}
                 >
                   <div className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-yellow-500/20 flex items-center justify-center">
                     <CheckCircle className="w-3 h-3 text-yellow-500" />
@@ -137,14 +144,14 @@ const TransformingQA = () => {
               return (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{
                     duration: 0.5,
                     delay: 0.15 + i * 0.08,
-                    type: "spring",
-                    stiffness: 90,
+                    ease: "easeOut",
                   }}
+                  style={{ willChange: "opacity, transform" }}
                   className="group bg-white rounded-xl border border-gray-100 shadow-sm p-5 hover:shadow-md hover:border-yellow-500/30 transition-all duration-300 relative overflow-hidden"
                 >
                   <div className="absolute top-0 left-0 right-0 h-0.5 bg-yellow-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
