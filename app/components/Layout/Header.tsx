@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useMobileMenu } from "./MobileMenuContext";
@@ -25,11 +25,10 @@ const Header = () => {
     { name: "Services", href: "/services" },
     { name: "Our AI Approach", href: "/ai-in-qa" },
     { name: "Case Studies", href: "/case-studies" },
-    // { name: "Pricing", href: "/pricing" },
     { name: "Blog", href: "/blog" },
   ];
 
-  const navVariants = {
+  const navVariants: Variants = {
     hidden: { opacity: 0, y: -20 },
     visible: {
       opacity: 1,
@@ -42,7 +41,7 @@ const Header = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants:Variants = {
     hidden: { opacity: 0, y: -15 },
     visible: {
       opacity: 1,
@@ -51,7 +50,7 @@ const Header = () => {
     },
   };
 
-  const logoVariants = {
+  const logoVariants:Variants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
@@ -63,46 +62,17 @@ const Header = () => {
     },
   };
 
-  // Use a better breakpoint strategy for iPads
-  const useBreakpointDetection = () => {
-    const [breakpoint, setBreakpoint] = useState({
-      isTablet: false,
-      isSmallTablet: false,
-    });
-
-    useEffect(() => {
-      const handleResize = () => {
-        const width = window.innerWidth;
-        setBreakpoint({
-          isTablet: width >= 768 && width <= 1024,
-          isSmallTablet: width >= 768 && width <= 900, // For iPad Mini and Air
-        });
-      };
-
-      // Set initial value
-      handleResize();
-
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    return breakpoint;
-  };
-
-  const { isTablet, isSmallTablet } = useBreakpointDetection();
-
   return (
     <motion.header
       className={`fixed w-full z-50 transition-all duration-500 ${
         scrolled ? "bg-white backdrop-blur-xl shadow-xl" : ""
-      } ${isTablet ? "py-1" : ""}`}
+      }`}
       initial="hidden"
       animate="visible"
       variants={navVariants}
     >
       <div className="container mx-auto px-4 md:px-5 py-3">
         <div className="flex items-center justify-between">
-          {/* Logo - increased right margin for better spacing */}
           <motion.div
             variants={logoVariants}
             initial="hidden"
@@ -113,8 +83,8 @@ const Header = () => {
               <Image
                 src="/images/logo3.png"
                 alt="ClanAP Technologies"
-                width={isSmallTablet ? 80 : 140}
-                height={isSmallTablet ? 64 : 100}
+                width={140}
+                height={100}
                 className="h-8 md:h-8 lg:h-10 w-auto transition-transform"
                 priority
                 loading="eager"
@@ -122,35 +92,16 @@ const Header = () => {
             </Link>
           </motion.div>
 
-          {/* Desktop/Tablet Navigation with improved spacing */}
           <motion.nav
-            className="hidden md:flex items-center"
+            className="hidden lg:flex items-center flex-1 justify-end"
             variants={navVariants}
           >
-            <div
-              className={`flex flex-wrap items-center ${
-                isSmallTablet
-                  ? "space-x-1"
-                  : isTablet
-                  ? "space-x-2 md:space-x-3"
-                  : "space-x-6 lg:space-x-10"
-              }`}
-            >
+            <div className="flex flex-nowrap items-center gap-5 xl:gap-8">
               {navLinks.map((link) => (
-                <motion.div
-                  key={link.name}
-                  variants={itemVariants}
-                  className={isTablet ? "px-2" : ""}
-                >
+                <motion.div key={link.name} variants={itemVariants}>
                   <Link
                     href={link.href}
-                    className={`relative text-black font-medium tracking-wide uppercase transition-colors duration-300 group ${
-                      isSmallTablet
-                        ? "text-sm"
-                        : isTablet
-                        ? "text-base"
-                        : "text-base lg:text-lg"
-                    }`}
+                    className="relative whitespace-nowrap text-black font-medium tracking-wide uppercase text-sm xl:text-base transition-colors duration-300 group"
                   >
                     {link.name}
                     <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-500 transition-all duration-300 group-hover:w-full" />
@@ -158,25 +109,10 @@ const Header = () => {
                 </motion.div>
               ))}
 
-              <motion.div
-                variants={itemVariants}
-                className={
-                  isSmallTablet
-                    ? "ml-1 mt-1"
-                    : isTablet
-                    ? "ml-1 md:ml-2"
-                    : "ml-4"
-                }
-              >
+              <motion.div variants={itemVariants} className="ml-2 xl:ml-4 flex-shrink-0">
                 <Link href="/contact">
                   <motion.button
-                    className={`bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-xl font-bold relative overflow-hidden group shadow-xl shadow-yellow-500/20 ${
-                      isSmallTablet
-                        ? "px-3 py-2 text-sm"
-                        : isTablet
-                        ? "px-3 py-2 text-base"
-                        : "px-8 py-3 text-base"
-                    }`}
+                    className="bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-xl font-bold relative overflow-hidden group shadow-xl shadow-yellow-500/20 whitespace-nowrap px-5 py-2.5 text-sm xl:px-8 xl:py-3 xl:text-base"
                     whileHover={{
                       scale: 1.02,
                       boxShadow: "0 20px 40px -10px rgba(245, 158, 11, 0.3)",
@@ -196,10 +132,9 @@ const Header = () => {
             </div>
           </motion.nav>
 
-          {/* Mobile Menu Button */}
           <motion.button
             variants={itemVariants}
-            className="md:hidden relative z-20"
+            className="lg:hidden relative z-20"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -230,9 +165,8 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <motion.div
-        className="md:hidden absolute top-0 left-0 w-full h-screen bg-white"
+        className="lg:hidden absolute top-0 left-0 w-full h-screen bg-white overflow-y-auto"
         initial={{ opacity: 0, x: "-100%" }}
         animate={{
           opacity: mobileMenuOpen ? 1 : 0,
@@ -241,7 +175,7 @@ const Header = () => {
         transition={{ duration: 0.5, ease: "easeInOut" }}
         style={{ pointerEvents: mobileMenuOpen ? "auto" : "none" }}
       >
-        <div className="flex flex-col items-center justify-center h-full">
+        <div className="flex flex-col items-center justify-center min-h-full py-24">
           {navLinks.map((link, index) => (
             <motion.div
               key={link.name}

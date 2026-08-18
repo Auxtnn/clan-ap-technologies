@@ -67,7 +67,7 @@ const OurTeam = () => {
                 {/* Image container - improved responsive behavior */}
                 <div
                   className="relative overflow-hidden w-full"
-                  style={{ paddingBottom: "100%" }}
+                  style={{ paddingBottom: "115%" }}
                 >
                   {member.image ? (
                     <div className="absolute inset-0">
@@ -75,12 +75,12 @@ const OurTeam = () => {
                         src={member.image}
                         alt={member.name}
                         fill
-                        className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                        className="object-cover object-[50%_20%] transition-transform duration-300 group-hover:scale-105"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         priority
                       />
 
-                      <div className="absolute inset-0 bg-gradient-to-t from-yellow-500/30 via-yellow-500/10 to-transparent"></div>
+               
                     </div>
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400">
@@ -159,7 +159,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Manpreet Bains",
     role: "Founder & CEO",
-    image: "/images/team/manpreet.jpg",
+    image: "/images/team/ceo.jpg",
     socialLinks: [
       {
         platform: "LinkedIn",
@@ -175,7 +175,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Harinder Kaur",
     role: "Co-Founder",
-    image: "/images/team/harinder.jpg",
+    image: "/images/team/co-founder1.jpg",
     socialLinks: [
       {
         platform: "LinkedIn",
@@ -191,7 +191,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Arshdeep Bains",
     role: "Co-founder",
-    image: "/images/team/arshdeep.jpg",
+    image: "/images/team/co-founder2.jpg",
   },
 ];
 
