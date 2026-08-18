@@ -26,9 +26,10 @@ const Header = () => {
     { name: "Our AI Approach", href: "/ai-in-qa" },
     { name: "Case Studies", href: "/case-studies" },
     { name: "Blog", href: "/blog" },
+    { name: "Careers", href: "/careers" },
   ];
 
-  const navVariants: Variants = {
+  const navVariants:Variants= {
     hidden: { opacity: 0, y: -20 },
     visible: {
       opacity: 1,
