@@ -1,4 +1,4 @@
-// store/blogStore.ts
+
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { WordPressPost, PostSummary } from "@/app/types";

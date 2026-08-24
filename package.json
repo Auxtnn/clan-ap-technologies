@@ -23,6 +23,7 @@
     "react-select": "^5.10.2",
     "react-slick": "^0.30.3",
     "react-tsparticles": "^2.12.2",
+    "server-only": "^0.0.1",
     "slick-carousel": "^1.8.1",
     "tsparticles": "^3.8.1",
     "tsparticles-engine": "^2.12.0",
