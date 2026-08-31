@@ -47,7 +47,7 @@ const OurTeam = () => {
         </div>
 
         {/* Team members grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
           {teamMembers.map((member, index) => (
             <motion.div
               key={index}
@@ -65,32 +65,25 @@ const OurTeam = () => {
             >
               <div className="bg-white flex flex-col h-full rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
                 {/* Image container - improved responsive behavior */}
-                <div
-                  className="relative overflow-hidden w-full"
-                  style={{ paddingBottom: "115%" }}
-                >
-                  {member.image ? (
-                    <div className="absolute inset-0">
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        fill
-                        className="object-cover object-[50%_20%] transition-transform duration-300 group-hover:scale-105"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        priority
-                      />
-
-               
-                    </div>
-                  ) : (
-                    <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400">
-                      <span className="text-5xl font-bold">
-                        {member.name.charAt(0)}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
+          <div className="relative w-full bg-gray-100">
+  {member.image ? (
+    <Image
+      src={member.image}
+      alt={member.name}
+      width={800}
+      height={1000}
+      className="w-full h-auto block object-cover"
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
+      priority
+    />
+  ) : (
+    <div className="w-full aspect-[4/5] flex items-center justify-center bg-gray-200 text-gray-400">
+      <span className="text-5xl font-bold">
+        {member.name.charAt(0)}
+      </span>
+    </div>
+  )}
+</div>
                 {/* Info */}
                 <div className="p-5 flex flex-col flex-grow">
                   <h3 className="font-bold text-lg">{member.name}</h3>
@@ -157,22 +150,11 @@ interface TeamMember {
 
 const teamMembers: TeamMember[] = [
   {
-    name: "Manpreet Bains",
-    role: "Founder & CEO",
-    image: "/images/team/ceo.jpg",
-    socialLinks: [
-      {
-        platform: "LinkedIn",
-        url: "https://www.linkedin.com/in/manpreet-bains-06384522/",
-        icon: (
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-          </svg>
-        ),
-      },
-    ],
+    name: "Parmjit Singh Bains",
+    role: "Director",
+    image: "/images/team/director.jpg",
   },
-  {
+    {
     name: "Harinder Kaur",
     role: "Co-Founder",
     image: "/images/team/co-founder1.jpg",
@@ -188,6 +170,23 @@ const teamMembers: TeamMember[] = [
       },
     ],
   },
+  {
+    name: "Manpreet Bains",
+    role: "Founder & CEO",
+    image: "/images/team/ceo.jpg",
+    socialLinks: [
+      {
+        platform: "LinkedIn",
+        url: "https://www.linkedin.com/in/manpreet-bains-06384522/",
+        icon: (
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+          </svg>
+        ),
+      },
+    ],
+  },
+
   {
     name: "Arshdeep Bains",
     role: "Co-founder",
