@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 const LANDING_HOST = process.env.LANDING_DOMAIN;
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const hostname = request.headers.get("host") || "";
   const { pathname, search } = request.nextUrl;
 
