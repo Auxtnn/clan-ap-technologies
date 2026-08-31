@@ -1,16 +1,18 @@
+
+
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import {
   motion,
-  useScroll,
-  useTransform,
-  AnimatePresence,
 } from "framer-motion";
 import Link from "next/link";
-import { loadSlim } from "tsparticles-slim";
-import Particles from "react-tsparticles";
-import { Engine, Container } from "tsparticles-engine";
+
+import Particles, { ParticlesProvider } from "@tsparticles/react";
+import type { ISourceOptions, Engine, Container } from "@tsparticles/engine";
+import { loadSlim } from "@tsparticles/slim";
+
+
 
 interface TerminalLineProps {
   index: number;
@@ -72,17 +74,11 @@ const TerminalLine = ({ index, isActive }: TerminalLineProps) => {
 const HeroSection = () => {
   const targetRef = useRef<HTMLElement | null>(null);
 
-  const particlesInit = useCallback(async (engine: Engine) => {
+ const particlesInit = useCallback(async (engine: Engine) => {
     await loadSlim(engine);
   }, []);
 
-  const particlesLoaded = useCallback(
-    async (container: Container | undefined) => {
-      // This ensures the particles are properly loaded
-      console.log("Particles container loaded:", container);
-    },
-    []
-  );
+
 
   // Terminal animation state
   const [terminalLines, setTerminalLines] = useState<number[]>([]);
@@ -123,76 +119,83 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, [terminalLines.length]);
 
-  const particlesOptions = {
-    fullScreen: { enable: false },
-    background: {
-      color: {
-        value: "transparent",
-      },
+const particlesOptions: ISourceOptions = {
+  fullScreen: {
+    enable: false,
+  },
+  background: {
+    color: {
+      value: "transparent",
     },
-    fpsLimit: 120,
-    interactivity: {
-      events: {
-        onClick: {
-          enable: true,
-          mode: "push",
-        },
-        onHover: {
-          enable: true,
-          mode: "repulse",
-        },
-        resize: true,
-      },
-      modes: {
-        push: {
-          quantity: 10,
-        },
-        repulse: {
-          distance: 100,
-          duration: 0.4,
-        },
-      },
-    },
-    particles: {
-      color: {
-        value: ["#D97706", "#F59E0B", "#FCD34D"],
-      },
-      links: {
-        color: "#D97706",
-        distance: 150,
+  },
+  fpsLimit: 120,
+  interactivity: {
+    events: {
+      onClick: {
         enable: true,
-        opacity: 0.3,
-        width: 1,
+        mode: "push",
       },
-      move: {
-        // direction: "top",
+      onHover: {
         enable: true,
-        outModes: {
-          default: "bounce",
-        },
-        random: false,
-        speed: 1,
-        straight: false,
+        mode: "repulse",
       },
-      number: {
-        density: {
-          enable: true,
-          area: 800,
-        },
-        value: 60,
-      },
-      opacity: {
-        value: 0.3,
-      },
-      shape: {
-        type: "circle",
-      },
-      size: {
-        value: { min: 1, max: 3 },
+      resize: {
+        enable: true,
       },
     },
-    detectRetina: true,
-  };
+    modes: {
+      push: {
+        quantity: 10,
+      },
+      repulse: {
+        distance: 100,
+        duration: 0.4,
+      },
+    },
+  },
+  particles: {
+    color: {
+      value: ["#D97706", "#F59E0B", "#FCD34D"],
+    },
+    links: {
+      color: "#D97706",
+      distance: 150,
+      enable: true,
+      opacity: 0.3,
+      width: 1,
+    },
+    move: {
+      enable: true,
+      outModes: {
+        default: "bounce",
+      },
+      random: false,
+      speed: 1,
+      straight: false,
+    },
+    number: {
+     density: {
+  enable: true,
+  width: 800,
+  height: 800,
+},
+      value: 60,
+    },
+    opacity: {
+      value: 0.3,
+    },
+    shape: {
+      type: "circle",
+    },
+    size: {
+      value: {
+        min: 1,
+        max: 3,
+      },
+    },
+  },
+  detectRetina: true,
+};
 
   return (
     <section
@@ -205,20 +208,13 @@ const HeroSection = () => {
         style={{ height: "100%", width: "100%" }}
       >
         <div className="absolute inset-0 bg-white"></div>
-        <Particles
-          id="tsparticles"
-          init={particlesInit}
-          loaded={particlesLoaded}
-          options={particlesOptions}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            zIndex: 5,
-          }}
-        />
+         <ParticlesProvider init={particlesInit}>
+         <Particles
+  id="tsparticles"
+  options={particlesOptions}
+  className="absolute inset-0 z-[5]"
+/>
+        </ParticlesProvider>
       </div>
 
       {/* Main content */}
