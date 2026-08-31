@@ -68,7 +68,6 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-// Progress Bar Component - Fixed to properly reset at the end of each slide
 const ProgressBar = ({
   autoplaySpeed,
   isPlaying,
@@ -77,18 +76,15 @@ const ProgressBar = ({
   const [progress, setProgress] = useState(0);
   const progressTimerRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
-  const previousSlideIndexRef = useRef<number>(slideIndex);
+  const prevSlideRef = useRef<number>(slideIndex);
 
   useEffect(() => {
-    // Check if the slide has changed
-    if (previousSlideIndexRef.current !== slideIndex) {
-      // Reset progress when slide changes
+    if (prevSlideRef.current !== slideIndex) {
       setProgress(0);
       startTimeRef.current = null;
-      previousSlideIndexRef.current = slideIndex;
+      prevSlideRef.current = slideIndex;
     }
 
-    // Clean up previous animation frame
     if (progressTimerRef.current !== null) {
       cancelAnimationFrame(progressTimerRef.current);
       progressTimerRef.current = null;
@@ -96,31 +92,13 @@ const ProgressBar = ({
 
     if (!isPlaying) return;
 
-    // Animation function with proper typing
     const animate = (timestamp: number) => {
-      if (startTimeRef.current === null) {
-        startTimeRef.current = timestamp;
-      }
-
+      if (startTimeRef.current === null) startTimeRef.current = timestamp;
       const elapsed = timestamp - startTimeRef.current;
       const calculatedProgress = Math.min(elapsed / autoplaySpeed, 1);
-
       setProgress(calculatedProgress);
-
-      if (calculatedProgress < 1 && isPlaying) {
+      if (calculatedProgress < 1) {
         progressTimerRef.current = requestAnimationFrame(animate);
-      } else if (calculatedProgress >= 1) {
-        // Ensure progress stays at 100% briefly before the slide changes
-        setTimeout(() => {
-          // Only reset if we're still on the same slide
-          if (previousSlideIndexRef.current === slideIndex) {
-            setProgress(0);
-            startTimeRef.current = null;
-            if (isPlaying) {
-              progressTimerRef.current = requestAnimationFrame(animate);
-            }
-          }
-        }, 50);
       }
     };
 
@@ -146,34 +124,19 @@ const ProgressBar = ({
 
 const TestimonialsSection = () => {
   const [activeSlide, setActiveSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const sliderRef = useRef<Slider | null>(null);
   const autoplaySpeed = 6000;
-  const displayedActiveSlideRef = useRef<number>(0);
 
-  // Setup resize observer for responsive layout
   useEffect(() => {
-    // Only run on client
     if (typeof window === "undefined") return;
+    setDimensions({ width: window.innerWidth, height: window.innerHeight });
 
-    // Set initial dimensions
-    setDimensions({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-
-    // Create resize handler using debounce pattern
     let timeoutId: NodeJS.Timeout | null = null;
     const handleResize = () => {
-      if (timeoutId !== null) {
-        clearTimeout(timeoutId);
-      }
+      if (timeoutId !== null) clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        setDimensions({
-          width: window.innerWidth,
-          height: window.innerHeight,
-        });
+        setDimensions({ width: window.innerWidth, height: window.innerHeight });
       }, 200);
     };
 
@@ -181,9 +144,8 @@ const TestimonialsSection = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Memoize device type calculations
   const { isMobile, isTablet, totalSlides, containerHeight } = useMemo(() => {
-    const width = dimensions.width;
+    const { width } = dimensions;
     const isMobile = width < 640;
     const isTablet = width >= 640 && width < 1024;
     const totalSlides =
@@ -192,123 +154,49 @@ const TestimonialsSection = () => {
         : Math.ceil(testimonials.length / 2);
 
     let containerHeight: string;
-    if (isMobile) {
-      containerHeight = "470px";
-    } else if (isTablet) {
-      containerHeight = "310px";
-    } else {
-      containerHeight = "350px";
-    }
+    if (isMobile) containerHeight = "470px";
+    else if (isTablet) containerHeight = "310px";
+    else containerHeight = "350px";
 
     return { isMobile, isTablet, totalSlides, containerHeight };
   }, [dimensions.width]);
 
-  // Update displayedActiveSlide for proper dot highlighting
-  useEffect(() => {
-    if (isMobile || isTablet) {
-      // On mobile and tablet, active slide index maps directly
-      displayedActiveSlideRef.current = activeSlide;
-    } else {
-      // On desktop, each slide shows 2 testimonials, so we need to adjust
-      displayedActiveSlideRef.current = Math.floor(activeSlide / 2);
-    }
-  }, [activeSlide, isMobile, isTablet]);
-
-  // Handle autoplay pause/resume
-  const pauseAutoplay = useCallback(() => {
-    setIsAutoPlaying(false);
-  }, []);
-
-  const resumeAutoplay = useCallback(() => {
-    if (sliderRef.current) {
-      setIsAutoPlaying(true);
-      sliderRef.current.slickPlay();
-    }
-  }, []);
-
-  // Navigation handlers - memoized to prevent unnecessary re-renders
+  // Navigate without ever touching autoplay state — slider keeps its own timer
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
-
-    pauseAutoplay();
-
-    // On desktop, calculate the previous slide properly to ensure we show the previous set of testimonials
-    if (!isMobile && !isTablet && sliderRef.current) {
-      const currentSlide = sliderRef.current.innerSlider.state.currentSlide;
-      // Ensure we move to the previous set of testimonials (2 at a time)
+    if (!isMobile && !isTablet) {
+      const currentSlide =
+        (sliderRef.current as any).innerSlider?.state?.currentSlide ?? 0;
       const prevSlide = Math.floor((currentSlide - 2) / 2) * 2;
       sliderRef.current.slickGoTo(
         prevSlide >= 0 ? prevSlide : testimonials.length - 2
       );
-      setActiveSlide(prevSlide >= 0 ? prevSlide : testimonials.length - 2);
     } else {
       sliderRef.current.slickPrev();
-
-      // Update active slide synchronously with current slider state
-      setTimeout(() => {
-        if (sliderRef.current && sliderRef.current.innerSlider) {
-          const newIndex = sliderRef.current.innerSlider.state.currentSlide;
-          setActiveSlide(newIndex);
-        }
-      }, 0);
     }
-
-    // Resume autoplay after a delay
-    setTimeout(resumeAutoplay, 100);
-  }, [pauseAutoplay, resumeAutoplay, isMobile, isTablet]);
+  }, [isMobile, isTablet]);
 
   const handleNext = useCallback(() => {
     if (!sliderRef.current) return;
-
-    pauseAutoplay();
-
-    // On desktop, calculate the next slide properly to ensure we show the next set of testimonials
-    if (!isMobile && !isTablet && sliderRef.current) {
-      const currentSlide = sliderRef.current.innerSlider.state.currentSlide;
-      // Ensure we move to the next set of testimonials (2 at a time)
+    if (!isMobile && !isTablet) {
+      const currentSlide =
+        (sliderRef.current as any).innerSlider?.state?.currentSlide ?? 0;
       const nextSlide = Math.ceil((currentSlide + 1) / 2) * 2;
       sliderRef.current.slickGoTo(nextSlide);
-      setActiveSlide(nextSlide);
     } else {
       sliderRef.current.slickNext();
-
-      // Update active slide synchronously with current slider state
-      setTimeout(() => {
-        if (sliderRef.current && sliderRef.current.innerSlider) {
-          const newIndex = sliderRef.current.innerSlider.state.currentSlide;
-          setActiveSlide(newIndex);
-        }
-      }, 0);
     }
-
-    // Resume autoplay after a delay
-    setTimeout(resumeAutoplay, 100);
-  }, [pauseAutoplay, resumeAutoplay, isMobile, isTablet]);
+  }, [isMobile, isTablet]);
 
   const handleDotClick = useCallback(
     (index: number) => {
       if (!sliderRef.current) return;
-
-      pauseAutoplay();
-
-      // Calculate the actual slide to navigate to based on the dot index
-      let actualSlideIndex = index;
-      if (!isMobile && !isTablet) {
-        // For desktop view where we show 2 testimonials per slide,
-        // multiply dot index by 2 to get the actual slide index
-        actualSlideIndex = index * 2;
-      }
-
+      const actualSlideIndex = !isMobile && !isTablet ? index * 2 : index;
       sliderRef.current.slickGoTo(actualSlideIndex);
-      setActiveSlide(actualSlideIndex);
-
-      // Resume autoplay after a delay
-      setTimeout(resumeAutoplay, 100);
     },
-    [pauseAutoplay, resumeAutoplay, isMobile, isTablet]
+    [isMobile, isTablet]
   );
 
-  // Custom Previous Arrow component
   const CustomPrevArrow = ({ onClick }: CustomArrowProps) => (
     <button
       onClick={(e) => {
@@ -337,7 +225,6 @@ const TestimonialsSection = () => {
     </button>
   );
 
-  // Custom Next Arrow component
   const CustomNextArrow = ({ onClick }: CustomArrowProps) => (
     <button
       onClick={(e) => {
@@ -366,64 +253,47 @@ const TestimonialsSection = () => {
     </button>
   );
 
-  // Custom Dots component
-  const CustomDots = () => {
-    // Compute dots based on view type
-    const displayedActiveSlide =
-      isMobile || isTablet ? activeSlide : Math.floor(activeSlide / 2);
+  const displayedActiveSlide =
+    isMobile || isTablet ? activeSlide : Math.floor(activeSlide / 2);
 
-    return (
-      <div className="custom-dots flex justify-center mt-8 space-x-2">
-        {Array.from({ length: totalSlides }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => handleDotClick(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === displayedActiveSlide
-                ? "bg-yellow-500 w-8"
-                : "bg-gray-300"
-            }`}
-            aria-label={`Go to testimonial ${index + 1}`}
-            aria-current={index === displayedActiveSlide ? "true" : "false"}
-          />
-        ))}
-      </div>
-    );
-  };
+  const CustomDots = () => (
+    <div className="custom-dots flex justify-center mt-8 space-x-2">
+      {Array.from({ length: totalSlides }).map((_, index) => (
+        <button
+          key={index}
+          onClick={() => handleDotClick(index)}
+          className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            index === displayedActiveSlide ? "bg-yellow-500 w-8" : "bg-gray-300"
+          }`}
+          aria-label={`Go to testimonial ${index + 1}`}
+          aria-current={index === displayedActiveSlide ? "true" : "false"}
+        />
+      ))}
+    </div>
+  );
 
-  // Memoize slider settings to prevent unnecessary re-renders
+  // autoplaySpeed excluded from deps — stable primitive, avoids slider remount
   const settings = useMemo(
     () => ({
       dots: false,
       infinite: true,
       speed: 500,
       slidesToShow: isMobile || isTablet ? 1 : 2,
-      slidesToScroll: isMobile || isTablet ? 1 : 2, // On desktop, scroll 2 slides at a time
-      autoplay: isAutoPlaying,
-      autoplaySpeed: autoplaySpeed,
+      slidesToScroll: isMobile || isTablet ? 1 : 2,
+      autoplay: true,
+      autoplaySpeed,
       pauseOnHover: true,
       nextArrow: <CustomNextArrow />,
       prevArrow: <CustomPrevArrow />,
-      beforeChange: (_: number, next: number) => {
-        setActiveSlide(next);
-      },
-      afterChange: (current: number) => {
-        setActiveSlide(current);
-      },
+      beforeChange: (_: number, next: number) => setActiveSlide(next),
+      afterChange: (current: number) => setActiveSlide(current),
       responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
-        },
+        { breakpoint: 1024, settings: { slidesToShow: 1, slidesToScroll: 1 } },
       ],
     }),
-    [isMobile, isTablet, isAutoPlaying, autoplaySpeed]
+    [isMobile, isTablet] // autoplay state removed — always true now
   );
 
-  // Memoize the testimonial items to prevent unnecessary re-renders
   const testimonialItems = useMemo(
     () =>
       testimonials.map((testimonial) => (
@@ -432,31 +302,24 @@ const TestimonialsSection = () => {
             className="mx-2 bg-white border border-gray-100 rounded-xl shadow-sm p-4 flex flex-col h-full"
             style={{ height: containerHeight }}
           >
-            {/* Highlight badge */}
             <div className="mb-4">
               <span className="inline-block py-1 px-3 bg-yellow-500/10 text-yellow-600 rounded-full text-xs font-medium">
                 {testimonial.highlight}
               </span>
             </div>
-
-            {/* Quote section */}
             <div className="relative flex-grow overflow-y-auto">
               <div className="flex items-start">
                 <span className="text-3xl text-yellow-500 leading-none mr-1">
                   ❝
                 </span>
               </div>
-
               <p className="text-gray-700 md:text-base text-sm leading-[1.35rem] px-2">
                 {testimonial.quote}
               </p>
-
               <div className="flex items-start justify-end">
                 <span className="text-3xl text-yellow-500 leading-none">❞</span>
               </div>
             </div>
-
-            {/* Author info */}
             <div className="flex items-center mt-4">
               <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
                 <img
@@ -482,44 +345,33 @@ const TestimonialsSection = () => {
 
   return (
     <section className="pt-10 bg-white relative overflow-hidden">
-      {/* Background pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div className="h-full w-full bg-grid-pattern" />
       </div>
-
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section header */}
         <div className="text-center mb-12">
           <span className="inline-block py-1 px-3 bg-yellow-500/20 text-black rounded-full text-sm font-medium mb-4">
             Client Success
           </span>
-
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Trusted by Industry Leaders
           </h2>
-
           <p className="text-gray-600 max-w-2xl mx-auto">
             Our clients achieve measurable improvements in software quality,
             efficiency, and user satisfaction.
           </p>
         </div>
-
-        {/* Testimonials carousel */}
         <div className="relative lg:w-11/12 mx-auto">
           <div className="slider-container" style={{ height: containerHeight }}>
             <Slider ref={sliderRef} {...settings}>
               {testimonialItems}
             </Slider>
           </div>
-
-          {/* Custom Progress Bar */}
           <ProgressBar
             autoplaySpeed={autoplaySpeed}
-            isPlaying={isAutoPlaying}
+            isPlaying={true}
             slideIndex={activeSlide}
           />
-
-          {/* Custom Dots Navigation */}
           <CustomDots />
         </div>
       </div>

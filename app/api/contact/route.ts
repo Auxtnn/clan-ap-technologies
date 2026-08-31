@@ -57,13 +57,13 @@ export async function POST(request: any) {
         html: `
           <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; line-height: 1.6;">
             <!-- Brand Header -->
-            <div style="text-align: center; margin-bottom: 30px; padding: 30px 20px; background: linear-gradient(to bottom, #ed8c01, #9e5801); border-radius: 8px; color: white;">
-            
-              <div style="margin-bottom: 15px; font-size: 24px; font-weight:bold; color: white;">
-               CLAN-AP TECHNOLOGIES PRIVATE LIMITED
-              </div>
-              <p style="color: #fef0c7; margin-top: 15px;">Quality Assurance Experts Dedicated to Exceptional Software Testing</p>
-            </div>
+           <div style="text-align: center; margin-bottom: 30px; padding: 30px 20px; background-color: #9e5801; background: linear-gradient(to bottom, #ed8c01, #9e5801); border-radius: 8px;">
+
+  <div style="margin-bottom: 15px; font-size: 24px; font-weight: bold; color: #ffffff;">
+    CLAN-AP TECHNOLOGIES PRIVATE LIMITED
+  </div>
+  <p style="color: #ffffff; margin-top: 15px;">Quality Assurance Experts Dedicated to Exceptional Software Testing</p>
+</div>
       
             <!-- Content -->
             <div style="background-color: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(237,140,1,0.12); padding: 30px; margin-bottom: 16px; border-top: 5px solid #ed8c01;">

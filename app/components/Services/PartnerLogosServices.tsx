@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { partners } from "@/app/constant/partnerLogos";
 
 interface Partner {
   name: string;
@@ -22,24 +23,6 @@ const PartnerLogosServices = () => {
     "white-with-glow":
       "brightness(0) invert(1) drop-shadow(0 0 2px rgba(255, 255, 255, 0.7))",
   };
-
-  // Combine all logos into a single array
-  const partners: Partner[] = [
-    { name: "Analyst", path: "/images/partners/analyst.png" },
-    { name: "Joules", path: "/images/partners/joules.png" },
-    { name: "Scaura", path: "/images/partners/scaura.png" },
-    { name: "Bittewallet", path: "/images/partners/bittewallet.png" },
-    { name: "Cinelytic", path: "/images/partners/cinelytic.png" },
-    { name: "Passes", path: "/images/partners/passes.svg" },
-    { name: "Steerhealth", path: "/images/partners/steer-health.png" },
-    { name: "Dashy", path: "/images/partners/dashy.png" },
-    { name: "Flatirons", path: "/images/partners/flatirons.png" },
-    { name: "Uprise", path: "/images/partners/uprise.png" },
-    { name: "Wholesome", path: "/images/partners/wholesome.png" },
-    { name: "Yayloh", path: "/images/partners/yayloh.png" },
-    { name: "Ll", path: "/images/partners/ll.png" },
-    { name: "Ideally", path: "/images/partners/ideally.png" },
-  ];
 
   // Create duplicate array for seamless infinite scrolling
   const duplicatedPartners = [...partners, ...partners];
