@@ -120,3 +120,69 @@ export async function getJobListings(): Promise<JobSummary[]> {
     return [];
   }
 }
+
+
+export interface JobSummary {
+  id: number;
+  title: string;
+  department: string;
+  employmentType: string;
+  location: string;
+  remote: boolean;
+  excerpt: string;
+  contentHtml: string;
+}
+
+export interface JobsPagination {
+  page: number;
+  perPage: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface JobsFilters {
+  departments: string[];
+  employmentTypes: string[];
+}
+
+export interface JobsPageResult {
+  jobs: JobSummary[];
+  pagination: JobsPagination;
+  filters: JobsFilters;
+}
+
+const WP_JOBS_URL = "https://blog.clanap.com/wp-json/careers/v1/jobs";
+
+function emptyResult(): JobsPageResult {
+  return {
+    jobs: [],
+    pagination: { page: 1, perPage: 6, total: 0, totalPages: 1 },
+    filters: { departments: [], employmentTypes: [] },
+  };
+}
+
+export async function getJobsPage(params: {
+  page?: number;
+  perPage?: number;
+  search?: string;
+  department?: string;
+  employmentType?: string;
+} = {}): Promise<JobsPageResult> {
+  const searchParams = new URLSearchParams();
+  if (params.page) searchParams.set("page", String(params.page));
+  if (params.perPage) searchParams.set("per_page", String(params.perPage));
+  if (params.search) searchParams.set("search", params.search);
+  if (params.department) searchParams.set("department", params.department);
+  if (params.employmentType) searchParams.set("employment_type", params.employmentType);
+
+  try {
+    const res = await fetch(`${WP_JOBS_URL}?${searchParams.toString()}`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return emptyResult();
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching job listings:", error);
+    return emptyResult();
+  }
+}

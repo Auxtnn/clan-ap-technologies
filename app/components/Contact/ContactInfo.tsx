@@ -32,7 +32,7 @@ const ContactInfo = () => {
     },
     {
       title: "Phone",
-      value: "+91 (781) 432-0230",
+      value: "+91 (755) 100-0047",
       icon: (
         <svg
           className="w-5 h-5"
@@ -48,7 +48,8 @@ const ContactInfo = () => {
           />
         </svg>
       ),
-      link: "tel:+91781432-0230",
+      link: "tel:+917551000047",
+      
     },
     {
       title: "Head Office",
@@ -160,7 +161,10 @@ const ContactInfo = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
         >
-          <p>Monday - Friday: 9:00 AM - 6:00 PM IST</p>
+          <p>
+
+            Monday - Friday: 9:30 AM - 6:30 PM IST
+          </p>
           <p>Saturday - Sunday: Closed</p>
         </motion.div>
       </div>

@@ -105,7 +105,7 @@ const ContactHero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <Link
+            <a
               href="#contact-form"
               className="inline-flex items-center text-yellow-500 hover:text-yellow-600 transition-colors"
             >
@@ -123,7 +123,7 @@ const ContactHero = () => {
                   d="M19 9l-7 7-7-7"
                 />
               </svg>
-            </Link>
+            </a>
           </motion.div>
         </div>
       </div>
