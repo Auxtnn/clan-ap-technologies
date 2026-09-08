@@ -286,9 +286,9 @@ const Achievements = () => {
 
 // Stats data
 const stats = [
-  { value: "75+", label: "Projects Completed" },
-  { value: "10+", label: "Skilled QA Engineers" },
-  { value: "25000+", label: "Test Cases Automated" },
+  { value: "100+", label: "Projects Completed" },
+  { value: "15+", label: "Skilled QA Engineers" },
+  { value: "50000+", label: "Test Cases Automated" },
   { value: "4", label: "Global Regions Served" },
 ];
 

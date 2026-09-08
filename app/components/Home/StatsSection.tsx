@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useInView, useAnimationControls } from "framer-motion";
+import { motion, useInView, useAnimationControls, Variants } from "framer-motion";
 
 interface StatProps {
   value: number;
@@ -18,13 +18,13 @@ const stats: StatProps[] = [
     delay: 0.1,
   },
   {
-    value: 75,
+    value: 100,
     label: "Projects Completed",
     suffix: "+",
     delay: 0.1,
   },
   {
-    value: 25000,
+    value: 50000,
     label: "Test Cases Automated",
     suffix: "+",
     delay: 0.5,
@@ -50,7 +50,7 @@ const StatsSection = () => {
     }
   }, [isInView, controls]);
 
-  const containerVariants = {
+  const containerVariants:Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -166,7 +166,7 @@ const StatCard = ({
     }
   }, [inView, value]);
 
-  const cardVariants = {
+  const cardVariants:Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,

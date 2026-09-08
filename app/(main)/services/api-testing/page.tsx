@@ -19,7 +19,11 @@ import {
   TestTube,
   Bot,
   Shield,
+  Puzzle,
+  Workflow,
+  Database,
 } from "lucide-react";
+
 
 export const metadata: Metadata = {
   title: "API Testing Services - Clan-AP Technologies Private Limited",
@@ -45,7 +49,7 @@ const serviceData = {
       title: "Validate Data Integrity",
       description:
         "Confirm that data is correctly transferred, transformed, and stored throughout API interactions without corruption or loss.",
-      icon: <RefreshCw size={24} />,
+      icon: <Database size={24} />,
     },
     {
       title: "Verify Security Measures",
@@ -63,13 +67,13 @@ const serviceData = {
       title: "Ensure Compatibility",
       description:
         "Verify that your APIs work correctly across different platforms, environments, and with third-party integrations.",
-      icon: <RefreshCw size={24} />,
+      icon: <Puzzle size={24} />,
     },
     {
       title: "Support Continuous Integration",
       description:
         "Integrate API testing into your CI/CD pipeline to catch integration issues early in the development lifecycle.",
-      icon: <RefreshCw size={24} />,
+      icon: <Workflow size={24} />,
     },
   ],
   approach: [

@@ -1,46 +1,96 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import parse from "html-react-parser";
 import ApplicationModal from "./Applicationmodal";
-import { JobSummary } from "@/app/utils/careers";
+import { JobSummary, JobsPageResult } from "@/app/utils/careers";
 
 interface CareersPageProps {
-  jobs: JobSummary[];
+  initialData: JobsPageResult;
 }
 
-export function CareersPage({ jobs }: CareersPageProps) {
+export function CareersPage({ initialData }: CareersPageProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
-  const [search, setSearch] = useState("");
+  const [data, setData] = useState<JobsPageResult>(initialData);
+  const [loading, setLoading] = useState(false);
+
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [department, setDepartment] = useState("All departments");
   const [type, setType] = useState("All types");
+  const [page, setPage] = useState(1);
+
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [applyingJob, setApplyingJob] = useState<JobSummary | null>(null);
   const [applyingGeneral, setApplyingGeneral] = useState(false);
 
-  const departments = useMemo(
-    () => ["All departments", ...Array.from(new Set(jobs.map((j) => j.department)))],
-    [jobs]
+  const isFirstRun = useRef(true);
+
+  // Debounce the search box so we're not firing a request on every keystroke.
+  useEffect(() => {
+    const handle = setTimeout(() => setDebouncedSearch(searchInput.trim()), 400);
+    return () => clearTimeout(handle);
+  }, [searchInput]);
+
+  // Any filter change invalidates the current page, since page 3 of a new
+  // filtered set may no longer exist.
+  useEffect(() => {
+    setPage(1);
+  }, [debouncedSearch, department, type]);
+
+  // The actual fetch. Skips its very first run since initialData already
+  // covers page 1 with no filters, fetched server-side before this ever mounted.
+  useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
+
+    const controller = new AbortController();
+    setLoading(true);
+
+    const params = new URLSearchParams();
+    params.set("page", String(page));
+    if (debouncedSearch) params.set("search", debouncedSearch);
+    if (department !== "All departments") params.set("department", department);
+    if (type !== "All types") params.set("employment_type", type);
+
+    fetch(`/api/careers/jobs?${params.toString()}`, { signal: controller.signal })
+      .then((res) => res.json())
+      .then((json: JobsPageResult) => {
+        setData(json);
+        setExpandedId(null);
+      })
+      .catch((err: unknown) => {
+        if (err instanceof Error && err.name !== "AbortError") {
+          console.error("Failed to load job listings", err);
+        }
+      })
+      .finally(() => setLoading(false));
+
+    return () => controller.abort();
+  }, [page, debouncedSearch, department, type]);
+
+  const departmentOptions = useMemo(
+    () => ["All departments", ...data.filters.departments],
+    [data.filters.departments]
   );
-  const types = useMemo(
-    () => ["All types", ...Array.from(new Set(jobs.map((j) => j.employmentType)))],
-    [jobs]
+  const typeOptions = useMemo(
+    () => ["All types", ...data.filters.employmentTypes],
+    [data.filters.employmentTypes]
   );
 
-  const filteredJobs = useMemo(() => {
-    return jobs.filter((job) => {
-      const matchesSearch =
-        search.trim() === "" ||
-        job.title.toLowerCase().includes(search.toLowerCase()) ||
-        job.department.toLowerCase().includes(search.toLowerCase());
-      const matchesDept = department === "All departments" || job.department === department;
-      const matchesType = type === "All types" || job.employmentType === type;
-      return matchesSearch && matchesDept && matchesType;
-    });
-  }, [jobs, search, department, type]);
+  const hasActiveFilters = debouncedSearch !== "" || department !== "All departments" || type !== "All types";
+  const noListingsAtAll = data.pagination.total === 0 && !hasActiveFilters;
+
+  const goToPage = (nextPage: number) => {
+    const clamped = Math.min(Math.max(nextPage, 1), data.pagination.totalPages);
+    setPage(clamped);
+    sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   const selectClasses =
     "w-full sm:w-auto appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2.5 pr-9 text-sm text-gray-700 outline-none transition-colors focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20";
@@ -49,7 +99,7 @@ export function CareersPage({ jobs }: CareersPageProps) {
     <div className="bg-white">
       <section className="relative overflow-hidden bg-white pb-24 pt-36 md:pb-32 md:pt-44">
         <div
-          className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4OCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDg4IDUwIj48ZyBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjM0LDE3OSw4LDAuMTUpIiBzdHJva2Utd2lkdGg9IjEuNSI+PHBhdGggZD0iTTQ0IDhsMS0uMzMzVjAiLz48cGF0aCBkPSJNNDQgMTZ2LThsLTkuMDYzLTVMNDQgOE0zNC45MzggMi45NDdMMjYgOGw4LjkzOCA1LjA1M00yNiA4djEwbDguOTM4IDUuMDUzTTM0LjkzOCAyMy4wNTNMNDQgMTh2LTIiLz48cGF0aCBkPSJNMzQuOTM4IDIzLjA1M0wzNCwyMy4zM0wxNiA0MC42N2wxIC4zMzNMMzQgMjMuMzM0IiBzdHJva2Utb3BhY2l0eT0iLjMiLz48cGF0aCBkPSJNMzQgMjMuMzM0djE2LjY2N0w0NCA0NSIgc3Ryb2tlLW9wYWNpdHk9Ii4zIi8+PHBhdGggZD0iTTI2IDE4bC0uOTM4LjU0TDkgNGwtLjA2Mi0uMDdMMjYgMTh6TTkgNHYxMEwxNyAxOGw5LTUuMDEgOC45MzgtNS4wNDNMMjYgM3Y1eiIgc3Ryb2tlLW9wYWNpdHk9Ii4zIi8+PHBhdGggZD0iTTE3IDE4djEwbDgtNS4wMTIiIHN0cm9rZS1vcGFjaXR5PSIuMyIvPjxwYXRoIGQ9Ik0yNSAyM2wxLjA2Mi0uNjI2TDQ0IDMydi0uMDAxTDI1IDIzek00NCAzMnYxMGwtMTAgNS41TDI1IDQyLjY2NlYzMy4wMkw0NCAzMnoiIHN0cm9rZS1vcGFjaXR5PSIuMyIvPjxwYXRoIGQ9Ik0zNCAwdjIuOThMMjYgM3Y1bC05LjA2MiA1LjA0LTkgNC45NkwwIDE0VjRoLS4wMzJMOSA0TTAgMTRsMTYgOS0xLjAzMi42TDAgMTRNMTYgMjN2MTBsLTE2LTlNMTYgMzN2MTBsOSA1LjAwMk0yNSA0M3Y1bDkuMDYyLTUuMDAyTTM0IDQ4djJsOS41LTUuNTAyTDQ0IDQydi0uMDAxTTQ0IDMydi0uMDAxTDQ1IDMyVjQyTDQ0IDQyLjcxIi8+PHBhdGggZD0iTTQ1IDQybDE2LjA5My05LjAwMUw2MiAzM3YxMGwtMTcgOS40OThWNDh6IiBzdHJva2Utb3BhY2l0eT0iLjMiLz48cGF0aCBkPSJNNDQuOTM4IDhoLjEyNEw1NCAzLjExOFYzTDQ1IDh6TTU0IDN2MTBsLTkuMDYzIDUiIHN0cm9rZS1vcGFjaXR5PSIuMyIvPjxwYXRoIGQ9Ik00NC45MzggMThsOS4wNjItNUw1NCAxM3YtLjA0MUw2MiA4di0uMDAxTDU0IDN2LjAwMXpNNjIgOHYxMGwtOC45MzggNS4wNTNNNTMuMDYzIDIzLjA1M0w0NSAyOGwtMSA0Ljc1TTQ1IDMyaC4wMzFMNjIgMjMiIHN0cm9rZS1vcGFjaXR5PSIuMyIvPjxwYXRoIGQ9Ik01My4wNjMgMjMuMDUzbC4wMyAyLjE4NyA3Ljg3Ni00LjI5NC4wMy0xLjg5My03LjkzNiAzLjk5OXpNNjEgMjB2MTMiIHN0cm9rZS1vcGFjaXR5PSIuMyIvPjxwYXRoIGQ9Ik04MyAxNHYtLjAxMkw3MyAzLjk4OCIgc3Ryb2tlLW9wYWNpdHk9Ii4zIi8+PHBhdGggZD0iTTczIDR2MTBsOSA1LjQxIiBzdHJva2Utb3BhY2l0eT0iLjMiLz48cGF0aCBkPSJNODIgMTl2MTBsLTggNC0uMDYzLjA3LTggNC41ODYtLjAzLS42NTYiIHN0cm9rZS1vcGFjaXR5PSIuMyIvPjxwYXRoIGQ9Ik02NSAzM2wtLjA2My0uMzU0TDgyIDE5IiBzdHJva2Utb3BhY2l0eT0iLjMiLz48cGF0aCBkPSJNNjUgMzNsLjA2My4zNTQtLjEyNS0uMzc3VjMzbC0zLS4wMjN2MTBsLTE3LjAzMiA5Ljk5OCIgc3Ryb2tlLW9wYWNpdHk9Ii4zIi8+PC9nPjwvc3ZnPg==')]"
+          className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4OCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDg4IDUwIj48ZyBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjM0LDE3OSw4LDAuMTUpIiBzdHJva2Utd2lkdGg9IjEuNSI+PHBhdGggZD0iTTQ0IDhsMS0uMzMzVjAiLz48cGF0aCBkPSJNNDQgMTZ2LThsLTkuMDYzLTVMNDQgOE0zNC45MzggMi45NDdMMjYgOGw4LjkzOCA1LjA1M00yNiA4djEwbDguOTM4IDUuMDUzTTM0LjkzOCAyMy4wNTNMNDQgMTh2LTIiLz48cGF0aCBkPSJNMzQuOTM4IDIzLjA1M0wzNCwyMy4zM0wxNiA0MC42N2wxIC4zMzNMMzQgMjMuMzM0IiBzdHJva2Utb3BhY2l0eT0iLjMiLz48cGF0aCBkPSJNMzQgMjMuMzM0djE2LjY2N0w0NCA0NSIgc3Ryb2tlLW9wYWNpdHk9Ii4zIi8+PHBhdGggZD0iTTI2IDE4bC0uOTM4LjU0TDkgNGwtLjA2Mi0uMDdMMjYgMTh6TTkgNHYxMEwxNyAxOGw5LTUuMDEgOC45MzgtNS4wNDNMMjYgM3Y1eiIgc3Ryb2tlLW9wYWNpdHk9Ii4zIi8+PHBhdGggZD0iTTE3IDE4djEwbDgtNS4wMTIiIHN0cm9rZS1vcGFjaXR5PSIuMyIvPjxwYXRoIGQ9Ik0yNSAyM2wxLjA2Mi0uNjI2TDQ0IDMydi0uMDAxTDI1IDIzek00NCAzMnYxMGwtMTAgNS41TDI1IDQyLjY2NlYzMy4wMkw0NCAzMnoiIHN0cm9rZS1vcGFjaXR5PSIuMyIvPjxwYXRoIGQ9Ik0zNCAwdjIuOThMMjYgM3Y1bC05LjA2MiA1LjA0LTkgNC45NkwwIDE0VjRoLS4wMzJMOSA0TTAgMTRsMTYgOS0xLjAzMi42TDAgMTRNMTYgMjN2MTBsLTE2LTlNMTYgMzN2MTBsOSA1LjAwMk0yNSA0M3Y1bDkuMDYyLTUuMDAyTTM0IDQ4djJsOS41LTUuNTAyTDQ0IDQydi0uMDAxTTQ0IDMydi0uMDAxTDQ1IDMyVjQyTDQ0IDQyLjcxIi8+PHBhdGggZD0iTTQ1IDQybDE2LjA5My05LjAwMUw2MiAzM3YxMGwtMTcgOS40OThWNDh6IiBzdHJva2Utb3BhY2l0eT0iLjMiLz48cGF0aCBkPSJNNDQuOTM4IDhoLjEyNEw1NCAzLjExOFYzTDQ1IDh6TTU0IDN2MTBsLTkuMDYzIDUiIHN0cm9rZS1vcGFjaXR5PSIuMyIvPjxwYXRoIGQ9Ik00NC45MzggMThsOS4wNjItNUw1NCAxM3YtLjA0MUw2MiA4di0uMDAxTDU0IDN2LjAwMXpNNjIgOHYxMGwtOC45MzggNS4wNTMiIHN0cm9rZS1vcGFjaXR5PSIuMyIvPjxwYXRoIGQ9Ik01My4wNjMgMjMuMDUzbC4wMyAyLjE4NyA3Ljg3Ni00LjI5NC4wMy0xLjg5My03LjkzNiAzLjk5OXpNNjEgMjB2MTMiIHN0cm9rZS1vcGFjaXR5PSIuMyIvPjxwYXRoIGQ9Ik04MyAxNHYtLjAxMkw3MyAzLjk4OCIgc3Ryb2tlLW9wYWNpdHk9Ii4zIi8+PHBhdGggZD0iTTczIDR2MTBsOSA1LjQxIiBzdHJva2Utb3BhY2l0eT0iLjMiLz48cGF0aCBkPSJNODIgMTl2MTBsLTggNC0uMDYzLjA3LTggNC41ODYtLjAzLS42NTYiIHN0cm9rZS1vcGFjaXR5PSIuMyIvPjxwYXRoIGQ9Ik02NSAzM2wtLjA2My0uMzU0TDgyIDE5IiBzdHJva2Utb3BhY2l0eT0iLjMiLz48cGF0aCBkPSJNNjUgMzNsLjA2My4zNTQtLjEyNS0uMzc3VjMzbC0zLS4wMjN2MTBsLTE3LjAzMiA5Ljk5OCIgc3Ryb2tlLW9wYWNpdHk9Ii4zIi8+PC9nPjwvc3ZnPg==')]"
         />
         <div className="container relative mx-auto px-4 text-center">
           <motion.span
@@ -101,8 +151,8 @@ export function CareersPage({ jobs }: CareersPageProps) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
             </svg>
             <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search open roles"
               className="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-4 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-colors focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
             />
@@ -110,7 +160,7 @@ export function CareersPage({ jobs }: CareersPageProps) {
 
           <div className="relative">
             <select value={department} onChange={(e) => setDepartment(e.target.value)} className={selectClasses}>
-              {departments.map((d) => (
+              {departmentOptions.map((d) => (
                 <option key={d}>{d}</option>
               ))}
             </select>
@@ -121,7 +171,7 @@ export function CareersPage({ jobs }: CareersPageProps) {
 
           <div className="relative">
             <select value={type} onChange={(e) => setType(e.target.value)} className={selectClasses}>
-              {types.map((t) => (
+              {typeOptions.map((t) => (
                 <option key={t}>{t}</option>
               ))}
             </select>
@@ -135,12 +185,23 @@ export function CareersPage({ jobs }: CareersPageProps) {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="mb-6 text-sm text-gray-500"
+          className="mb-6 flex items-center gap-2 text-sm text-gray-500"
         >
-          {filteredJobs.length} open {filteredJobs.length === 1 ? "role" : "roles"}
+          <span>
+            {data.pagination.total} open {data.pagination.total === 1 ? "role" : "roles"}
+            {data.pagination.totalPages > 1 && (
+              <> &middot; page {data.pagination.page} of {data.pagination.totalPages}</>
+            )}
+          </span>
+          {loading && (
+            <svg className="h-3.5 w-3.5 animate-spin text-gray-400" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
+          )}
         </motion.p>
 
-        {filteredJobs.length === 0 ? (
+        {data.jobs.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -152,17 +213,17 @@ export function CareersPage({ jobs }: CareersPageProps) {
               </svg>
             </div>
             <h3 className="mb-2 text-lg font-bold text-black">
-              {jobs.length === 0 ? "No open roles right now" : "No roles match your filters"}
+              {noListingsAtAll ? "No open roles right now" : "No roles match your filters"}
             </h3>
             <p className="mb-6 max-w-sm text-gray-500">
-              {jobs.length === 0
+              {noListingsAtAll
                 ? "Check back soon, or send us your resume below and we'll reach out when something opens up."
                 : "Try a different search term or clear the filters to see every open role."}
             </p>
-            {jobs.length > 0 && (
+            {!noListingsAtAll && (
               <button
                 onClick={() => {
-                  setSearch("");
+                  setSearchInput("");
                   setDepartment("All departments");
                   setType("All types");
                 }}
@@ -173,74 +234,120 @@ export function CareersPage({ jobs }: CareersPageProps) {
             )}
           </motion.div>
         ) : (
-          <div className="flex flex-col gap-4">
-            {filteredJobs.map((job, index) => {
-              const isExpanded = expandedId === job.id;
-              return (
-                <motion.div
-                  key={job.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-                  transition={{ duration: 0.4, delay: 0.15 + index * 0.06 }}
-                  className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md"
-                >
-                  <button
-                    onClick={() => setExpandedId(isExpanded ? null : job.id)}
-                    className="flex w-full flex-col items-start gap-3 p-5 text-left sm:flex-row sm:items-center sm:justify-between sm:gap-6"
-                  >
-                    <div className="min-w-0">
-                      <h3 className="text-lg font-bold text-black">{job.title}</h3>
-                      <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-500">
-                        <span>{job.department}</span>
-                        <span className="text-gray-300">•</span>
-                        <span>{job.location}</span>
-                        <span className="text-gray-300">•</span>
-                        <span>{job.employmentType}</span>
-                      </div>
-                    </div>
-                    <div className="flex flex-shrink-0 items-center gap-4 self-end sm:self-auto">
-                      <span className="hidden rounded-full bg-yellow-500/10 px-3 py-1 text-xs font-medium text-yellow-700 sm:inline-block">
-                        {job.remote ? "Remote" : "On-site"}
-                      </span>
-                      <motion.svg
-                        animate={{ rotate: isExpanded ? 180 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="h-5 w-5 text-gray-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                      </motion.svg>
-                    </div>
-                  </button>
-
+          <>
+            <div className={`flex flex-col gap-4 transition-opacity ${loading ? "opacity-60" : "opacity-100"}`}>
+              {data.jobs.map((job, index) => {
+                const isExpanded = expandedId === job.id;
+                return (
                   <motion.div
-                    initial={false}
-                    animate={{ height: isExpanded ? "auto" : 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="overflow-hidden"
+                    key={job.id}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+                    transition={{ duration: 0.4, delay: 0.15 + index * 0.06 }}
+                    className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md"
                   >
-                    <div className="border-t border-gray-100 px-5 pb-6 pt-5">
-                      {job.excerpt && <p className="mb-5 text-gray-600">{job.excerpt}</p>}
+                    <button
+                      onClick={() => setExpandedId(isExpanded ? null : job.id)}
+                      className="flex w-full flex-col items-start gap-3 p-5 text-left sm:flex-row sm:items-center sm:justify-between sm:gap-6"
+                    >
+                      <div className="min-w-0">
+                        <h3 className="text-lg font-bold text-black">{job.title}</h3>
+                        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-500">
+                          <span>{job.department}</span>
+                          <span className="text-gray-300">•</span>
+                          <span>{job.location}</span>
+                          <span className="text-gray-300">•</span>
+                          <span>{job.employmentType}</span>
+                        </div>
+                      </div>
+                      <div className="flex flex-shrink-0 items-center gap-4 self-end sm:self-auto">
+                        <span className="hidden rounded-full bg-yellow-500/10 px-3 py-1 text-xs font-medium text-yellow-700 sm:inline-block">
+                          {job.remote ? "Remote" : "On-site"}
+                        </span>
+                        <motion.svg
+                          animate={{ rotate: isExpanded ? 180 : 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="h-5 w-5 text-gray-400"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                        </motion.svg>
+                      </div>
+                    </button>
 
-                      <div className="blog-content mb-6 max-w-none">{parse(job.contentHtml)}</div>
+                    <motion.div
+                      initial={false}
+                      animate={{ height: isExpanded ? "auto" : 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="border-t border-gray-100 px-5 pb-6 pt-5">
+                        {job.excerpt && <p className="mb-5 text-gray-600">{job.excerpt}</p>}
 
-                      <motion.button
-                        onClick={() => setApplyingJob(job)}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-yellow-500/20"
-                      >
-                        Apply for this role
-                      </motion.button>
-                    </div>
+                        <div className="blog-content mb-6 max-w-none">{parse(job.contentHtml)}</div>
+
+                        <motion.button
+                          onClick={() => setApplyingJob(job)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-yellow-500/20"
+                        >
+                          Apply for this role
+                        </motion.button>
+                      </div>
+                    </motion.div>
                   </motion.div>
-                </motion.div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+
+            {data.pagination.totalPages > 1 && (
+              <nav
+                aria-label="Job listings pagination"
+                className="mt-8 flex items-center justify-center gap-1.5"
+              >
+                <button
+                  onClick={() => goToPage(data.pagination.page - 1)}
+                  disabled={data.pagination.page === 1}
+                  aria-label="Previous page"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-500 transition-colors hover:border-amber-500 hover:text-amber-600 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-gray-300 disabled:hover:text-gray-500"
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+
+                {Array.from({ length: data.pagination.totalPages }, (_, i) => i + 1).map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => goToPage(p)}
+                    aria-current={p === data.pagination.page ? "page" : undefined}
+                    className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-medium transition-colors ${
+                      p === data.pagination.page
+                        ? "bg-gradient-to-r from-amber-500 to-yellow-500 text-white shadow-md shadow-yellow-500/20"
+                        : "border border-gray-300 text-gray-600 hover:border-amber-500 hover:text-amber-600"
+                    }`}
+                  >
+                    {p}
+                  </button>
+                ))}
+
+                <button
+                  onClick={() => goToPage(data.pagination.page + 1)}
+                  disabled={data.pagination.page === data.pagination.totalPages}
+                  aria-label="Next page"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-500 transition-colors hover:border-amber-500 hover:text-amber-600 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-gray-300 disabled:hover:text-gray-500"
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </nav>
+            )}
+          </>
         )}
 
         <motion.div
@@ -271,8 +378,9 @@ export function CareersPage({ jobs }: CareersPageProps) {
           setApplyingJob(null);
           setApplyingGeneral(false);
         }}
-        jobTitle={applyingJob?.title ?? "General Application"}
+        jobTitle={applyingJob?.title}
         jobId={applyingJob ? String(applyingJob.id) : "general-application"}
+        isGeneral={applyingJob === null}
       />
     </div>
   );

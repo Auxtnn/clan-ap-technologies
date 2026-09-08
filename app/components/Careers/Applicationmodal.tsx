@@ -6,8 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 interface ApplicationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  jobTitle: string;
+  jobTitle?: string;
   jobId: string;
+  isGeneral: boolean;
 }
 
 interface FormState {
@@ -15,6 +16,7 @@ interface FormState {
   email: string;
   phone: string;
   linkedin: string;
+  role: string;
   coverLetter: string;
 }
 
@@ -23,6 +25,7 @@ const initialForm: FormState = {
   email: "",
   phone: "",
   linkedin: "",
+  role: "",
   coverLetter: "",
 };
 
@@ -36,6 +39,7 @@ const ApplicationModal = ({
   onClose,
   jobTitle,
   jobId,
+  isGeneral,
 }: ApplicationModalProps) => {
   const [form, setForm] = useState<FormState>(initialForm);
   const [resume, setResume] = useState<File | null>(null);
@@ -64,6 +68,7 @@ const ApplicationModal = ({
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       next.email = "Enter a valid email address";
     if (!form.phone.trim()) next.phone = "Enter a phone number";
+    if (isGeneral && !form.role.trim()) next.role = "Tell us what role you're interested in";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -77,6 +82,8 @@ const ApplicationModal = ({
     setResume(file);
   };
 
+  const effectiveRole = isGeneral ? form.role.trim() : jobTitle ?? "";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
@@ -85,7 +92,7 @@ const ApplicationModal = ({
 
     const payload = new FormData();
     payload.append("jobId", jobId);
-    payload.append("jobTitle", jobTitle);
+    payload.append("jobTitle", effectiveRole);
     payload.append("name", form.name);
     payload.append("email", form.email);
     payload.append("phone", form.phone);
@@ -113,6 +120,11 @@ const ApplicationModal = ({
       setStatus("idle");
     }
   };
+
+  const headerTitle = isGeneral ? "Register Your Interest" : jobTitle;
+  const headerSubtext = isGeneral
+    ? "Tell us about yourself and the kind of role you're looking for, and we'll reach out if something fits."
+    : "Tell us a bit about yourself and attach your resume.";
 
   return (
     <AnimatePresence>
@@ -153,10 +165,22 @@ const ApplicationModal = ({
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="mb-2 text-2xl font-bold text-black">Application sent</h3>
+                <h3 className="mb-2 text-2xl font-bold text-black">
+                  {isGeneral ? "Interest registered" : "Application sent"}
+                </h3>
                 <p className="mb-8 max-w-sm text-gray-600">
-                  Thanks for applying to <span className="font-medium text-black">{jobTitle}</span>. A
-                  confirmation is on its way to {form.email}, and our team will reach out if there&apos;s a fit.
+                  {isGeneral ? (
+                    <>
+                      Thanks for registering your interest in{" "}
+                      <span className="font-medium text-black">{effectiveRole}</span> roles. A
+                      confirmation is on its way to {form.email}, and we'll reach out if something matches.
+                    </>
+                  ) : (
+                    <>
+                      Thanks for applying to <span className="font-medium text-black">{jobTitle}</span>. A
+                      confirmation is on its way to {form.email}, and our team will reach out if there's a fit.
+                    </>
+                  )}
                 </p>
                 <button
                   onClick={handleClose}
@@ -167,22 +191,20 @@ const ApplicationModal = ({
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="px-6 pb-8 pt-14 sm:px-8">
-                <input
-                  ref={honeypotRef}
-                  type="text"
-                  name="website"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  aria-hidden="true"
-                  className="absolute -left-[9999px] h-0 w-0 opacity-0"
-                />
+               <input
+  ref={honeypotRef}
+  type="text"
+  name="hp_confirm_field"
+  tabIndex={-1}
+  autoComplete="off"
+  aria-hidden="true"
+  className="absolute -left-[9999px] h-0 w-0 opacity-0"
+/>
                 <span className="mb-2 inline-block rounded-full bg-yellow-500/20 px-3 py-1 text-xs font-medium text-black">
-                  Application
+                  {isGeneral ? "Interest" : "Application"}
                 </span>
-                <h3 className="mb-1 text-2xl font-bold text-black">{jobTitle}</h3>
-                <p className="mb-7 text-sm text-gray-500">
-                  Tell us a bit about yourself and attach your resume.
-                </p>
+                <h3 className="mb-1 text-2xl font-bold text-black">{headerTitle}</h3>
+                <p className="mb-7 text-sm text-gray-500">{headerSubtext}</p>
 
                 <div className="space-y-5">
                   <div>
@@ -196,6 +218,20 @@ const ApplicationModal = ({
                     />
                     {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
                   </div>
+
+                  {isGeneral && (
+                    <div>
+                      <label className={labelClasses} htmlFor="role">Role you're interested in</label>
+                      <input
+                        id="role"
+                        value={form.role}
+                        onChange={(e) => setForm({ ...form, role: e.target.value })}
+                        placeholder="e.g. Product Designer, Backend Engineer"
+                        className={`${inputClasses} ${errors.role ? "border-red-400 focus:border-red-400 focus:ring-red-400/20" : ""}`}
+                      />
+                      {errors.role && <p className="mt-1 text-xs text-red-500">{errors.role}</p>}
+                    </div>
+                  )}
 
                   <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                     <div>
@@ -328,10 +364,10 @@ const ApplicationModal = ({
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                       </svg>
-                      Sending application
+                      Sending
                     </span>
                   ) : (
-                    "Submit application"
+                    "Submit"
                   )}
                 </motion.button>
               </form>
