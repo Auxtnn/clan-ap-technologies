@@ -356,7 +356,7 @@ const TestimonialsSection = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Trusted by Industry Leaders
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-3xl text-base md:text-lg mx-auto">
             Our clients achieve measurable improvements in software quality,
             efficiency, and user satisfaction.
           </p>
