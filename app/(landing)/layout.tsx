@@ -1,28 +1,14 @@
 import Image from "next/image";
-import { Archivo, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { DISCOVERY_CALL_URL, MAIN_SITE_URL } from "./constants";
 
-const archivo = Archivo({
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "800", "900"],
-  variable: "--font-archivo",
-});
 
-const plexSans = IBM_Plex_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-plex-sans",
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex-mono",
-});
 
 export default function LandingLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`bg-white ${archivo.variable} ${plexSans.variable} ${plexMono.variable}`}>
+    <div
+      className={`bg-white`}
+     
+    >
       <header className="fixed top-0 z-50 w-full border-b border-black/5 bg-white/90 backdrop-blur-md">
         <div className="container mx-auto flex items-center justify-between gap-4 px-4 py-3 md:px-6">
           <a href={MAIN_SITE_URL} className="flex-shrink-0">
@@ -39,16 +25,16 @@ export default function LandingLayout({ children }: { children: React.ReactNode 
           <div className="flex items-center gap-2 sm:gap-3">
             <a
               href={MAIN_SITE_URL}
-               target="_blank"
-  rel="noopener noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:border-amber-500 hover:text-amber-600 sm:inline-block"
             >
               Visit main site
             </a>
             <a
               href={DISCOVERY_CALL_URL}
-               target="_blank"
-  rel="noopener noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-yellow-500/20 transition-transform hover:scale-[1.02]"
             >
               Book a Discovery Call
