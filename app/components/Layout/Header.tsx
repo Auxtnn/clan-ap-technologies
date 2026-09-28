@@ -4,11 +4,18 @@ import { useState, useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useMobileMenu } from "./MobileMenuContext";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const { mobileMenuOpen, setMobileMenuOpen } = useMobileMenu();
+  const pathname = usePathname();
+
+  const isActive = (href: string) =>
+    href === "/"
+      ? pathname === "/"
+      : pathname === href || pathname.startsWith(`${href}/`);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -98,22 +105,36 @@ const Header = () => {
             variants={navVariants}
           >
             <div className="flex flex-nowrap items-center gap-5 xl:gap-8">
-              {navLinks.map((link) => (
-                <motion.div key={link.name} variants={itemVariants}>
-                  <Link
-                    href={link.href}
-                    className="relative whitespace-nowrap text-black font-medium tracking-wide uppercase text-sm xl:text-base transition-colors duration-300 group"
-                  >
-                    {link.name}
-                    <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-yellow-500 transition-all duration-300 group-hover:w-full" />
-                  </Link>
-                </motion.div>
-              ))}
+              {navLinks.map((link) => {
+                const active = isActive(link.href);
+                return (
+                  <motion.div key={link.name} variants={itemVariants}>
+                    <Link
+                      href={link.href}
+                      aria-current={active ? "page" : undefined}
+                      className={`relative block whitespace-nowrap py-1.5 font-medium tracking-wide uppercase text-sm xl:text-base transition-colors duration-300 group ${
+                        active ? "text-brand" : "text-black hover:text-brand"
+                      }`}
+                    >
+                      {link.name}
+                      {active ? (
+                        <motion.span
+                          layoutId="nav-active-indicator"
+                          className="absolute -bottom-1 left-0 right-0 h-[3px] rounded-full bg-brand shadow-[0_2px_8px_rgba(237,140,1,0.45)]"
+                          transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                        />
+                      ) : (
+                        <span className="absolute -bottom-1 left-0 h-[3px] w-0 rounded-full bg-brand/40 transition-all duration-300 group-hover:w-full" />
+                      )}
+                    </Link>
+                  </motion.div>
+                );
+              })}
 
               <motion.div variants={itemVariants} className="ml-2 xl:ml-4 flex-shrink-0">
-                <Link href="/contact">
+                <Link href="/contact" aria-current={isActive("/contact") ? "page" : undefined}>
                   <motion.button
-                    className="bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-xl font-bold relative overflow-hidden group shadow-xl shadow-yellow-500/20 whitespace-nowrap px-5 py-2.5 text-sm xl:px-8 xl:py-3 xl:text-base"
+                    className={`${isActive("/contact") ? "ring-2 ring-brand ring-offset-2 ring-offset-white " : ""}bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-xl font-bold relative overflow-hidden group shadow-xl shadow-yellow-500/20 whitespace-nowrap px-5 py-2.5 text-sm xl:px-8 xl:py-3 xl:text-base`}
                     whileHover={{
                       scale: 1.02,
                       boxShadow: "0 20px 40px -10px rgba(245, 158, 11, 0.3)",
@@ -194,10 +215,18 @@ const Header = () => {
             >
               <Link
                 href={link.href}
-                className="text-2xl font-bold tracking-wide uppercase text-black hover:text-yellow-500 transition-colors duration-300"
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`relative inline-flex flex-col items-center text-2xl font-bold tracking-wide uppercase transition-colors duration-300 ${
+                  isActive(link.href)
+                    ? "text-brand"
+                    : "text-black hover:text-brand"
+                }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
+                {isActive(link.href) && (
+                  <span className="mt-1.5 h-[3px] w-8 rounded-full bg-brand shadow-[0_2px_8px_rgba(237,140,1,0.45)]" />
+                )}
               </Link>
             </motion.div>
           ))}
@@ -215,9 +244,13 @@ const Header = () => {
             }}
             className="mt-8"
           >
-            <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+            <Link
+              href="/contact"
+              aria-current={isActive("/contact") ? "page" : undefined}
+              onClick={() => setMobileMenuOpen(false)}
+            >
               <motion.button
-                className="bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-8 py-4 rounded-xl font-bold relative overflow-hidden group shadow-xl shadow-yellow-500/20"
+                className={`${isActive("/contact") ? "ring-2 ring-brand ring-offset-2 ring-offset-white " : ""}bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-8 py-4 rounded-xl font-bold relative overflow-hidden group shadow-xl shadow-yellow-500/20`}
                 whileHover={{
                   scale: 1.02,
                   boxShadow: "0 20px 40px -10px rgba(245, 158, 11, 0.3)",
