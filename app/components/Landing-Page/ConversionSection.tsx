@@ -16,8 +16,8 @@ import {
   type AuditField,
   type AuditValues,
 } from "@/app/constant/auditValidation";
+import { DISCOVERY_CALL_URL } from "@/app/(landing)/constants";
 
-export const DISCOVERY_CALL_URL = process.env.DISCOVERY_URL;
 
 const callReassurances = [
   "30 minutes, no pressure, no sales script",

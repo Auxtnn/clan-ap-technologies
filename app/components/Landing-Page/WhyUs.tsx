@@ -2,6 +2,10 @@
 
 import { useMemo, useState } from "react";
 
+import { motion, useReducedMotion } from "framer-motion";
+import { DISCOVERY_CALL_URL } from "@/app/(landing)/constants";
+
+
 const oneEngineerPoints = [
   "One or two specialties at best",
   "Three-month hiring process before day one",
@@ -17,6 +21,7 @@ const clanApPoints = [
 ];
 
 export default function WhyUs() {
+    const prefersReducedMotion = useReducedMotion();
   const [rate, setRate] = useState(11000);
   const annual = useMemo(() => rate * 12, [rate]);
   const format = (n: number) => "$" + n.toLocaleString("en-US");
@@ -64,6 +69,27 @@ export default function WhyUs() {
                   <span className="text-xl text-white/90">{point}</span>
                 </div>
               ))}
+            </div>
+            <div className="mt-8 flex justify-center border-t border-white/10 pt-8">
+              <div className="relative inline-block overflow-hidden rounded-xl p-[6px]">
+                {prefersReducedMotion ? (
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500" />
+                ) : (
+                  <motion.div
+                    className="absolute inset-[-60%] bg-[conic-gradient(from_0deg,transparent_0deg,#ed8c01_90deg,#f5a012_180deg,transparent_270deg,#ed8c01_360deg)]"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                  />
+                )}
+                <a
+                  href={DISCOVERY_CALL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative z-10 inline-flex items-center gap-2 rounded-[6px] bg-gradient-to-r from-amber-500 to-yellow-500 px-7 py-4 text-base font-semibold text-white transition-transform hover:scale-[1.03]"
+                >
+                  Book Your Free Discovery Call
+                </a>
+              </div>
             </div>
           </div>
         </div>
