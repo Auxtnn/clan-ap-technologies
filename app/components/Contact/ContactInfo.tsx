@@ -82,7 +82,7 @@ const ContactInfo = () => {
   const socialLinks = [
     {
       name: "LinkedIn",
-      href: "https://www.linkedin.com/company/81815969/admin/dashboard",
+      href: "https://www.linkedin.com/company/clan-ap-technologies",
       icon: <FaLinkedin size={20} />,
     },
     {
@@ -98,7 +98,7 @@ const ContactInfo = () => {
 
     {
       name: "Instagram",
-      href: "https://www.instagram.com/clanap_technologies/",
+      href: "https://www.instagram.com/clan.ap_technologies/",
       icon: <FaInstagram size={20} />,
     },
   ];

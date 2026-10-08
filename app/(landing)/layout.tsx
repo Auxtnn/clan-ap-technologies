@@ -1,5 +1,15 @@
 import Image from "next/image";
+import { FaFacebook, FaInstagram, FaLinkedin, FaXTwitter, FaEnvelope } from "react-icons/fa6";
 import { DISCOVERY_CALL_URL, MAIN_SITE_URL } from "./constants";
+import { EmailIconLink } from "./EmailContact";
+
+const socialLinks = [
+  { name: "X", href: "https://x.com/ClanapTech", icon: <FaXTwitter size={18} /> },
+  { name: "Instagram", href: "https://www.instagram.com/clan.ap_technologies/", icon: <FaInstagram size={18} /> },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/clan-ap-technologies", icon: <FaLinkedin size={18} /> },
+  { name: "Facebook", href: "https://www.facebook.com/clanAPtechnologies", icon: <FaFacebook size={18} /> },
+  
+];
 
 
 
@@ -45,7 +55,23 @@ export default function LandingLayout({ children }: { children: React.ReactNode 
 
       <main>{children}</main>
 
-      <footer className="border-t border-gray-100 py-8 text-center text-sm text-gray-400">
+      <footer className="relative z-10 border-t border-gray-100 py-8 text-center text-sm text-gray-400">
+    <div className="relative z-50 mb-4 flex justify-center gap-5">
+    {socialLinks.map((social) => (
+      <a
+        key={social.name}
+        href={social.href}
+        aria-label={social.name}
+        title={social.name}
+        className="inline-flex h-9 w-9 cursor-pointer items-center justify-center text-gray-500 transition-colors hover:text-amber-600"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {social.icon}
+      </a>
+    ))}
+    <EmailIconLink />
+  </div>
         <p>© {new Date().getFullYear()} Clan-AP Technologies Private Limited</p>
         <a href={MAIN_SITE_URL} className="mt-1 inline-block text-gray-400 underline hover:text-amber-600">
           clanap.com

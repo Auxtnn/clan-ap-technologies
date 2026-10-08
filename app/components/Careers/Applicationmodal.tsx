@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ApplicationModalProps {
@@ -47,8 +47,63 @@ const ApplicationModal = ({
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [dragActive, setDragActive] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const honeypotRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previouslyFocused = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+    const dialog = dialogRef.current;
+    const firstFocusable = dialog?.querySelector<HTMLElement>(
+      'button:not([disabled]), input:not([disabled]):not([tabindex="-1"]):not([type="file"]), textarea:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+    );
+    firstFocusable?.focus();
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const keepFocusInDialog = (event: FocusEvent) => {
+      if (dialog && !dialog.contains(event.target as Node)) firstFocusable?.focus();
+    };
+    document.addEventListener("focusin", keepFocusInDialog);
+
+    return () => {
+      document.removeEventListener("focusin", keepFocusInDialog);
+      document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus();
+    };
+  }, [isOpen]);
+
+  const handleDialogKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      handleClose();
+      return;
+    }
+
+    if (event.key !== "Tab") return;
+
+    const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), input:not([disabled]):not([tabindex="-1"]):not([type="file"]), textarea:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusable?.length) {
+      event.preventDefault();
+      dialogRef.current?.focus();
+      return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
 
   const handleClose = () => {
     onClose();
@@ -68,9 +123,21 @@ const ApplicationModal = ({
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       next.email = "Enter a valid email address";
     if (!form.phone.trim()) next.phone = "Enter a phone number";
+    else if (/[^\d\s()+.-]/.test(form.phone))
+      next.phone = "Enter a valid phone number";
     if (isGeneral && !form.role.trim()) next.role = "Tell us what role you're interested in";
     setErrors(next);
     return Object.keys(next).length === 0;
+  };
+
+  const handleFieldChange = (field: keyof FormState, value: string) => {
+    setForm((current) => ({ ...current, [field]: value }));
+    setErrors((current) => {
+      if (!current[field]) return current;
+      const next = { ...current };
+      delete next[field];
+      return next;
+    });
   };
 
   const handleFile = (file: File | null) => {
@@ -142,6 +209,12 @@ const ApplicationModal = ({
           />
 
           <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="application-modal-title"
+            tabIndex={-1}
+            onKeyDown={handleDialogKeyDown}
             className="relative w-full max-w-lg max-h-[88vh] overflow-y-auto rounded-2xl bg-white shadow-2xl"
             initial={{ opacity: 0, y: 24, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -165,7 +238,7 @@ const ApplicationModal = ({
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="mb-2 text-2xl font-bold text-black">
+                <h3 id="application-modal-title" className="mb-2 text-2xl font-bold text-black">
                   {isGeneral ? "Interest registered" : "Application sent"}
                 </h3>
                 <p className="mb-8 max-w-sm text-gray-600">
@@ -203,7 +276,7 @@ const ApplicationModal = ({
                 <span className="mb-2 inline-block rounded-full bg-yellow-500/20 px-3 py-1 text-xs font-medium text-black">
                   {isGeneral ? "Interest" : "Application"}
                 </span>
-                <h3 className="mb-1 text-2xl font-bold text-black">{headerTitle}</h3>
+                <h3 id="application-modal-title" className="mb-1 text-2xl font-bold text-black">{headerTitle}</h3>
                 <p className="mb-7 text-sm text-gray-500">{headerSubtext}</p>
 
                 <div className="space-y-5">
@@ -212,7 +285,7 @@ const ApplicationModal = ({
                     <input
                       id="name"
                       value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      onChange={(e) => handleFieldChange("name", e.target.value)}
                       placeholder="Jane Doe"
                       className={`${inputClasses} ${errors.name ? "border-red-400 focus:border-red-400 focus:ring-red-400/20" : ""}`}
                     />
@@ -225,7 +298,7 @@ const ApplicationModal = ({
                       <input
                         id="role"
                         value={form.role}
-                        onChange={(e) => setForm({ ...form, role: e.target.value })}
+                        onChange={(e) => handleFieldChange("role", e.target.value)}
                         placeholder="e.g. Product Designer, Backend Engineer"
                         className={`${inputClasses} ${errors.role ? "border-red-400 focus:border-red-400 focus:ring-red-400/20" : ""}`}
                       />
@@ -240,7 +313,7 @@ const ApplicationModal = ({
                         id="email"
                         type="email"
                         value={form.email}
-                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                        onChange={(e) => handleFieldChange("email", e.target.value)}
                         placeholder="jane@email.com"
                         className={`${inputClasses} ${errors.email ? "border-red-400 focus:border-red-400 focus:ring-red-400/20" : ""}`}
                       />
@@ -252,7 +325,7 @@ const ApplicationModal = ({
                         id="phone"
                         type="tel"
                         value={form.phone}
-                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                        onChange={(e) => handleFieldChange("phone", e.target.value.replace(/[^\d\s()+.-]/g, ""))}
                         placeholder="+1 555 000 0000"
                         className={`${inputClasses} ${errors.phone ? "border-red-400 focus:border-red-400 focus:ring-red-400/20" : ""}`}
                       />
@@ -265,7 +338,7 @@ const ApplicationModal = ({
                     <input
                       id="linkedin"
                       value={form.linkedin}
-                      onChange={(e) => setForm({ ...form, linkedin: e.target.value })}
+                      onChange={(e) => handleFieldChange("linkedin", e.target.value)}
                       placeholder="https://"
                       className={inputClasses}
                     />
@@ -339,7 +412,7 @@ const ApplicationModal = ({
                     <textarea
                       id="coverLetter"
                       value={form.coverLetter}
-                      onChange={(e) => setForm({ ...form, coverLetter: e.target.value })}
+                      onChange={(e) => handleFieldChange("coverLetter", e.target.value)}
                       placeholder="Anything you'd like us to know"
                       rows={4}
                       className={`${inputClasses} resize-none`}
